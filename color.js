@@ -18,7 +18,13 @@ var ALPHA = 1;
 
 Color.init = function()
 {
-var colorContainer = document.querySelector( '#color' );
+var colorContainer = document.querySelector( '#colorContainer' );
+
+
+var selectedColor = colorContainer.querySelector('#selectedColor');
+
+    // the background-color is updated as the color changes
+$( selectedColor ).css( 'background-color', Color.toString() );
 
 var redSlider = colorContainer.querySelector( '#redSlider' );
 var redValue = colorContainer.querySelector( '#redValue' );
@@ -35,6 +41,8 @@ $( redSlider ).slider({
         redValue.innerHTML = ui.value;
         
         RED = ui.value;
+        
+        $( selectedColor ).css( 'background-color', Color.toString() );
         }
     });
 
@@ -54,6 +62,8 @@ $( greenSlider ).slider({
         greenValue.innerHTML = ui.value;
         
         GREEN = ui.value;
+        
+        $( selectedColor ).css( 'background-color', Color.toString() );
         }
     });    
     
@@ -72,6 +82,8 @@ $( blueSlider ).slider({
         blueValue.innerHTML = ui.value;
         
         BLUE = ui.value;
+        
+        $( selectedColor ).css( 'background-color', Color.toString() );
         }
     });
     
@@ -91,6 +103,8 @@ $( alphaSlider ).slider({
         alphaValue.innerHTML = ui.value;
         
         ALPHA = ui.value;
+        
+        $( selectedColor ).css( 'background-color', Color.toString() );
         }
     });
 };

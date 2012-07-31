@@ -40,6 +40,11 @@ Thickness.init();
 var clear = document.querySelector( '#clearCanvas' );
 
 clear.onclick = function() { clearCanvas(); };
+
+
+var save = document.querySelector( '#saveCanvas' );
+
+save.onclick = function() { saveCanvas(); };
 };
 
 
@@ -99,6 +104,14 @@ SHAPES_ARRAY.length = 0;
 STAGE.update();
 }
 
+
+
+function saveCanvas()
+{
+var image = CANVAS.toDataURL("image/png");
+
+window.open(image, '_newtab');
+}
 
 
 

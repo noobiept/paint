@@ -1,0 +1,46 @@
+
+
+#redSlider .ui-slider-range
+    {
+    background: rgba(255, 0, 0, 0.6);
+    }
+    
+    
+#redSlider .ui-slider-handle
+    {
+    background: red;
+    }
+    
+    
+#greenSlider .ui-slider-range
+    {
+    background: rgba(0, 255, 0, 0.6);
+    }
+    
+    
+#greenSlider .ui-slider-handle
+    {
+    background: green;
+    }
+    
+
+#blueSlider .ui-slider-range
+    {
+    background: rgba(0, 0, 255, 0.6);
+    }
+    
+    
+#blueSlider .ui-slider-handle
+    {
+    background: blue;
+    }
+    
+#alphaSlider .ui-slider-range
+    {
+    background: rgba(0, 0, 0, 0.6);
+    }
+    
+#alphaSlider .ui-slider-handle
+    {
+    background: black;
+    }

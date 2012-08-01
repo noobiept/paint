@@ -24,7 +24,14 @@ var CURRENT_SHAPE;
 var SHAPES_ARRAY = [];
 
 
-function Paint( canvas )
+/*
+    Arguments:
+        
+        canvas    : the html <canvas> element
+        container : the html element, parent of the canvas and the controls
+ */
+
+function Paint( canvas, container )
 {
 CANVAS = canvas;
 
@@ -43,15 +50,15 @@ Ticker.addListener( Paint );
 
 STAGE.update();
 
-Color();
-Thickness();
+Color( container );
+Thickness( container );
 
-var clear = document.querySelector( '#clearCanvas' );
+var clear = container.querySelector( '#clearCanvas' );
 
 clear.onclick = function() { clearCanvas(); };
 
 
-var save = document.querySelector( '#saveCanvas' );
+var save = container.querySelector( '#saveCanvas' );
 
 save.onclick = function() { saveCanvas(); };
 }
@@ -162,15 +169,17 @@ canvas.id = 'mainCanvas';
 canvas.width = 800;
 canvas.height = 400;
 
-document.body.appendChild( canvas );
+var container = document.body;
+
+container.appendChild( canvas );
 
 var controls = $.ajax({ url:'paint_controls.html', success: function(data)
     {
     var a = $( data );
     
-    document.body.appendChild( a.get(0) );
+    container.appendChild( a.get(0) );
     
-    Paint( canvas );
+    Paint( canvas, container );
     }});
 };
 

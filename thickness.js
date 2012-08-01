@@ -11,9 +11,9 @@
 var THICKNESS = 5;
 
 
-function Thickness()
+function Thickness( container )
 {
-var thicknessContainer = document.querySelector( '#thickness' );
+var thicknessContainer = container.querySelector( '#thickness' );
 
 var thicknessSlider = thicknessContainer.querySelector( '#thicknessSlider' );
 var thicknessValue = thicknessContainer.querySelector( '#thicknessValue' );

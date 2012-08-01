@@ -13,9 +13,9 @@ var BLUE = 0;
 var ALPHA = 1;
 
 
-function Color()
+function Color( container )
 {
-var colorContainer = document.querySelector( '#colorContainer' );
+var colorContainer = container.querySelector( '#colorContainer' );
 
 
 var selectedColor = colorContainer.querySelector('#selectedColor');

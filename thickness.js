@@ -1,17 +1,17 @@
+/*global $*/
+/*jslint vars: true, white: true*/
+
+
+"use strict";
 
 
 (function(window)
 {
 
-function Thickness()
-{
-
-}
-
 var THICKNESS = 5;
 
 
-Thickness.init = function()
+function Thickness()
 {
 var thicknessContainer = document.querySelector( '#thickness' );
 
@@ -32,7 +32,7 @@ $( thicknessSlider ).slider({
         THICKNESS = ui.value;
         }
     });
-};
+}
 
 
 

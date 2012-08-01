@@ -1,5 +1,10 @@
+/*global Stage, Ticker, Color, Thickness*/
+/*jslint vars: true, white: true*/
 
+"use strict";
 
+(function(window)
+{
 
 var createjs = window;
 
@@ -19,9 +24,9 @@ var CURRENT_SHAPE;
 var SHAPES_ARRAY = [];
 
 
-window.onload = function()
+function Paint( canvas )
 {
-CANVAS = document.querySelector("#mainCanvas");
+CANVAS = canvas;
 
 STAGE = new Stage( CANVAS );
 
@@ -30,12 +35,12 @@ STAGE = new Stage( CANVAS );
 STAGE.onMouseDown = mouseDownEvents;    
 STAGE.onMouseUp = mouseUpEvents;
 
-Ticker.addListener( window );
+Ticker.addListener( Paint );
 
 STAGE.update();
 
-Color.init();
-Thickness.init();
+Color();
+Thickness();
 
 var clear = document.querySelector( '#clearCanvas' );
 
@@ -45,7 +50,7 @@ clear.onclick = function() { clearCanvas(); };
 var save = document.querySelector( '#saveCanvas' );
 
 save.onclick = function() { saveCanvas(); };
-};
+}
 
 
 
@@ -115,7 +120,7 @@ window.open(image, '_newtab');
 
 
 
-function tick()
+Paint.tick = function()
 {
 if ( IS_MOUSE_DOWN )
     {
@@ -136,4 +141,19 @@ if ( IS_MOUSE_DOWN )
     
     STAGE.update();
     }
-}
+};
+
+
+window.Paint = Paint;
+
+
+}(window));
+
+
+window.onload = function()
+{
+var canvas = document.querySelector("#mainCanvas");
+
+Paint( canvas );
+};
+

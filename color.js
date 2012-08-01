@@ -1,14 +1,11 @@
+/*global $*/
+/*jslint vars: true, white: true*/
 
+"use strict";
 
 
 (function(window)
 {
-
-function Color()
-{
-
-}
-
 
 var RED = 0;
 var GREEN = 0;
@@ -16,7 +13,7 @@ var BLUE = 0;
 var ALPHA = 1;
 
 
-Color.init = function()
+function Color()
 {
 var colorContainer = document.querySelector( '#colorContainer' );
 
@@ -107,7 +104,7 @@ $( alphaSlider ).slider({
         $( selectedColor ).css( 'background-color', Color.toString() );
         }
     });
-};
+}
 
 
 

@@ -25,6 +25,17 @@
     color: white;
     }
 
+#clearCanvas, #saveCanvas, #removeCanvas, #thickness, #red, #green, #blue, #alpha
+    {
+    margin: 10px;
+    }
+    
+    
+#clearCanvas, #saveCanvas, #removeCanvas
+    {
+    cursor: pointer;
+    }
+    
 #redSlider .ui-slider-range
     {
     background: rgba(255, 0, 0, 0.6);

@@ -13,6 +13,9 @@ var CANVAS;
 var STAGE;
 
 
+var CONTAINER;
+
+
 var IS_MOUSE_DOWN = false;
 
 
@@ -34,6 +37,7 @@ var SHAPES_ARRAY = [];
 function Paint( canvas, container )
 {
 CANVAS = canvas;
+CONTAINER = container;
 
     // so that the cursor stays the default (instead of the text selection image)
 canvas.onselectstart = function() { return false; };
@@ -55,12 +59,16 @@ Thickness( container );
 
 var clear = container.querySelector( '#clearCanvas' );
 
-clear.onclick = function() { clearCanvas(); };
+clear.onclick = clearCanvas;
 
 
 var save = container.querySelector( '#saveCanvas' );
 
-save.onclick = function() { saveCanvas(); };
+save.onclick = saveCanvas;
+
+var remove = container.querySelector( '#removeCanvas' );
+
+remove.onclick = removeCanvas;
 }
 
 
@@ -127,6 +135,19 @@ function saveCanvas()
 var image = CANVAS.toDataURL("image/png");
 
 window.open(image, '_newtab');
+}
+
+
+/*
+    Removes the <canvas> element and the controls from the page
+ */
+
+function removeCanvas()
+{
+CONTAINER.removeChild( CANVAS );
+
+var controls = CONTAINER.querySelector( '#paintControls' );
+CONTAINER.removeChild( controls );
 }
 
 

@@ -7,7 +7,7 @@
 (function(window)
 {
 
-var RED = 0;
+var RED = 255;
 var GREEN = 0;
 var BLUE = 0;
 var ALPHA = 1;

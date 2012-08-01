@@ -28,6 +28,10 @@ function Paint( canvas )
 {
 CANVAS = canvas;
 
+    // so that the cursor stays the default (instead of the text selection image)
+canvas.onselectstart = function() { return false; };
+
+
 STAGE = new Stage( CANVAS );
 
     //HERE onMouseDown funciona independentemente de qual a tecla do rato k foi pressionada
@@ -152,8 +156,21 @@ window.Paint = Paint;
 
 window.onload = function()
 {
-var canvas = document.querySelector("#mainCanvas");
+var canvas = document.createElement("canvas");
 
-Paint( canvas );
+canvas.id = 'mainCanvas';
+canvas.width = 800;
+canvas.height = 400;
+
+document.body.appendChild( canvas );
+
+var controls = $.ajax({ url:'paint_controls.html', success: function(data)
+    {
+    var a = $( data );
+    
+    document.body.appendChild( a.get(0) );
+    
+    Paint( canvas );
+    }});
 };
 

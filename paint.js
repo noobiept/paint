@@ -5,10 +5,6 @@
 
 (function(window)
 {
-
-var createjs = window;
-
-
 var CANVAS;
 var STAGE;
 
@@ -156,17 +152,18 @@ Paint.tick = function()
 {
 if ( IS_MOUSE_DOWN )
     {
-    var point = new Point( STAGE.mouseX, STAGE.mouseY );
+    var mouseX = STAGE.mouseX;
+    var mouseY = STAGE.mouseY;
     
-    var midPointX = Math.floor( (OLD_X + point.x) / 2 );
-    var midPointY = Math.floor( (OLD_Y + point.y) / 2 );
+    var midPointX = Math.floor( (OLD_X + mouseX) / 2 );
+    var midPointY = Math.floor( (OLD_Y + mouseY) / 2 );
     
     
     CURRENT_SHAPE.graphics.moveTo( midPointX, midPointY );
     CURRENT_SHAPE.graphics.curveTo( OLD_X, OLD_Y, OLD_MID_X, OLD_MID_Y );
     
-    OLD_X = point.x;
-    OLD_Y = point.y;
+    OLD_X = mouseX;
+    OLD_Y = mouseY;
     
     OLD_MID_X = midPointX;
     OLD_MID_Y = midPointY;

@@ -4,25 +4,33 @@
     position: relative;
     }
 
+    
 #chooseColor > *
     {
     width: 90%;
     }
     
-#selectedColor
+
+.backgroundUnselectable 
     {
-    width: 50px;
-    height: 100px;
-    
-    position: absolute;
-    right: 20px;
-    top: 25px;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     }
   
   
 #paintControls
     {
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
+    
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     }
 
 #clearCanvas, #saveCanvas, #removeCanvas, #thickness, #red, #green, #blue, #alpha

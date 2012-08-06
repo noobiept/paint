@@ -22,22 +22,24 @@ var CURRENT_SHAPE;
 
 var SHAPES_ARRAY = [];
 
+var BACKGROUND_ELEMENT = null;
 
 /*
     Arguments:
         
         canvas    : the html <canvas> element
         container : the html element, parent of the canvas and the controls
+        backgroundElement : if provided, we make the background not selectable
  */
 
-function Paint( canvas, container )
+function Paint( canvas, container, backgroundElement )
 {
 CANVAS = canvas;
 CONTAINER = container;
 
     // so that the cursor stays the default (instead of the text selection image)
 canvas.onselectstart = function() { return false; };
-
+  
 
 STAGE = new Stage( CANVAS );
 
@@ -65,6 +67,15 @@ save.onclick = saveCanvas;
 var remove = container.querySelector( '#removeCanvas' );
 
 remove.onclick = removeCanvas;
+
+    
+if (typeof backgroundElement != 'undefined')
+    {
+    
+    $( backgroundElement ).addClass('backgroundUnselectable');
+    
+    BACKGROUND_ELEMENT = backgroundElement;
+    }
 }
 
 
@@ -144,6 +155,11 @@ CONTAINER.removeChild( CANVAS );
 
 var controls = CONTAINER.querySelector( '#paintControls' );
 CONTAINER.removeChild( controls );
+
+if ( BACKGROUND_ELEMENT !== null )
+    {
+    $( BACKGROUND_ELEMENT ).removeClass('backgroundUnselectable');
+    }
 }
 
 

@@ -18,11 +18,6 @@ function Color( container )
 var colorContainer = container.querySelector( '#colorContainer' );
 
 
-var selectedColor = colorContainer.querySelector('#selectedColor');
-
-    // the background-color is updated as the color changes
-$( selectedColor ).css( 'background-color', Color.toString() );
-
 var redSlider = colorContainer.querySelector( '#redSlider' );
 var redValue = colorContainer.querySelector( '#redValue' );
 
@@ -39,7 +34,8 @@ $( redSlider ).slider({
         
         RED = ui.value;
         
-        $( selectedColor ).css( 'background-color', Color.toString() );
+            // show the current color, in the thickness slider color
+        Thickness.changeSliderColor( Color.toString() );
         }
     });
 
@@ -60,7 +56,8 @@ $( greenSlider ).slider({
         
         GREEN = ui.value;
         
-        $( selectedColor ).css( 'background-color', Color.toString() );
+            // show the current color, in the thickness slider color
+        Thickness.changeSliderColor( Color.toString() );
         }
     });    
     
@@ -80,7 +77,8 @@ $( blueSlider ).slider({
         
         BLUE = ui.value;
         
-        $( selectedColor ).css( 'background-color', Color.toString() );
+            // show the current color, in the thickness slider color
+        Thickness.changeSliderColor( Color.toString() );
         }
     });
     
@@ -93,7 +91,7 @@ $( alphaSlider ).slider({
     value : ALPHA,
     min   : 0,
     max   : 1,
-    step  : 0.1,
+    step  : 0.05,
     range : 'min',
     slide : function(event, ui)
         {
@@ -101,7 +99,8 @@ $( alphaSlider ).slider({
         
         ALPHA = ui.value;
         
-        $( selectedColor ).css( 'background-color', Color.toString() );
+            // show the current color, in the thickness slider color
+        Thickness.changeSliderColor( Color.toString() );
         }
     });
 }

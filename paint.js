@@ -41,14 +41,14 @@ CONTAINER = container;
 canvas.onselectstart = function() { return false; };
   
 
-STAGE = new Stage( CANVAS );
+STAGE = new createjs.Stage( CANVAS );
 
     //HERE onMouseDown funciona independentemente de qual a tecla do rato k foi pressionada
     // se calhar era melhor distinguir entre left e right click, para ter funcionalidade diferente?..
 STAGE.onMouseDown = mouseDownEvents;    
 STAGE.onMouseUp = mouseUpEvents;
 
-Ticker.addListener( Paint );
+createjs.Ticker.addListener( Paint );
 
 STAGE.update();
 
@@ -96,7 +96,7 @@ function mouseDownEvents( event )
 {
 IS_MOUSE_DOWN = true;
 
-var shape = new Shape();
+var shape = new createjs.Shape();
 
 OLD_X = STAGE.mouseX;
 OLD_Y = STAGE.mouseY;
@@ -144,6 +144,8 @@ function clearCanvas()
 STAGE.removeAllChildren();
 
 SHAPES_ARRAY.length = 0;
+
+UndoRedo.clear();   //HERE dar para voltar ao estado actual, em vez de fazer reset
 
 STAGE.update();
 }

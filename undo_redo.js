@@ -104,6 +104,21 @@ REDO_LIST.length = 0;
 };
 
 
+UndoRedo.cleanUndo = function()
+{
+UNDO_LIST.length = 0;
+};
+
+/*
+    Clears the undo and redo
+ */
+
+UndoRedo.clear = function()
+{
+UndoRedo.cleanUndo();
+UndoRedo.cleanRedo();
+};
+ 
 
 window.UndoRedo = UndoRedo;
 

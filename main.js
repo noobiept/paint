@@ -3,6 +3,19 @@
 
 "use strict";
 
+
+/*
+    Libraries required:
+    
+        jquery
+        jqueryui
+            slider
+            start theme
+            
+        createjs
+            easeljs
+ */
+
 window.onload = function()
 {
 var canvas = document.createElement("canvas");

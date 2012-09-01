@@ -68,10 +68,21 @@ var remove = container.querySelector( '#removeCanvas' );
 
 remove.onclick = removeCanvas;
 
+
+    // :: Undo / Redo :: //
+    
+var undo = container.querySelector( '#Paint-undo' );
+
+undo.onclick = function() { UndoRedo.stuff("undo"); };
+
+var redo = container.querySelector( '#Paint-redo' );
+
+redo.onclick = function() { UndoRedo.stuff("redo"); };
+
+
     
 if (typeof backgroundElement != 'undefined')
     {
-    
     $( backgroundElement ).addClass('backgroundUnselectable');
     
     BACKGROUND_ELEMENT = backgroundElement;
@@ -116,6 +127,8 @@ STAGE.addChild( shape );
 CURRENT_SHAPE = shape;
 
 SHAPES_ARRAY.push( shape );
+
+UndoRedo.addStroke( shape );
 }
 
 
@@ -164,6 +177,36 @@ if ( BACKGROUND_ELEMENT !== null )
 
 
 
+
+
+/*  
+    Removes the shape from the canvas
+ */
+
+Paint.removeShape = function( shapeObject )
+{
+var position = SHAPES_ARRAY.indexOf( shapeObject );
+
+SHAPES_ARRAY.splice( position, 1 );
+
+STAGE.removeChild( shapeObject );
+};
+
+
+
+/*
+    Adds an existing Shape() object to the canvas
+ */
+
+Paint.addShape = function( shapeObject )
+{
+SHAPES_ARRAY.push( shapeObject );
+
+STAGE.addChild( shapeObject );
+};
+
+
+
 Paint.tick = function()
 {
 if ( IS_MOUSE_DOWN )
@@ -183,10 +226,11 @@ if ( IS_MOUSE_DOWN )
     
     OLD_MID_X = midPointX;
     OLD_MID_Y = midPointY;
-    
-    STAGE.update();
     }
+    
+STAGE.update();
 };
+
 
 
 window.Paint = Paint;

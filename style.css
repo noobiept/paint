@@ -33,13 +33,13 @@
     user-select: none;
     }
 
-#clearCanvas, #saveCanvas, #removeCanvas, #thickness, #red, #green, #blue, #alpha
+#clearCanvas, #saveCanvas, #removeCanvas, #thickness, #red, #green, #blue, #alpha, #Paint-undo, #Paint-redo
     {
     margin: 10px;
     }
     
     
-#clearCanvas, #saveCanvas, #removeCanvas
+#clearCanvas, #saveCanvas, #removeCanvas, #Paint-undo, #Paint-redo
     {
     cursor: pointer;
     }

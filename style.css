@@ -33,15 +33,36 @@
     user-select: none;
     }
 
-#clearCanvas, #saveCanvas, #removeCanvas, #thickness, #red, #green, #blue, #alpha, #Paint-undo, #Paint-redo
+
+#Paint-undoRedoContainer > *
     {
-    margin: 10px;
+    float: left;
+    width: 40%;
     }
     
+#Paint-undoRedoContainer + div  /* target the next div element after the #Paint-undoRedoContainer */
+    {
+    clear: both;
+    }
+    
+#clearCanvas, #saveCanvas, #removeCanvas, #thickness, #red, #green, #blue, #alpha, #Paint-undoRedoContainer > *
+    {
+    padding: 10px;
+    }
+    
+
     
 #clearCanvas, #saveCanvas, #removeCanvas, #Paint-undo, #Paint-redo
     {
     cursor: pointer;
+    text-align: center;
+    }
+
+
+#Paint-undo:hover, #Paint-redo:hover, #clearCanvas:hover, #saveCanvas:hover, #removeCanvas:hover
+    {
+    color: black;
+    background-color: white;
     }
     
 #redSlider .ui-slider-range

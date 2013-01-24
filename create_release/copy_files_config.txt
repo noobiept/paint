@@ -1,0 +1,17 @@
+{
+    "resultingFolder": "paint",
+    "basePath": "..",
+    "files":
+        [
+            "css/",
+
+            "images/icon16.png",
+            "images/icon128.png",
+
+            "libraries/",
+
+            "manifest.json",
+
+            "paint_controls.html"
+        ]
+}

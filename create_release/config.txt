@@ -2,8 +2,7 @@
     "..": [
         "color.js", 
         "thickness.js", 
-        "paint.js", 
-        "main.js", 
-        "undo_redo.js"
+        "undo_redo.js", 
+        "paint.js"
     ]
 }

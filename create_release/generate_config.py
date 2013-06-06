@@ -3,8 +3,7 @@
 For a more detailed description, visit https://bitbucket.org/drk4/concatenate_files/overview
 
 """
-
-'''
+"""
 
     Copyright - 2012 - Pedro Ferreira
 
@@ -23,7 +22,7 @@ For a more detailed description, visit https://bitbucket.org/drk4/concatenate_fi
     You should have received a copy of the GNU Lesser General Public License
     along with concatenate_files.  If not, see <http://www.gnu.org/licenses/>.
 
-'''
+"""
 
 import argparse
 import re
@@ -31,10 +30,12 @@ import json
 import os.path
 
 
-def generate( path, configName ):
+default_path = "../index.html"
+default_configName = "config.txt"
 
-    '''
+def generate( path= default_path, configName= default_configName ):
 
+    """
     Generates the configuration file needed for the concatenate_files script.
 
     It reads a file, looks up for two flags (CONCATENATE_START -- CONCATENATE_END)
@@ -45,15 +46,16 @@ def generate( path, configName ):
 
         path       (string) : path to the index.html
         configName (string) : name (or relative path to) of the configuration file to be generated
+    """
 
-    '''
+    path = os.path.join( os.path.dirname(__file__), path )
+    configName = os.path.join( os.path.dirname(__file__), configName )
 
         # get the file's content
-    index = open( path, 'r' )
+    with open( path, 'r', encoding= 'utf-8' ) as f:
 
-    text = index.read()
+        text = f.read()
 
-    index.close()
 
         # find the position where the flags are
 
@@ -76,12 +78,10 @@ def generate( path, configName ):
 
         # and create the configuration file
 
-    configFile = open( configName, "w" )
 
-    configFile.write( json.dumps( config, sort_keys = True, indent = 4 ) )
+    with open( configName, "w", encoding= 'utf-8' ) as f:
 
-    configFile.close()
-
+        f.write( json.dumps( config, sort_keys = True, indent = 4 ) )
 
 
 
@@ -91,9 +91,9 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser( description = 'Generate the configuration file for concatenate_files' )
 
-    parser.add_argument( 'htmlFile', help = "path to the html file (default: index.html).", nargs="?", default="../index.html" )
-    parser.add_argument( 'configName', help = "name of the configuration file (default: config.txt).", nargs="?", default="config.txt" )
+    parser.add_argument( 'path', help = "path to the html file (default: index.html).", nargs="?", default= default_path )
+    parser.add_argument( 'configName', help = "name of the configuration file (default: config.txt).", nargs="?", default= default_configName )
 
     args = parser.parse_args()
 
-    generate( args.htmlFile, args.configName )
+    generate( args.path, args.configName )

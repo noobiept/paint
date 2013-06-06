@@ -15,7 +15,21 @@ import optimize
         - optimize the css too
 '''
 
-def go( htmlFile, concatenateConfig, copyFilesConfig, resultingFolder ):
+default_htmlFile = "../home.html"
+default_concatenateConfig = "config.txt"
+default_copyFilesConfig = "copy_files_config.txt"
+default_resultingFolder = "paint"
+
+def go( htmlFile= default_htmlFile,
+        concatenateConfig= default_concatenateConfig,
+        copyFilesConfig= default_copyFilesConfig,
+        resultingFolder= default_resultingFolder ):
+
+        # to guarantee that the paths are relative to the current file's path (and not the working directory)
+    htmlFile = os.path.join( os.path.dirname(__file__), htmlFile )
+    concatenateConfig = os.path.join( os.path.dirname(__file__), concatenateConfig )
+    copyFilesConfig = os.path.join( os.path.dirname(__file__), copyFilesConfig )
+    resultingFolder = os.path.join( os.path.dirname(__file__), resultingFolder )
 
 
         # it may have a previous copy of the files (from a previous run of this script), so if there are files that have different names
@@ -181,12 +195,12 @@ def createNewIndex( indexPath, concatenatedFile, newIndexName ):
 
 if __name__ == '__main__':    
 
-    parser = argparse.ArgumentParser( description = 'Release the paint -- makes a copy of the program with the necessary files only, and minimizes the javascript' )
+    parser = argparse.ArgumentParser( description= 'Release the paint -- makes a copy of the program with the necessary files only, and minimizes the javascript' )
 
-    parser.add_argument( 'htmlFile', help = "path to the html file.", nargs = "?", default = "../home.html" )
-    parser.add_argument( 'concatenateConfig', help = "path to the configuration file used to concatenate the javascript files.", nargs = "?", default = "config.txt" )
-    parser.add_argument( 'copyFilesConfig', help = "path to the configuration file that tells which files to copy.", nargs = "?", default = "copy_files_config.txt" )
-    parser.add_argument( 'resultingFolder', help = "name of the folder that is created in the current path and contains the copies.", nargs="?", default="paint" )
+    parser.add_argument( 'htmlFile', help= "path to the html file.", nargs= "?", default= default_htmlFile )
+    parser.add_argument( 'concatenateConfig', help= "path to the configuration file used to concatenate the javascript files.", nargs= "?", default= default_concatenateConfig )
+    parser.add_argument( 'copyFilesConfig', help= "path to the configuration file that tells which files to copy.", nargs= "?", default= default_copyFilesConfig )
+    parser.add_argument( 'resultingFolder', help= "name of the folder that is created in the current path and contains the copies.", nargs= "?", default= default_resultingFolder )
     
     args = parser.parse_args()
 

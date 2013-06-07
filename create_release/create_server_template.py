@@ -1,5 +1,7 @@
 import os.path
 import re
+import argparse
+
 from bs4 import BeautifulSoup
 
 
@@ -43,3 +45,16 @@ def go( resultingFolder ):
         # save back to base.html
     with open( pathBaseHtml, 'w' ) as f:
         f.write( soup.prettify() )
+
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser( description= "Update the server's base.html template."  )
+
+    parser.add_argument( 'resultingFolder' )
+
+    args = parser.parse_args()
+
+    go( args.resultingFolder )
+

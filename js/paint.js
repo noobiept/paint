@@ -7,9 +7,7 @@
 {
 var IS_MOUSE_DOWN = false;
 
-var OLD_MID_X, OLD_MID_Y, OLD_X, OLD_Y;
 
-var CURRENT_SHAPE;
 
 var SHAPES_ARRAY = [];
 
@@ -21,6 +19,8 @@ function Paint()
 
 Paint.init = function()
 {
+Brush.select( 0 );
+
 var controls = document.querySelector( '#paintControls' );
 
 Color( controls );
@@ -108,27 +108,7 @@ Paint.mouseDownEvents = function( event )
 {
 IS_MOUSE_DOWN = true;
 
-var shape = new createjs.Shape();
-
-OLD_X = STAGE.mouseX;
-OLD_Y = STAGE.mouseY;
-
-OLD_MID_X = STAGE.mouseX;
-OLD_MID_Y = STAGE.mouseY;
-
-var thickness = Thickness.getValue();
-var color = Color.toString();
-
-var g = shape.graphics;
-
-g.setStrokeStyle( thickness + 1, 'round', 'round' );
-g.beginStroke( color );
-
-CURRENT_SHAPE = shape;
-
-Paint.addShape( shape );
-
-UndoRedo.addStroke( shape );
+Brush.startDraw();
 };
 
 
@@ -143,21 +123,7 @@ Paint.tick = function()
 {
 if ( IS_MOUSE_DOWN )
     {
-    var mouseX = STAGE.mouseX;
-    var mouseY = STAGE.mouseY;
-    
-    var midPointX = Math.floor( (OLD_X + mouseX) / 2 );
-    var midPointY = Math.floor( (OLD_Y + mouseY) / 2 );
-    
-    
-    CURRENT_SHAPE.graphics.moveTo( midPointX, midPointY );
-    CURRENT_SHAPE.graphics.curveTo( OLD_X, OLD_Y, OLD_MID_X, OLD_MID_Y );
-    
-    OLD_X = mouseX;
-    OLD_Y = mouseY;
-    
-    OLD_MID_X = midPointX;
-    OLD_MID_Y = midPointY;
+    Brush.duringDraw();
     }
     
 STAGE.update();

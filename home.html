@@ -27,13 +27,14 @@
 
 
     <!-- CONCATENATE_START -->
-    <script type="text/javascript" src="color.js"></script>
-    <script type="text/javascript" src="thickness.js"></script>
-    <script type="text/javascript" src="undo_redo.js"></script>
-    <script type="text/javascript" src="paint.js"></script>
+    <script type="text/javascript" src="js/brush.js"></script>
+    <script type="text/javascript" src="js/color.js"></script>
+    <script type="text/javascript" src="js/thickness.js"></script>
+    <script type="text/javascript" src="js/undo_redo.js"></script>
+    <script type="text/javascript" src="js/paint.js"></script>
     <!-- CONCATENATE_END -->
     
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     
 
     </head>
@@ -41,21 +42,19 @@
 
     <canvas id="mainCanvas"></canvas>
 
+    <div id="paintControls">
 
-<div id="paintControls">
-
-    <div id="colorContainer">
-        <div id="chooseColor">
-            <div id="red">Red: <span id="redValue">0</span><div id="redSlider"></div></div>
-            <div id="green">Green: <span id="greenValue">0</span><div id="greenSlider"></div></div>
-            <div id="blue">Blue: <span id="blueValue">0</span><div id="blueSlider"></div></div>
-            <div id="alpha">Alpha: <span id="alphaValue">0</span><div id="alphaSlider"></div></div>
+        <div id="colorContainer">
+            <div id="chooseColor">
+                <div id="red">Red: <span id="redValue">0</span><div id="redSlider"></div></div>
+                <div id="green">Green: <span id="greenValue">0</span><div id="greenSlider"></div></div>
+                <div id="blue">Blue: <span id="blueValue">0</span><div id="blueSlider"></div></div>
+                <div id="alpha">Alpha: <span id="alphaValue">0</span><div id="alphaSlider"></div></div>
+            </div>
         </div>
-    </div>
 
-
-    <div id="thickness">
-            Thickness: <span id="thicknessValue">5</span><div id="thicknessSlider"></div>
+        <div id="thickness">
+                Thickness: <span id="thicknessValue">5</span><div id="thicknessSlider"></div>
         </div>
 
         <div id="Paint-undoRedoContainer">
@@ -67,9 +66,6 @@
         <div id="clearCanvas">Clear Canvas</div>
 
         <div id="saveCanvas">Save Canvas</div>
-
-        <div id="removeCanvas">Close</div>
-
     </div>
 
 </body>   

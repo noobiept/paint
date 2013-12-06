@@ -7,34 +7,48 @@
 /*
     Libraries required:
     
-        jquery
-        jqueryui
+        jquery          - 2.0
+        jqueryui        - 1.10
             slider
             start theme
             
         createjs
-            easeljs
+            easeljs     - 0.7
  */
+ 
+ /*
+    to doo:
+    
+        - turn into an application by itself (not in the home of the website, but like the games, separate app)
+        - add brushes and stuff
+  */
+
+var CANVAS;
+var STAGE;
 
 window.onload = function()
 {
-var canvas = document.createElement("canvas");
+CANVAS = document.querySelector( "#mainCanvas" );
 
-canvas.id = 'mainCanvas';
-canvas.width = 800;
-canvas.height = 400;
+CANVAS.width = 800;
+CANVAS.height = 400;
 
-var container = document.body;
+    // so that the cursor stays the default (instead of the text selection image)
+CANVAS.onselectstart = function() { return false; };
 
-container.appendChild( canvas );
 
-var controls = $.ajax({ url:'paint_controls.html', success: function(data)
-    {
-    var a = $( data );
-    
-    container.appendChild( a.get(0) );
-    
-    Paint( canvas, container );
-    }});
+STAGE = new createjs.Stage( CANVAS );
+
+Paint.init();
+
+        //HERE onMouseDown funciona independentemente de qual a tecla do rato k foi pressionada
+    // se calhar era melhor distinguir entre left e right click, para ter funcionalidade diferente?..
+STAGE.on( 'stagemousedown', Paint.mouseDownEvents );
+STAGE.on( 'stagemouseup', Paint.mouseUpEvents );
+
+createjs.Ticker.on( 'tick', Paint.tick );
 };
+
+
+
 

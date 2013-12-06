@@ -44,7 +44,7 @@ def go( resultingFolder ):
 
         # save back to base.html
     with open( pathBaseHtml, 'w' ) as f:
-        f.write( soup.prettify() )
+        f.write( str( soup ) )
 
 
 

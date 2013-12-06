@@ -5,141 +5,53 @@
 
 (function(window)
 {
-var CANVAS;
-var STAGE;
-
-
-var CONTAINER;
-
-
 var IS_MOUSE_DOWN = false;
-
 
 var OLD_MID_X, OLD_MID_Y, OLD_X, OLD_Y;
 
 var CURRENT_SHAPE;
 
-
 var SHAPES_ARRAY = [];
 
-var BACKGROUND_ELEMENT = null;
 
-/*
-    Arguments:
-        
-        canvas    : the html <canvas> element
-        container : the html element, parent of the canvas and the controls
-        backgroundElement : if provided, we make the background not selectable
- */
-
-function Paint( canvas, container, backgroundElement )
+function Paint()
 {
-CANVAS = canvas;
-CONTAINER = container;
 
-    // so that the cursor stays the default (instead of the text selection image)
-canvas.onselectstart = function() { return false; };
-  
+}
 
-STAGE = new createjs.Stage( CANVAS );
+Paint.init = function()
+{
+var controls = document.querySelector( '#paintControls' );
 
-    //HERE onMouseDown funciona independentemente de qual a tecla do rato k foi pressionada
-    // se calhar era melhor distinguir entre left e right click, para ter funcionalidade diferente?..
-STAGE.onMouseDown = mouseDownEvents;    
-STAGE.onMouseUp = mouseUpEvents;
+Color( controls );
+Thickness( controls );
 
-createjs.Ticker.addListener( Paint );
+var clear = controls.querySelector( '#clearCanvas' );
 
-STAGE.update();
+clear.onclick = Paint.clearCanvas;
 
-Color( container );
-Thickness( container );
+var save = controls.querySelector( '#saveCanvas' );
 
-var clear = container.querySelector( '#clearCanvas' );
-
-clear.onclick = clearCanvas;
-
-
-var save = container.querySelector( '#saveCanvas' );
-
-save.onclick = saveCanvas;
-
-var remove = container.querySelector( '#removeCanvas' );
-
-remove.onclick = removeCanvas;
+save.onclick = Paint.saveCanvas;
 
 
     // :: Undo / Redo :: //
     
-var undo = container.querySelector( '#Paint-undo' );
+var undo = controls.querySelector( '#Paint-undo' );
 
 undo.onclick = function() { UndoRedo.stuff("undo"); };
 
-var redo = container.querySelector( '#Paint-redo' );
+var redo = controls.querySelector( '#Paint-redo' );
 
 redo.onclick = function() { UndoRedo.stuff("redo"); };
+};
 
 
-    
-if (typeof backgroundElement != 'undefined')
-    {
-    $( backgroundElement ).addClass('backgroundUnselectable');
-    
-    BACKGROUND_ELEMENT = backgroundElement;
-    }
-}
+/*
+    Clears all elements from the canvas
+ */
 
-
-
-
-function mouseDownEvents( event )
-{
-IS_MOUSE_DOWN = true;
-
-var shape = new createjs.Shape();
-
-OLD_X = STAGE.mouseX;
-OLD_Y = STAGE.mouseY;
-
-OLD_MID_X = STAGE.mouseX;
-OLD_MID_Y = STAGE.mouseY;
-
-var g = shape.graphics;
-
-var thickness = Thickness.getValue();
-
-    /* 
-        arguments:
-        
-            thickness: width of the stroke
-            caps: type of caps at the end of the line (butt, round, square)
-            joints: type of joints when two lines meet (bevel, round, miter)
-            miter: if joints is set to miter, choose a miter limit ratio
-     */
-g.setStrokeStyle( thickness + 1, 'round', 'round' );
-
-var color = Color.toString();
-
-g.beginStroke( color );
-
-STAGE.addChild( shape );
-
-CURRENT_SHAPE = shape;
-
-SHAPES_ARRAY.push( shape );
-
-UndoRedo.addStroke( shape );
-}
-
-
-
-function mouseUpEvents( event )
-{
-IS_MOUSE_DOWN = false;
-}
-
-
-function clearCanvas()
+Paint.clearCanvas = function()
 {
 STAGE.removeAllChildren();
 
@@ -148,36 +60,19 @@ SHAPES_ARRAY.length = 0;
 UndoRedo.clear();   //HERE dar para voltar ao estado actual, em vez de fazer reset
 
 STAGE.update();
-}
-
-
-
-function saveCanvas()
-{
-var image = CANVAS.toDataURL("image/png");
-
-window.open(image, '_newtab');
-}
+};
 
 
 /*
-    Removes the <canvas> element and the controls from the page
+    Opens a new tab with the image (so that you can just right-click on the image and save it to the computer)
  */
 
-function removeCanvas()
+Paint.saveCanvas = function()
 {
-CONTAINER.removeChild( CANVAS );
+var image = CANVAS.toDataURL("image/png");
 
-var controls = CONTAINER.querySelector( '#paintControls' );
-CONTAINER.removeChild( controls );
-
-if ( BACKGROUND_ELEMENT !== null )
-    {
-    $( BACKGROUND_ELEMENT ).removeClass('backgroundUnselectable');
-    }
-}
-
-
+window.open( image, '_newtab' );
+};
 
 
 
@@ -207,6 +102,41 @@ SHAPES_ARRAY.push( shapeObject );
 STAGE.addChild( shapeObject );
 };
 
+
+
+Paint.mouseDownEvents = function( event )
+{
+IS_MOUSE_DOWN = true;
+
+var shape = new createjs.Shape();
+
+OLD_X = STAGE.mouseX;
+OLD_Y = STAGE.mouseY;
+
+OLD_MID_X = STAGE.mouseX;
+OLD_MID_Y = STAGE.mouseY;
+
+var thickness = Thickness.getValue();
+var color = Color.toString();
+
+var g = shape.graphics;
+
+g.setStrokeStyle( thickness + 1, 'round', 'round' );
+g.beginStroke( color );
+
+CURRENT_SHAPE = shape;
+
+Paint.addShape( shape );
+
+UndoRedo.addStroke( shape );
+};
+
+
+
+Paint.mouseUpEvents = function( event )
+{
+IS_MOUSE_DOWN = false;
+};
 
 
 Paint.tick = function()

@@ -11,7 +11,5 @@
             "libraries/",
 
             "manifest.json",
-
-            "paint_controls.html"
         ]
 }

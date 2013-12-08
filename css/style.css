@@ -1,99 +1,77 @@
-  
-#colorContainer
+html
     {
-    position: relative;
+    min-height: 100%;
+    height: 100%;
     }
 
-    
-#chooseColor > *
+body
     {
-    width: 90%;
-    }
-    
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-.backgroundUnselectable 
-    {
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    }
-  
-  
-#paintControls
-    {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    min-height: 100%;
+    height: 100%;
     }
 
 
-#Paint-undoRedoContainer > *
+#mainCanvas
     {
-    float: left;
-    width: 40%;
+    flex: 1;
     }
-    
-#Paint-undoRedoContainer + div  /* target the next div element after the #Paint-undoRedoContainer */
-    {
-    clear: both;
-    }
-    
-#clearCanvas, #saveCanvas, #removeCanvas, #thickness, #red, #green, #blue, #alpha, #Paint-undoRedoContainer > *
-    {
-    padding: 10px;
-    }
-    
 
-    
-#clearCanvas, #saveCanvas, #removeCanvas, #Paint-undo, #Paint-redo
+
+.button
     {
     cursor: pointer;
     text-align: center;
     }
 
 
-#Paint-undo:hover, #Paint-redo:hover, #clearCanvas:hover, #saveCanvas:hover, #removeCanvas:hover
+    /* Menu */
+
+#Menu
     {
-    color: black;
-    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     }
-    
+
+.Menu-block
+    {
+    min-width: 200px;
+    margin: 20px;
+    }
+
+
+    /* Color Sliders */
+
 #redSlider .ui-slider-range
     {
     background: rgba(255, 0, 0, 0.6);
     }
-    
-    
+
 #redSlider .ui-slider-handle
     {
     background: red;
     }
-    
-    
+
 #greenSlider .ui-slider-range
     {
     background: rgba(0, 255, 0, 0.6);
     }
     
-    
 #greenSlider .ui-slider-handle
     {
     background: green;
     }
-    
 
 #blueSlider .ui-slider-range
     {
     background: rgba(0, 0, 255, 0.6);
     }
-    
     
 #blueSlider .ui-slider-handle
     {

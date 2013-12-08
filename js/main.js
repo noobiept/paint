@@ -30,8 +30,11 @@ window.onload = function()
 {
 CANVAS = document.querySelector( "#mainCanvas" );
 
-CANVAS.width = 800;
-CANVAS.height = 400;
+    // the canvas has its dimensions changed by css (flexbox), but it doesn't update the element width/height, and will affect when drawing (just remove these lines and try the program to see the problem)
+    // so we just update it now
+    //HERE should update on resize as well?..
+CANVAS.width = getCanvasWidth();
+CANVAS.height = getCanvasHeight();
 
     // so that the cursor stays the default (instead of the text selection image)
 CANVAS.onselectstart = function() { return false; };
@@ -51,4 +54,13 @@ createjs.Ticker.on( 'tick', Paint.tick );
 
 
 
+function getCanvasWidth()
+{
+return parseInt( $( CANVAS ).css( 'width' ) );
+}
+
+function getCanvasHeight()
+{
+return parseInt( $( CANVAS ).css( 'height' ) );
+}
 

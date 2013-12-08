@@ -9,19 +9,10 @@
     
     <!-- slider / start theme -->
     <script type="text/javascript" src="libraries/js/jquery-ui-1.10.3.custom.min.js"></script>
-    
-    <style type="text/css" media="all">
-    
-        @import "libraries/css/start/jquery-ui-1.10.3.custom.min.css";
-        @import "css/style.css";
-        
-        body
-            {
-            background-color: black;
-            }
-        
-    </style>
-    
+
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="libraries/css/start/jquery-ui-1.10.3.custom.min.css" />
 
     <script type="text/javascript" src="libraries/js/easeljs-0.7.0.min.js"></script>
 
@@ -42,30 +33,31 @@
 
     <canvas id="mainCanvas"></canvas>
 
-    <div id="paintControls">
+    <div id="Menu">
 
-        <div id="colorContainer">
-            <div id="chooseColor">
-                <div id="red">Red: <span id="redValue">0</span><div id="redSlider"></div></div>
-                <div id="green">Green: <span id="greenValue">0</span><div id="greenSlider"></div></div>
-                <div id="blue">Blue: <span id="blueValue">0</span><div id="blueSlider"></div></div>
-                <div id="alpha">Alpha: <span id="alphaValue">0</span><div id="alphaSlider"></div></div>
-            </div>
+        <div class="Menu-block">
+
+            <div id="red">Red: <span id="redValue">0</span><div id="redSlider"></div></div>
+            <div id="green">Green: <span id="greenValue">0</span><div id="greenSlider"></div></div>
+            <div id="blue">Blue: <span id="blueValue">0</span><div id="blueSlider"></div></div>
         </div>
 
-        <div id="thickness">
-                Thickness: <span id="thicknessValue">5</span><div id="thicknessSlider"></div>
+        <div class="Menu-block">
+
+            <div id="alpha">Alpha: <span id="alphaValue">0</span><div id="alphaSlider"></div></div>
+
+            <div id="thickness">Thickness: <span id="thicknessValue">5</span><div id="thicknessSlider"></div></div>
         </div>
 
-        <div id="Paint-undoRedoContainer">
+        <div class="Menu-block">
 
-            <div id="Paint-undo">Undo</div>
-            <div id="Paint-redo">Redo</div>
+            <div id="undo" class="button">Undo</div>
+            <div id="redo" class="button">Redo</div>
+
+            <div id="clearCanvas" class="button">Clear Canvas</div>
+
+            <div id="saveCanvas" class="button">Save Canvas</div>
         </div>
-
-        <div id="clearCanvas">Clear Canvas</div>
-
-        <div id="saveCanvas">Save Canvas</div>
     </div>
 
 </body>   

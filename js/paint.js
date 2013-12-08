@@ -1,47 +1,42 @@
-/*global Stage, Ticker, Color, Thickness*/
-/*jslint vars: true, white: true*/
-
 "use strict";
 
 (function(window)
 {
-var IS_MOUSE_DOWN = false;
-
-
-
-var SHAPES_ARRAY = [];
-
-
 function Paint()
 {
 
 }
 
+var IS_MOUSE_DOWN = false;
+
+var SHAPES_ARRAY = [];
+
+
 Paint.init = function()
 {
 Brush.select( 0 );
 
-var controls = document.querySelector( '#paintControls' );
+var menu = document.querySelector( '#Menu' );
 
-Color( controls );
-Thickness( controls );
+Color( menu );
+Thickness( menu );
 
-var clear = controls.querySelector( '#clearCanvas' );
+var clear = menu.querySelector( '#clearCanvas' );
 
 clear.onclick = Paint.clearCanvas;
 
-var save = controls.querySelector( '#saveCanvas' );
+var save = menu.querySelector( '#saveCanvas' );
 
 save.onclick = Paint.saveCanvas;
 
 
     // :: Undo / Redo :: //
     
-var undo = controls.querySelector( '#Paint-undo' );
+var undo = menu.querySelector( '#undo' );
 
 undo.onclick = function() { UndoRedo.stuff("undo"); };
 
-var redo = controls.querySelector( '#Paint-redo' );
+var redo = menu.querySelector( '#redo' );
 
 redo.onclick = function() { UndoRedo.stuff("redo"); };
 };

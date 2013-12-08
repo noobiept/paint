@@ -15,11 +15,8 @@ var ALPHA = 1;
 
 function Color( container )
 {
-var colorContainer = container.querySelector( '#colorContainer' );
-
-
-var redSlider = colorContainer.querySelector( '#redSlider' );
-var redValue = colorContainer.querySelector( '#redValue' );
+var redSlider = container.querySelector( '#redSlider' );
+var redValue = container.querySelector( '#redValue' );
 
 
 $( redSlider ).slider({
@@ -40,8 +37,8 @@ $( redSlider ).slider({
     });
 
     
-var greenSlider = colorContainer.querySelector( '#greenSlider' );
-var greenValue = colorContainer.querySelector( '#greenValue' );
+var greenSlider = container.querySelector( '#greenSlider' );
+var greenValue = container.querySelector( '#greenValue' );
 
 
 $( greenSlider ).slider({
@@ -61,8 +58,8 @@ $( greenSlider ).slider({
         }
     });    
     
-var blueSlider = colorContainer.querySelector( '#blueSlider' );
-var blueValue = colorContainer.querySelector( '#blueValue' );
+var blueSlider = container.querySelector( '#blueSlider' );
+var blueValue = container.querySelector( '#blueValue' );
 
 
 $( blueSlider ).slider({
@@ -83,8 +80,8 @@ $( blueSlider ).slider({
     });
     
 
-var alphaSlider = colorContainer.querySelector( '#alphaSlider' );
-var alphaValue = colorContainer.querySelector( '#alphaValue' );
+var alphaSlider = container.querySelector( '#alphaSlider' );
+var alphaValue = container.querySelector( '#alphaValue' );
 
 
 $( alphaSlider ).slider({

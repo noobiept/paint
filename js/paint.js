@@ -7,14 +7,9 @@ function Paint()
 
 }
 
-var IS_MOUSE_DOWN = false;
-
-var SHAPES_ARRAY = [];
-
-
 Paint.init = function()
 {
-Brush.select( 0 );
+Brush.select( 1 );
 
 var menu = document.querySelector( '#Menu' );
 
@@ -48,13 +43,8 @@ redo.onclick = function() { UndoRedo.stuff("redo"); };
 
 Paint.clearCanvas = function()
 {
-STAGE.removeAllChildren();
-
-SHAPES_ARRAY.length = 0;
-
+Brush.clear();
 UndoRedo.clear();   //HERE dar para voltar ao estado actual, em vez de fazer reset
-
-STAGE.update();
 };
 
 
@@ -67,61 +57,6 @@ Paint.saveCanvas = function()
 var image = CANVAS.toDataURL("image/png");
 
 window.open( image, '_newtab' );
-};
-
-
-
-/*  
-    Removes the shape from the canvas
- */
-
-Paint.removeShape = function( shapeObject )
-{
-var position = SHAPES_ARRAY.indexOf( shapeObject );
-
-SHAPES_ARRAY.splice( position, 1 );
-
-STAGE.removeChild( shapeObject );
-};
-
-
-
-/*
-    Adds an existing Shape() object to the canvas
- */
-
-Paint.addShape = function( shapeObject )
-{
-SHAPES_ARRAY.push( shapeObject );
-
-STAGE.addChild( shapeObject );
-};
-
-
-
-Paint.mouseDownEvents = function( event )
-{
-IS_MOUSE_DOWN = true;
-
-Brush.startDraw();
-};
-
-
-
-Paint.mouseUpEvents = function( event )
-{
-IS_MOUSE_DOWN = false;
-};
-
-
-Paint.tick = function()
-{
-if ( IS_MOUSE_DOWN )
-    {
-    Brush.duringDraw();
-    }
-    
-STAGE.update();
 };
 
 

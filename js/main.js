@@ -24,11 +24,13 @@
   */
 
 var CANVAS;
-var STAGE;
+var CTX;
+
 
 window.onload = function()
 {
 CANVAS = document.querySelector( "#mainCanvas" );
+CTX = CANVAS.getContext( '2d' );
 
     // the canvas has its dimensions changed by css (flexbox), but it doesn't update the element width/height, and will affect when drawing (just remove these lines and try the program to see the problem)
     // so we just update it now
@@ -40,16 +42,13 @@ CANVAS.height = getCanvasHeight();
 CANVAS.onselectstart = function() { return false; };
 
 
-STAGE = new createjs.Stage( CANVAS );
-
 Paint.init();
 
         //HERE onMouseDown funciona independentemente de qual a tecla do rato k foi pressionada
     // se calhar era melhor distinguir entre left e right click, para ter funcionalidade diferente?..
-STAGE.on( 'stagemousedown', Paint.mouseDownEvents );
-STAGE.on( 'stagemouseup', Paint.mouseUpEvents );
-
-createjs.Ticker.on( 'tick', Paint.tick );
+document.body.onmousedown = Brush.startDraw;
+document.body.onmousemove = Brush.duringDraw;
+document.body.onmouseup = Brush.endDraw;
 };
 
 

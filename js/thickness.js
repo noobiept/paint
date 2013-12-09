@@ -23,9 +23,9 @@ var thicknessValue = thicknessContainer.querySelector( '#thicknessValue' );
 
 $( thicknessSlider ).slider({
     value : THICKNESS,
-    min   : 1,
+    min   : 0.5,
     max   : 30,
-    step  : 1,
+    step  : 0.5,
     range : 'min',
     slide : function(event, ui)
         {

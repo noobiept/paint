@@ -77,7 +77,7 @@ if (element.what == 'addStroke')
         // we remove the stroke
     if (whichOne == 'undo')
         {
-        Paint.removeShape( element.shapeObject );
+        Paint.removeShape( element.shapeObject );   //HERE needs to be different now
         }
     
         // we add it back again
@@ -85,7 +85,7 @@ if (element.what == 'addStroke')
         {
         var shape = element.shapeObject;
         
-        Paint.addShape( shape );
+        Paint.addShape( shape );    //HERE needs to be different now
         }
     }
     

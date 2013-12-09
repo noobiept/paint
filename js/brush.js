@@ -6,12 +6,15 @@ function Brush()
 }
 
 var BRUSHES = [
-        { name: 'line', classObject: LineBrush }
+        { name: 'line', classObject: LineBrush },
+        { name: 'neighbor_points', classObject: NeighborPointsBrush }
     ];
 
 var BRUSH_SELECTED = 0;
 var BRUSH_OBJECT = null;
 
+
+var IS_MOUSE_DOWN = false;
 
 
 Brush.select = function( brushPosition )
@@ -22,76 +25,36 @@ BRUSH_OBJECT = new BRUSHES[ brushPosition ].classObject();
 };
 
 
-
-Brush.startDraw = function()
+Brush.startDraw = function( event )
 {
-BRUSH_OBJECT.startDraw();
+IS_MOUSE_DOWN = true;
+
+return BRUSH_OBJECT.startDraw( event );
 };
 
 
-Brush.duringDraw = function()
+Brush.duringDraw = function( event )
 {
-BRUSH_OBJECT.duringDraw();
+if ( IS_MOUSE_DOWN )
+    {
+    BRUSH_OBJECT.duringDraw( event );
+    }
 };
 
 
-
-function LineBrush()
+Brush.endDraw = function( event )
 {
-this.current_shape = null;
-this.old_mid_x = 0;
-this.old_mid_y = 0;
-this.old_x = 0;
-this.old_y = 0;
-}
+IS_MOUSE_DOWN = false;
 
-
-LineBrush.prototype.startDraw = function()
-{
-var shape = new createjs.Shape();
-
-this.old_x = STAGE.mouseX;
-this.old_y = STAGE.mouseY;
-
-this.old_mid_x = STAGE.mouseX;
-this.old_mid_y = STAGE.mouseY;
-
-var thickness = Thickness.getValue();
-var color = Color.toString();
-
-var g = shape.graphics;
-
-g.setStrokeStyle( thickness + 1, 'round', 'round' );
-g.beginStroke( color );
-
-this.current_shape = shape;
-
-Paint.addShape( shape );
-
-UndoRedo.addStroke( shape );
+return BRUSH_OBJECT.endDraw( event );
 };
 
 
 
-LineBrush.prototype.duringDraw = function()
+Brush.clear = function()
 {
-var mouseX = STAGE.mouseX;
-var mouseY = STAGE.mouseY;
-
-var midPointX = Math.floor( (this.old_x + mouseX) / 2 );
-var midPointY = Math.floor( (this.old_y + mouseY) / 2 );
-
-
-this.current_shape.graphics.moveTo( midPointX, midPointY );
-this.current_shape.graphics.curveTo( this.old_x, this.old_y, this.old_mid_x, this.old_mid_y );
-
-this.old_x = mouseX;
-this.old_y = mouseY;
-
-this.old_mid_x = midPointX;
-this.old_mid_y = midPointY;
+CTX.clearRect( 0, 0, CANVAS.width, CANVAS.height );
 };
-
 
 
 window.Brush = Brush;

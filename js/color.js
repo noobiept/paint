@@ -110,6 +110,17 @@ return "rgba(" + RED + ',' + GREEN + ',' + BLUE + ',' + ALPHA + ')';
 };
 
 
+Color.getValues = function()
+{
+return {
+        red: RED,
+        green: GREEN,
+        blue: BLUE,
+        alpha: ALPHA
+    };
+};
+
+
 
 window.Color = Color;
 

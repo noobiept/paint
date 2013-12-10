@@ -24,7 +24,7 @@ this.all_shapes.push({
         y: mouseY
     });
 
-
+    
 var colorValues = Color.getValues();
 
 var newAlpha = colorValues.alpha - 0.6;

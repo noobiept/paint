@@ -14,17 +14,17 @@ var mouseY = event.clientY;
 
 var thickness = Thickness.getValue();
 
-CTX.strokeStyle = Color.toString();
-CTX.lineCap = 'round';
-CTX.lineJoin = 'round';
-CTX.lineWidth = thickness;
+MAIN_CTX.strokeStyle = Color.toString();
+MAIN_CTX.lineCap = 'round';
+MAIN_CTX.lineJoin = 'round';
+MAIN_CTX.lineWidth = thickness;
 
 this.all_shapes.push({
         x: mouseX,
         y: mouseY
     });
 
-    
+
 var colorValues = Color.getValues();
 
 var newAlpha = colorValues.alpha - 0.6;
@@ -47,21 +47,21 @@ var mouseY = event.clientY;
 
 var lastShape = this.all_shapes[ this.all_shapes.length - 1 ];
 
-CTX.beginPath();
-CTX.moveTo( lastShape.x, lastShape.y );
-CTX.lineTo( mouseX, mouseY );
-CTX.stroke();
+MAIN_CTX.beginPath();
+MAIN_CTX.moveTo( lastShape.x, lastShape.y );
+MAIN_CTX.lineTo( mouseX, mouseY );
+MAIN_CTX.stroke();
 
 this.all_shapes.push({
     x: mouseX,
     y: mouseY
     });
-
+/*
     // save the main styling
-CTX.save();
+MAIN_CTX.save();
 
-CTX.strokeStyle = this.secondaryLinesStyle;
-CTX.lineWidth = this.secondaryLinesWidth;
+MAIN_CTX.strokeStyle = this.secondaryLinesStyle;
+MAIN_CTX.lineWidth = this.secondaryLinesWidth;
 
     // find lines/points close to the current one
 for (var a = 0 ; a < this.all_shapes.length ; a++)
@@ -75,14 +75,14 @@ for (var a = 0 ; a < this.all_shapes.length ; a++)
 
     if ( distance < 1000 )  // sqrt(1000) == 31.6 which is the distance
         {
-        CTX.beginPath();
-        CTX.moveTo( mouseX + adjacent * 0.2, mouseY + opposite * 0.2 );
-        CTX.lineTo( this.all_shapes[ a ].x - adjacent * 0.2, this.all_shapes[ a ].y - opposite * 0.2 );
-        CTX.stroke();
+        MAIN_CTX.beginPath();
+        MAIN_CTX.moveTo( mouseX + adjacent * 0.2, mouseY + opposite * 0.2 );
+        MAIN_CTX.lineTo( this.all_shapes[ a ].x - adjacent * 0.2, this.all_shapes[ a ].y - opposite * 0.2 );
+        MAIN_CTX.stroke();
         }
     }
 
-CTX.restore();
+MAIN_CTX.restore();*/
 };
 
 

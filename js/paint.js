@@ -9,7 +9,7 @@ function Paint()
 
 Paint.init = function()
 {
-Brush.select( 1 );
+Brush.select( 0 );
 
 var menu = document.querySelector( '#Menu' );
 
@@ -23,6 +23,26 @@ clear.onclick = Paint.clearCanvas;
 var save = menu.querySelector( '#saveCanvas' );
 
 save.onclick = Paint.saveCanvas;
+
+
+    // :: Brushes menu :: //
+
+var brushesContainer = menu.querySelector( '#BrushesContainer' );
+
+var brushes = brushesContainer.querySelectorAll( '.button' );
+
+var selectBrushFunction = function( position )
+    {
+    return function()
+        {
+        Brush.select( position );
+        };
+    };
+
+for (var a = 0 ; a < brushes.length ; a++)
+    {
+    brushes[ a ].onclick = selectBrushFunction( a );
+    }
 
 
     // :: Undo / Redo :: //
@@ -54,7 +74,7 @@ UndoRedo.clear();   //HERE dar para voltar ao estado actual, em vez de fazer res
 
 Paint.saveCanvas = function()
 {
-var image = CANVAS.toDataURL("image/png");
+var image = MAIN_CANVAS.toDataURL("image/png");
 
 window.open( image, '_newtab' );
 };

@@ -53,7 +53,7 @@ return BRUSH_OBJECT.endDraw( event );
 
 Brush.clear = function()
 {
-CTX.clearRect( 0, 0, CANVAS.width, CANVAS.height );
+MAIN_CTX.clearRect( 0, 0, MAIN_CANVAS.width, MAIN_CANVAS.height );
 };
 
 

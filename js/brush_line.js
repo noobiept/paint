@@ -3,11 +3,6 @@
 
 function LineBrush()
 {
-this.old_mid_x = 0;
-this.old_mid_y = 0;
-this.old_x = 0;
-this.old_y = 0;
-
 this.all_points = [];
 }
 
@@ -17,6 +12,7 @@ LineBrush.prototype.setupDraw = function( context )
 var thickness = Thickness.getValue();
 var color = Color.toString();
 
+context.beginPath();
 context.strokeStyle = color;
 context.lineCap = 'round';
 context.lineJoin = 'round';
@@ -65,14 +61,11 @@ this.setupDraw( DRAW_CTX );
 
 LineBrush.prototype.duringDraw = function( event )
 {
-var mouseX = event.clientX;
-var mouseY = event.clientY;
-
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
 this.all_points.push({
-        x: mouseX,
-        y: mouseY
+        x: event.clientX,
+        y: event.clientY
     });
 
 this.drawLine( DRAW_CTX );

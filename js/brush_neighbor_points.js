@@ -3,28 +3,97 @@
 
 function NeighborPointsBrush()
 {
-this.all_shapes = [];
+this.all_points = [];   // the main line
+this.additional_lines = [];  // the lines between the close points of the main line
 }
+
+
+NeighborPointsBrush.prototype.setupDraw = function( context )
+{
+var color = Color.toString();
+
+context.beginPath();
+context.strokeStyle = color;
+context.lineCap = 'round';
+context.lineJoin = 'round';
+context.lineWidth = Thickness.getValue();
+context.shadowBlur = 10;
+context.shadowColor = color;
+};
+
+
+NeighborPointsBrush.prototype.drawLine = function( context )
+{
+var point1 = this.all_points[ 0 ];
+var point2 = this.all_points[ 1 ];
+
+context.beginPath();
+context.moveTo( point1.x, point1.y );
+
+for (var a = 1 ; a < this.all_points.length ; a++)
+    {
+    var midPointX = Math.floor( (point1.x + point2.x) / 2 );
+    var midPointY = Math.floor( (point1.y + point2.y) / 2 );
+
+    context.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
+
+    point1 = this.all_points[ a ];
+    point2 = this.all_points[ a + 1 ];
+    }
+
+
+
+var lastPoint = this.all_points[ this.all_points.length - 1 ];
+
+    // find lines/points close to the last one (which was just added)
+for (a = 0 ; a < this.all_points.length ; a++)
+    {
+    var point = this.all_points[ a ];
+
+        // construct a triangle, to check the distance between points (the current one, with others previously saved)
+    var adjacent = point.x - lastPoint.x;
+    var opposite = point.y - lastPoint.y;
+
+        // the distance would be the square root of this. we don't do that as an optimization
+    var distance = adjacent * adjacent + opposite * opposite;
+
+    if ( distance < 1000 )  // sqrt(1000) == 31.6 which is the distance
+        {
+        this.additional_lines.push({
+                x1: lastPoint.x,
+                y1: lastPoint.y,
+                x2: point.x,
+                y2: point.y,
+                distanceX: adjacent,
+                distanceY: opposite
+            });
+        }
+    }
+
+
+    // save the main styling
+context.save();
+
+context.strokeStyle = this.secondaryLinesStyle;
+context.lineWidth = this.secondaryLinesWidth;
+
+    // draw all the additional lines
+for (a = 0 ; a < this.additional_lines.length ; a++)
+    {
+    var line = this.additional_lines[ a ];
+
+    context.moveTo( line.x1 + line.distanceX * 0.2, line.y1 + line.distanceY * 0.2 );
+    context.lineTo( line.x2 - line.distanceX * 0.2, line.y2 - line.distanceY * 0.2 );
+    }
+
+context.restore();
+context.stroke();
+};
+
 
 
 NeighborPointsBrush.prototype.startDraw = function( event )
 {
-var mouseX = event.clientX;
-var mouseY = event.clientY;
-
-var thickness = Thickness.getValue();
-
-MAIN_CTX.strokeStyle = Color.toString();
-MAIN_CTX.lineCap = 'round';
-MAIN_CTX.lineJoin = 'round';
-MAIN_CTX.lineWidth = thickness;
-
-this.all_shapes.push({
-        x: mouseX,
-        y: mouseY
-    });
-
-
 var colorValues = Color.getValues();
 
 var newAlpha = colorValues.alpha - 0.6;
@@ -37,58 +106,38 @@ if ( newAlpha < 0.05 )
     // the secondary lines will have different styling (less pronounced)
 this.secondaryLinesStyle = 'rgba(' + colorValues.red + ',' + colorValues.green + ',' + colorValues.blue + ',' + newAlpha + ')';
 this.secondaryLinesWidth = thickness / 4;
+
+this.all_points.push({
+        x: event.clientX,
+        y: event.clientY
+    });
+
+this.setupDraw( DRAW_CTX );
 };
 
 
 NeighborPointsBrush.prototype.duringDraw = function( event )
 {
-var mouseX = event.clientX;
-var mouseY = event.clientY;
+DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
-var lastShape = this.all_shapes[ this.all_shapes.length - 1 ];
-
-MAIN_CTX.beginPath();
-MAIN_CTX.moveTo( lastShape.x, lastShape.y );
-MAIN_CTX.lineTo( mouseX, mouseY );
-MAIN_CTX.stroke();
-
-this.all_shapes.push({
-    x: mouseX,
-    y: mouseY
+this.all_points.push({
+        x: event.clientX,
+        y: event.clientY
     });
-/*
-    // save the main styling
-MAIN_CTX.save();
 
-MAIN_CTX.strokeStyle = this.secondaryLinesStyle;
-MAIN_CTX.lineWidth = this.secondaryLinesWidth;
-
-    // find lines/points close to the current one
-for (var a = 0 ; a < this.all_shapes.length ; a++)
-    {
-        // construct a triangle, to check the distance between points (the current one, with others previously saved)
-    var adjacent = this.all_shapes[ a ].x - mouseX;
-    var opposite = this.all_shapes[ a ].y - mouseY;
-
-        // the distance would be the square root of this. we don't do that as an optimization
-    var distance = adjacent * adjacent + opposite * opposite;
-
-    if ( distance < 1000 )  // sqrt(1000) == 31.6 which is the distance
-        {
-        MAIN_CTX.beginPath();
-        MAIN_CTX.moveTo( mouseX + adjacent * 0.2, mouseY + opposite * 0.2 );
-        MAIN_CTX.lineTo( this.all_shapes[ a ].x - adjacent * 0.2, this.all_shapes[ a ].y - opposite * 0.2 );
-        MAIN_CTX.stroke();
-        }
-    }
-
-MAIN_CTX.restore();*/
+this.drawLine( DRAW_CTX );
 };
 
 
 NeighborPointsBrush.prototype.endDraw = function()
 {
-this.all_shapes.length = 0;
+DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+
+this.setupDraw( MAIN_CTX );
+this.drawLine( MAIN_CTX );
+
+this.all_points.length = 0;
+this.additional_lines.length = 0;
 };
 
 

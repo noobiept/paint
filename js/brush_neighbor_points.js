@@ -41,6 +41,7 @@ for (var a = 1 ; a < this.all_points.length ; a++)
     point2 = this.all_points[ a + 1 ];
     }
 
+context.stroke();
 
 
 var lastPoint = this.all_points[ this.all_points.length - 1 ];
@@ -86,8 +87,8 @@ for (a = 0 ; a < this.additional_lines.length ; a++)
     context.lineTo( line.x2 - line.distanceX * 0.2, line.y2 - line.distanceY * 0.2 );
     }
 
-context.restore();
 context.stroke();
+context.restore();
 };
 
 
@@ -96,16 +97,12 @@ NeighborPointsBrush.prototype.startDraw = function( event )
 {
 var colorValues = Color.getValues();
 
-var newAlpha = colorValues.alpha - 0.6;
+var newAlpha = colorValues.alpha / 4;
 
-if ( newAlpha < 0.05 )
-    {
-    newAlpha = 0.05;
-    }
 
     // the secondary lines will have different styling (less pronounced)
 this.secondaryLinesStyle = 'rgba(' + colorValues.red + ',' + colorValues.green + ',' + colorValues.blue + ',' + newAlpha + ')';
-this.secondaryLinesWidth = thickness / 4;
+this.secondaryLinesWidth = Thickness.getValue() / 4;
 
 this.all_points.push({
         x: event.clientX,

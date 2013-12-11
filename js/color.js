@@ -18,6 +18,7 @@ function Color( container )
 var redSlider = container.querySelector( '#redSlider' );
 var redValue = container.querySelector( '#redValue' );
 
+$( redValue ).text( RED );
 
 $( redSlider ).slider({
     value : RED,
@@ -27,7 +28,7 @@ $( redSlider ).slider({
     range : 'min',
     slide : function(event, ui)
         {
-        redValue.innerHTML = ui.value;
+        $( redValue ).text( ui.value );
         
         RED = ui.value;
         
@@ -40,6 +41,7 @@ $( redSlider ).slider({
 var greenSlider = container.querySelector( '#greenSlider' );
 var greenValue = container.querySelector( '#greenValue' );
 
+$( greenValue ).text( GREEN );
 
 $( greenSlider ).slider({
     value : GREEN,
@@ -49,8 +51,8 @@ $( greenSlider ).slider({
     range : 'min',
     slide : function(event, ui)
         {
-        greenValue.innerHTML = ui.value;
-        
+        $( greenValue ).text( ui.value );
+
         GREEN = ui.value;
         
             // show the current color, in the thickness slider color
@@ -61,6 +63,7 @@ $( greenSlider ).slider({
 var blueSlider = container.querySelector( '#blueSlider' );
 var blueValue = container.querySelector( '#blueValue' );
 
+$( blueValue ).text( BLUE );
 
 $( blueSlider ).slider({
     value : BLUE,
@@ -70,7 +73,7 @@ $( blueSlider ).slider({
     range : 'min',
     slide : function(event, ui)
         {
-        blueValue.innerHTML = ui.value;
+        $( blueValue ).text( ui.value );
         
         BLUE = ui.value;
         
@@ -83,6 +86,7 @@ $( blueSlider ).slider({
 var alphaSlider = container.querySelector( '#alphaSlider' );
 var alphaValue = container.querySelector( '#alphaValue' );
 
+$( alphaValue ).text( ALPHA );
 
 $( alphaSlider ).slider({
     value : ALPHA,
@@ -92,7 +96,7 @@ $( alphaSlider ).slider({
     range : 'min',
     slide : function(event, ui)
         {
-        alphaValue.innerHTML = ui.value;
+        $( alphaValue ).text( ui.value );
         
         ALPHA = ui.value;
         

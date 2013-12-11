@@ -30,6 +30,8 @@ Brush.startDraw = function( event )
 {
 IS_MOUSE_DOWN = true;
 
+event.preventDefault();
+
 return BRUSH_OBJECT.startDraw( event );
 };
 
@@ -38,6 +40,8 @@ Brush.duringDraw = function( event )
 {
 if ( IS_MOUSE_DOWN )
     {
+    event.preventDefault();
+
     BRUSH_OBJECT.duringDraw( event );
     }
 };
@@ -46,6 +50,8 @@ if ( IS_MOUSE_DOWN )
 Brush.endDraw = function( event )
 {
 IS_MOUSE_DOWN = false;
+
+event.preventDefault();
 
 return BRUSH_OBJECT.endDraw( event );
 };

@@ -9,8 +9,6 @@ function Paint()
 
 Paint.init = function()
 {
-Brush.select( 0 );
-
 var menu = document.querySelector( '#Menu' );
 
 Color( menu );
@@ -31,18 +29,31 @@ var brushesContainer = menu.querySelector( '#BrushesContainer' );
 
 var brushes = brushesContainer.querySelectorAll( '.button' );
 
-var selectBrushFunction = function( position )
+var selected = brushes[ 0 ];
+
+
+var selectBrushFunction = function( position, htmlElement )
     {
+        // this has a function within, to create a closure, so that the arguments are retained (otherwise in the loop below it wouldn't work, all would get the last value of 'a')
     return function()
         {
+        $( selected ).removeClass( 'selected' );
+        $( htmlElement ).addClass( 'selected' );
+
+        selected = htmlElement;
+
         Brush.select( position );
         };
     };
 
+
 for (var a = 0 ; a < brushes.length ; a++)
     {
-    brushes[ a ].onclick = selectBrushFunction( a );
+    brushes[ a ].onclick = selectBrushFunction( a, brushes[ a ] );
     }
+
+    // start the program with the first brush selected
+selectBrushFunction( 0, selected )();
 
 
     // :: Undo / Redo :: //

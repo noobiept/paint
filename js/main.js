@@ -22,6 +22,7 @@
         - turn into an application by itself (not in the home of the website, but like the games, separate app)
         - add brushes and stuff
             - each brush have its own controls (like the shadow for the line, the distance for the neighbour points...)
+        - save to localStorage the options (what color was set, what brush was selected, ... )
 
   */
 

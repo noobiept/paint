@@ -21,6 +21,7 @@
     
         - turn into an application by itself (not in the home of the website, but like the games, separate app)
         - add brushes and stuff
+            - each brush have its own controls (like the shadow for the line, the distance for the neighbour points...)
 
   */
 
@@ -78,3 +79,14 @@ function getCanvasHeight()
 return parseInt( $( MAIN_CANVAS ).innerHeight() );
 }
 
+
+function getRandomInt( min, max )
+{
+return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+function getRandomFloat( min, max )
+{
+return Math.random() * (max - min) + min;
+}

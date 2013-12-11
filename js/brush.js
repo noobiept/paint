@@ -7,7 +7,8 @@ function Brush()
 
 var BRUSHES = [
         { name: 'line', classObject: LineBrush },
-        { name: 'neighbor_points', classObject: NeighborPointsBrush }
+        { name: 'neighbor_points', classObject: NeighborPointsBrush },
+        { name: 'bubbles', classObject: BubblesBrush }
     ];
 
 var BRUSH_SELECTED = 0;

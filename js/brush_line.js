@@ -54,6 +54,8 @@ this.all_points.push({
         y: event.clientY
     });
 
+DRAW_CTX.save();
+
 this.setupDraw( DRAW_CTX );
 };
 
@@ -76,8 +78,14 @@ LineBrush.prototype.endDraw = function()
 {
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
+DRAW_CTX.restore();
+
+MAIN_CTX.save();
+
 this.setupDraw( MAIN_CTX );
 this.drawLine( MAIN_CTX );
+
+MAIN_CTX.restore();
 
 this.all_points.length = 0;
 };

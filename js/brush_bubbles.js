@@ -45,6 +45,8 @@ this.all_points.push({
         opacity : getRandomFloat( this.minimum_opacity, this.maximum_opacity )
     });
 
+    // before making changes to the styling, call context.save(), to save the previous state (we'll restore at the end)
+DRAW_CTX.save();
 this.setupDraw( DRAW_CTX );
 };
 
@@ -68,8 +70,16 @@ BubblesBrush.prototype.endDraw = function()
 {
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
+    // we're done with drawing, so restore the previous styling
+DRAW_CTX.restore();
+
+    // same for the main canvas, save before making changes, and restore after all is set and done
+MAIN_CTX.save();
+
 this.setupDraw( MAIN_CTX );
 this.drawLine( MAIN_CTX );
+
+MAIN_CTX.restore();
 
 this.all_points.length = 0;
 };

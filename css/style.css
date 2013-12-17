@@ -58,7 +58,28 @@ body
 .Menu-block
     {
     min-width: 200px;
-    margin: 20px;
+    margin: 5px 20px;
+    }
+
+.Menu-block > *
+    {
+    padding: 5px 0;
+    }
+
+
+#currentColor
+    {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+
+#currentColor span
+    {
+    display: inline-block;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
     }
 
 

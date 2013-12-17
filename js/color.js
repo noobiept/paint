@@ -31,9 +31,8 @@ $( redSlider ).slider({
         $( redValue ).text( ui.value );
         
         RED = ui.value;
-        
-            // show the current color, in the thickness slider color
-        Thickness.changeSliderColor( Color.toString() );
+
+        Paint.updateCurrentColor();
         }
     });
 
@@ -54,9 +53,8 @@ $( greenSlider ).slider({
         $( greenValue ).text( ui.value );
 
         GREEN = ui.value;
-        
-            // show the current color, in the thickness slider color
-        Thickness.changeSliderColor( Color.toString() );
+
+        Paint.updateCurrentColor();
         }
     });    
     
@@ -76,9 +74,8 @@ $( blueSlider ).slider({
         $( blueValue ).text( ui.value );
         
         BLUE = ui.value;
-        
-            // show the current color, in the thickness slider color
-        Thickness.changeSliderColor( Color.toString() );
+
+        Paint.updateCurrentColor();
         }
     });
     
@@ -99,9 +96,8 @@ $( alphaSlider ).slider({
         $( alphaValue ).text( ui.value );
         
         ALPHA = ui.value;
-        
-            // show the current color, in the thickness slider color
-        Thickness.changeSliderColor( Color.toString() );
+
+        Paint.updateCurrentColor();
         }
     });
 }

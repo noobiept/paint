@@ -65,7 +65,20 @@ undo.onclick = function() { UndoRedo.stuff("undo"); };
 var redo = menu.querySelector( '#redo' );
 
 redo.onclick = function() { UndoRedo.stuff("redo"); };
+
+
+Paint.updateCurrentColor();
 };
+
+
+
+Paint.updateCurrentColor = function()
+{
+var currentColor = document.querySelector( '#currentColor span' );
+
+$( currentColor ).css( 'background-color', Color.toString() );
+};
+
 
 
 /*

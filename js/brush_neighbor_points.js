@@ -5,7 +5,15 @@ function NeighborPointsBrush()
 {
 this.all_points = [];   // the main line
 this.additional_lines = [];  // the lines between the close points of the main line
+
+this.addControls();
 }
+
+
+NeighborPointsBrush.prototype.addControls = function()
+{
+this.thickness = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
+};
 
 
 NeighborPointsBrush.prototype.setupDraw = function( context )
@@ -16,7 +24,7 @@ context.beginPath();
 context.strokeStyle = color;
 context.lineCap = 'round';
 context.lineJoin = 'round';
-context.lineWidth = Thickness.getValue();
+context.lineWidth = this.thickness.getValue();
 context.shadowBlur = 10;
 context.shadowColor = color;
 };
@@ -102,7 +110,7 @@ var newAlpha = colorValues.alpha / 4;
 
     // the secondary lines will have different styling (less pronounced)
 this.secondaryLinesStyle = 'rgba(' + colorValues.red + ',' + colorValues.green + ',' + colorValues.blue + ',' + newAlpha + ')';
-this.secondaryLinesWidth = Thickness.getValue() / 4;
+this.secondaryLinesWidth = this.thickness.getValue() / 4;
 
 this.all_points.push({
         x: event.clientX,
@@ -143,6 +151,12 @@ MAIN_CTX.restore();
 this.all_points.length = 0;
 this.additional_lines.length = 0;
 };
+
+
+NeighborPointsBrush.prototype.clear = function()
+{
+this.thickness.clear();
+};;
 
 
 window.NeighborPointsBrush = NeighborPointsBrush;

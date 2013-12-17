@@ -12,7 +12,6 @@ Paint.init = function()
 var menu = document.querySelector( '#Menu' );
 
 Color( menu );
-Thickness( menu );
 
 var clear = menu.querySelector( '#clearCanvas' );
 

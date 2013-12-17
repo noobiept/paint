@@ -22,6 +22,11 @@ Brush.select = function( brushPosition )
 {
 BRUSH_SELECTED = brushPosition;
 
+if ( BRUSH_OBJECT )
+    {
+    BRUSH_OBJECT.clear();
+    }
+
 BRUSH_OBJECT = new BRUSHES[ brushPosition ].classObject();
 };
 

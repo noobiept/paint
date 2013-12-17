@@ -4,19 +4,31 @@
 function LineBrush()
 {
 this.all_points = [];
+
+this.addControls();
 }
+
+
+LineBrush.prototype.addControls = function()
+{
+var container = document.querySelector( '#brushControls' );
+
+
+        // :: thickness :: //
+
+this.thickness = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
+};
 
 
 LineBrush.prototype.setupDraw = function( context )
 {
-var thickness = Thickness.getValue();
 var color = Color.toString();
 
 context.beginPath();
 context.strokeStyle = color;
 context.lineCap = 'round';
 context.lineJoin = 'round';
-context.lineWidth = thickness;
+context.lineWidth = this.thickness.getValue();
 context.shadowBlur = 10;
 context.shadowColor = color;
 };
@@ -88,6 +100,12 @@ this.drawLine( MAIN_CTX );
 MAIN_CTX.restore();
 
 this.all_points.length = 0;
+};
+
+
+LineBrush.prototype.clear = function()
+{
+this.thickness.clear();
 };
 
 

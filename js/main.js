@@ -22,6 +22,7 @@
         - turn into an application by itself (not in the home of the website, but like the games, separate app)
 
         - save to localStorage the options (what color was set, what brush was selected, ... )
+            - also save for the additional controls of each brush
 
         - add brushes and stuff
             - each brush have its own controls (like the shadow for the line, the distance for the neighbour points...)
@@ -38,6 +39,9 @@
             - maximum radius
             - minimum opacity
             - maximum opacity
+
+        - what to do with alpha in bubbles brush (opacity is already set with a min/max slider)
+            - also current color checks that
   */
 
     // main canvas, will contain the drawing with all the shapes

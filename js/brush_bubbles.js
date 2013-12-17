@@ -8,7 +8,18 @@ this.minimum_radius = 5;
 this.maximum_radius = 10;
 this.minimum_opacity = 0;   // the min/max opacity variables will be updated after depending on what is set in the menu
 this.maximum_opacity = 1;
+
+this.addControls();
 }
+
+
+
+BubblesBrush.prototype.addControls = function()
+{
+this.radius_control = new Control( 'Radius', 1, 20, [ this.minimum_radius, this.maximum_radius ], 0.5 );
+this.opacity_control = new Control( 'Opacity', 0, 1, [ 0.25, 1 ], 0.1 );
+};
+
 
 BubblesBrush.prototype.setupDraw = function( context )
 {
@@ -17,9 +28,20 @@ var color = Color.getValues();
 context.beginPath();
 context.fillStyle = 'rgb(' + color.red + ',' + color.green + ',' + color.blue + ')';
 
-this.maximum_opacity = color.alpha;
-this.minimum_opacity = color.alpha / 4;
+//this.maximum_opacity = color.alpha;
+//this.minimum_opacity = color.alpha / 4;
+
+var opacity = this.opacity_control.getValue();
+
+this.minimum_opacity = opacity[ 0 ];
+this.maximum_opacity = opacity[ 1 ];
+
+var radius = this.radius_control.getValue();
+
+this.minimum_radius = radius[ 0 ];
+this.maximum_radius = radius[ 1 ];
 };
+
 
 
 BubblesBrush.prototype.drawLine = function( context )
@@ -82,6 +104,13 @@ this.drawLine( MAIN_CTX );
 MAIN_CTX.restore();
 
 this.all_points.length = 0;
+};
+
+
+BubblesBrush.prototype.clear = function()
+{
+this.radius_control.clear();
+this.opacity_control.clear();
 };
 
 

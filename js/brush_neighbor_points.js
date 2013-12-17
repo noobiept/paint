@@ -12,8 +12,36 @@ this.addControls();
 
 NeighborPointsBrush.prototype.addControls = function()
 {
-this.opacity_control = new Control( 'Opacity', 0, 1, 1, 0.1, function() { Paint.updateCurrentColor(); } );
-this.thickness_control = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
+this.opacity_control = new Control({
+        name: 'Opacity',
+        minValue: 0,
+        maxValue: 1,
+        initValue: 1,
+        step: 0.1,
+        onSlideFunction: function() { Paint.updateCurrentColor(); }
+    });
+this.thickness_control = new Control({
+        name: 'Thickness',
+        minValue: 0.5,
+        maxValue: 30,
+        initValue: 5,
+        step: 0.5
+    });
+this.shadow_blur_control = new Control({
+        name: 'Shadow Blur',
+        minValue: 0,
+        maxValue: 10,
+        initValue: 0,
+        step: 0.5
+    });
+this.distance_control = new Control({
+        name: 'Distance',
+        minValue: 10,
+        maxValue: 50,
+        initValue: 30,
+        step: 1,
+        menuBlock: 2
+    });
 };
 
 
@@ -29,7 +57,7 @@ context.strokeStyle = colorCss;
 context.lineCap = 'round';
 context.lineJoin = 'round';
 context.lineWidth = this.thickness_control.getValue();
-context.shadowBlur = 10;
+context.shadowBlur = this.shadow_blur_control.getValue();
 context.shadowColor = colorCss;
 };
 
@@ -69,8 +97,9 @@ for (a = 0 ; a < this.all_points.length ; a++)
 
         // the distance would be the square root of this. we don't do that as an optimization
     var distance = adjacent * adjacent + opposite * opposite;
+    var distanceLimit = this.distance_control.getValue();
 
-    if ( distance < 1000 )  // sqrt(1000) == 31.6 which is the distance
+    if ( distance < distanceLimit * distanceLimit )
         {
         this.additional_lines.push({
                 x1: lastPoint.x,
@@ -161,7 +190,9 @@ NeighborPointsBrush.prototype.clear = function()
 {
 this.opacity_control.clear();
 this.thickness_control.clear();
-};;
+this.shadow_blur_control.clear();
+this.distance_control.clear();
+};
 
 
 window.NeighborPointsBrush = NeighborPointsBrush;

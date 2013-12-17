@@ -22,23 +22,9 @@
         - turn into an application by itself (not in the home of the website, but like the games, separate app)
 
         - save to localStorage the options (what color was set, what brush was selected, ... )
-            - also save for the additional controls of each brush
+            - also save for the additional controls of each brush (also when selecting the brushes, save the values for next time its selected)
 
         - add brushes and stuff
-            - each brush have its own controls (like the shadow for the line, the distance for the neighbour points...)
-
-        - line
-            - thickness
-            - shadow
-
-        neighbor points
-            - distance
-
-        bubbles
-            - minimum radius
-            - maximum radius
-            - minimum opacity
-            - maximum opacity
   */
 
     // main canvas, will contain the drawing with all the shapes

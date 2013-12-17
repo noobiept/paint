@@ -11,8 +11,28 @@ this.addControls();
 
 LineBrush.prototype.addControls = function()
 {
-this.opacity_control = new Control( 'Opacity', 0, 1, 1, 0.1, function() { Paint.updateCurrentColor(); } );
-this.thickness_control = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
+this.opacity_control = new Control({
+        name: 'Opacity',
+        minValue: 0,
+        maxValue: 1,
+        initValue: 1,
+        step: 0.1,
+        onSlideFunction: function() { Paint.updateCurrentColor(); }
+    });
+this.thickness_control = new Control({
+        name: 'Thickness',
+        minValue: 0.5,
+        maxValue: 30,
+        initValue: 5,
+        step: 0.5
+    });
+this.shadow_blur_control = new Control({
+        name: 'Shadow Blur',
+        minValue: 0,
+        maxValue: 10,
+        initValue: 0,
+        step: 0.5
+    });
 };
 
 
@@ -29,7 +49,7 @@ context.strokeStyle = colorCss;
 context.lineCap = 'round';
 context.lineJoin = 'round';
 context.lineWidth = this.thickness_control.getValue();
-context.shadowBlur = 10;
+context.shadowBlur = this.shadow_blur_control.getValue();
 context.shadowColor = colorCss;
 };
 
@@ -107,6 +127,7 @@ LineBrush.prototype.clear = function()
 {
 this.thickness_control.clear();
 this.opacity_control.clear();
+this.shadow_blur_control.clear();
 };
 
 

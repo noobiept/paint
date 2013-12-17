@@ -2,24 +2,39 @@
 {
 
 /*
+    args = {
+        name      : String,
+        minValue  : Number,
+        maxValue  : Number,
+        initValue : Number,
+        step      : Number,
+        menuBlock : Number,
+        onSlideFunction : Function
+    }
+
     If initValue is an array, means its a range slider (has a minimum and maximum value, otherwise is a single value slider
 
     The return of .getValue() also depends on the type of slider, if its a single value slider it returns a number, otherwise an array with the min/max values
  */
 
-function Control( name, minValue, maxValue, initValue, step, onSlideFunction )
+function Control( args )
 {
 var _this = this;
 
-this.value = initValue;
+this.value = args.initValue;
 
-var container = document.querySelector( '#brushControls' );
+if ( typeof args.menuBlock == 'undefined' )
+    {
+    args.menuBlock = 1;
+    }
+
+var container = document.querySelector( '#brushControls' + args.menuBlock );
 
 var controlContainer = document.createElement( 'div' );
 var controlValue = document.createElement( 'span' );
 var controlSlider = document.createElement( 'div' );
 
-$( controlContainer ).text( name + ': ' );
+$( controlContainer ).text( args.name + ': ' );
 $( controlValue ).text( this.value );
 
 controlContainer.appendChild( controlValue );
@@ -32,17 +47,17 @@ this.thicknessContainer = controlContainer;
 
 
 var sliderOptions = {
-    min   : minValue,
-    max   : maxValue,
-    step  : step
+    min   : args.minValue,
+    max   : args.maxValue,
+    step  : args.step
     };
 
 
     // means its a range slider
-if ( initValue instanceof Array )
+if ( args.initValue instanceof Array )
     {
     sliderOptions.range = true;
-    sliderOptions.values = initValue;
+    sliderOptions.values = args.initValue;
     sliderOptions.slide = function( event, ui )
         {
         var min = ui.values[ 0 ];
@@ -52,9 +67,9 @@ if ( initValue instanceof Array )
 
         _this.value = [ min, max ];
 
-        if ( onSlideFunction )
+        if ( args.onSlideFunction )
             {
-            onSlideFunction( event, ui );
+            args.onSlideFunction( event, ui );
             }
         };
     }
@@ -63,16 +78,16 @@ if ( initValue instanceof Array )
 else
     {
     sliderOptions.range = 'min';
-    sliderOptions.value = initValue;
+    sliderOptions.value = args.initValue;
     sliderOptions.slide = function( event, ui )
         {
         $( controlValue ).text( ui.value );
 
         _this.value = ui.value;
 
-        if ( onSlideFunction )
+        if ( args.onSlideFunction )
             {
-            onSlideFunction( event, ui );
+            args.onSlideFunction( event, ui );
             }
         };
     }

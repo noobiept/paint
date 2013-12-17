@@ -75,7 +75,19 @@ Paint.updateCurrentColor = function()
 {
 var currentColor = document.querySelector( '#currentColor span' );
 
-$( currentColor ).css( 'background-color', Color.toString() );
+var color = Color.getValues();
+
+var opacity = Brush.getSelected().opacity_control.getValue();
+
+    // means its a range (min/max value), so get the max value
+if ( opacity instanceof Array )
+    {
+    opacity = opacity[ 1 ];
+    }
+
+var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
+
+$( currentColor ).css( 'background-color', colorCss );
 };
 
 

@@ -7,7 +7,7 @@
     The return of .getValue() also depends on the type of slider, if its a single value slider it returns a number, otherwise an array with the min/max values
  */
 
-function Control( name, minValue, maxValue, initValue, step )
+function Control( name, minValue, maxValue, initValue, step, onSlideFunction )
 {
 var _this = this;
 
@@ -51,6 +51,11 @@ if ( initValue instanceof Array )
         $( controlValue ).text( min + ', ' + max );
 
         _this.value = [ min, max ];
+
+        if ( onSlideFunction )
+            {
+            onSlideFunction( event, ui );
+            }
         };
     }
 
@@ -64,6 +69,11 @@ else
         $( controlValue ).text( ui.value );
 
         _this.value = ui.value;
+
+        if ( onSlideFunction )
+            {
+            onSlideFunction( event, ui );
+            }
         };
     }
 

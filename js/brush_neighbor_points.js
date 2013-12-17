@@ -12,21 +12,25 @@ this.addControls();
 
 NeighborPointsBrush.prototype.addControls = function()
 {
-this.thickness = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
+this.opacity_control = new Control( 'Opacity', 0, 1, 1, 0.1, function() { Paint.updateCurrentColor(); } );
+this.thickness_control = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
 };
 
 
 NeighborPointsBrush.prototype.setupDraw = function( context )
 {
-var color = Color.toString();
+var color = Color.getValues();
+var opacity = this.opacity_control.getValue();
+
+var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
 
 context.beginPath();
-context.strokeStyle = color;
+context.strokeStyle = colorCss;
 context.lineCap = 'round';
 context.lineJoin = 'round';
-context.lineWidth = this.thickness.getValue();
+context.lineWidth = this.thickness_control.getValue();
 context.shadowBlur = 10;
-context.shadowColor = color;
+context.shadowColor = colorCss;
 };
 
 
@@ -105,12 +109,12 @@ NeighborPointsBrush.prototype.startDraw = function( event )
 {
 var colorValues = Color.getValues();
 
-var newAlpha = colorValues.alpha / 4;
+var newAlpha = this.opacity_control.getValue() / 4;
 
 
     // the secondary lines will have different styling (less pronounced)
-this.secondaryLinesStyle = 'rgba(' + colorValues.red + ',' + colorValues.green + ',' + colorValues.blue + ',' + newAlpha + ')';
-this.secondaryLinesWidth = this.thickness.getValue() / 4;
+this.secondaryLinesStyle = toCssColor( colorValues.red, colorValues.green, colorValues.blue, newAlpha );
+this.secondaryLinesWidth = this.thickness_control.getValue() / 4;
 
 this.all_points.push({
         x: event.clientX,
@@ -155,7 +159,8 @@ this.additional_lines.length = 0;
 
 NeighborPointsBrush.prototype.clear = function()
 {
-this.thickness.clear();
+this.opacity_control.clear();
+this.thickness_control.clear();
 };;
 
 

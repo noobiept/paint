@@ -11,26 +11,26 @@ this.addControls();
 
 LineBrush.prototype.addControls = function()
 {
-var container = document.querySelector( '#brushControls' );
-
-
-        // :: thickness :: //
-
-this.thickness = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
+this.opacity_control = new Control( 'Opacity', 0, 1, 1, 0.1, function() { Paint.updateCurrentColor(); } );
+this.thickness_control = new Control( 'Thickness', 0.5, 30, 5, 0.5 );
 };
 
 
 LineBrush.prototype.setupDraw = function( context )
 {
-var color = Color.toString();
+var color = Color.getValues();
+
+var opacity = this.opacity_control.getValue();
+
+var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
 
 context.beginPath();
-context.strokeStyle = color;
+context.strokeStyle = colorCss;
 context.lineCap = 'round';
 context.lineJoin = 'round';
-context.lineWidth = this.thickness.getValue();
+context.lineWidth = this.thickness_control.getValue();
 context.shadowBlur = 10;
-context.shadowColor = color;
+context.shadowColor = colorCss;
 };
 
 
@@ -105,7 +105,8 @@ this.all_points.length = 0;
 
 LineBrush.prototype.clear = function()
 {
-this.thickness.clear();
+this.thickness_control.clear();
+this.opacity_control.clear();
 };
 
 

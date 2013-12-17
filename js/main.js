@@ -39,9 +39,6 @@
             - maximum radius
             - minimum opacity
             - maximum opacity
-
-        - what to do with alpha in bubbles brush (opacity is already set with a min/max slider)
-            - also current color checks that
   */
 
     // main canvas, will contain the drawing with all the shapes
@@ -108,4 +105,15 @@ return Math.floor(Math.random() * (max - min + 1)) + min;
 function getRandomFloat( min, max )
 {
 return Math.random() * (max - min) + min;
+}
+
+
+function toCssColor( red, green, blue, alpha )
+{
+if ( typeof alpha == 'undefined' )
+    {
+    alpha = 1;
+    }
+
+return 'rgba(' + red + ',' + green + ',' + blue + ',' + alpha + ')';
 }

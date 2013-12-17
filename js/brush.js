@@ -28,6 +28,8 @@ if ( BRUSH_OBJECT )
     }
 
 BRUSH_OBJECT = new BRUSHES[ brushPosition ].classObject();
+
+Paint.updateCurrentColor();
 };
 
 
@@ -61,6 +63,11 @@ event.preventDefault();
 return BRUSH_OBJECT.endDraw( event );
 };
 
+
+Brush.getSelected = function()
+{
+return BRUSH_OBJECT;
+};
 
 
 Brush.clear = function()

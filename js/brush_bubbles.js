@@ -16,8 +16,8 @@ this.addControls();
 
 BubblesBrush.prototype.addControls = function()
 {
+this.opacity_control = new Control( 'Opacity', 0, 1, [ 0.25, 1 ], 0.1, function() { Paint.updateCurrentColor() } );
 this.radius_control = new Control( 'Radius', 1, 20, [ this.minimum_radius, this.maximum_radius ], 0.5 );
-this.opacity_control = new Control( 'Opacity', 0, 1, [ 0.25, 1 ], 0.1 );
 };
 
 
@@ -26,10 +26,8 @@ BubblesBrush.prototype.setupDraw = function( context )
 var color = Color.getValues();
 
 context.beginPath();
-context.fillStyle = 'rgb(' + color.red + ',' + color.green + ',' + color.blue + ')';
+context.fillStyle = toCssColor( color.red, color.green, color.blue );
 
-//this.maximum_opacity = color.alpha;
-//this.minimum_opacity = color.alpha / 4;
 
 var opacity = this.opacity_control.getValue();
 

@@ -1,16 +1,8 @@
-/*global $*/
-/*jslint vars: true, white: true*/
-
-"use strict";
-
-
 (function(window)
 {
-
 var RED = 255;
 var GREEN = 0;
 var BLUE = 0;
-var ALPHA = 1;
 
 
 function Color( container )
@@ -78,36 +70,8 @@ $( blueSlider ).slider({
         Paint.updateCurrentColor();
         }
     });
-    
-
-var alphaSlider = container.querySelector( '#alphaSlider' );
-var alphaValue = container.querySelector( '#alphaValue' );
-
-$( alphaValue ).text( ALPHA );
-
-$( alphaSlider ).slider({
-    value : ALPHA,
-    min   : 0,
-    max   : 1,
-    step  : 0.05,
-    range : 'min',
-    slide : function(event, ui)
-        {
-        $( alphaValue ).text( ui.value );
-        
-        ALPHA = ui.value;
-
-        Paint.updateCurrentColor();
-        }
-    });
 }
 
-
-
-Color.toString = function()
-{
-return "rgba(" + RED + ',' + GREEN + ',' + BLUE + ',' + ALPHA + ')';
-};
 
 
 Color.getValues = function()
@@ -115,8 +79,7 @@ Color.getValues = function()
 return {
         red: RED,
         green: GREEN,
-        blue: BLUE,
-        alpha: ALPHA
+        blue: BLUE
     };
 };
 

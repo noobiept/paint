@@ -8,8 +8,9 @@
         maxValue  : Number,
         initValue : Number,
         step      : Number,
-        menuBlock : Number,
-        onSlideFunction : Function
+        container : HTMLElement,
+        onSlideFunction : Function,
+        cssClass  : String
     }
 
     If initValue is an array, means its a range slider (has a minimum and maximum value, otherwise is a single value slider
@@ -23,12 +24,8 @@ var _this = this;
 
 this.value = args.initValue;
 
-if ( typeof args.menuBlock == 'undefined' )
-    {
-    args.menuBlock = 1;
-    }
 
-var container = document.querySelector( '#brushControls' + args.menuBlock );
+var container = args.container;
 
 var controlContainer = document.createElement( 'div' );
 var controlValue = document.createElement( 'span' );
@@ -36,6 +33,11 @@ var controlSlider = document.createElement( 'div' );
 
 $( controlContainer ).text( args.name + ': ' );
 $( controlValue ).text( this.value );
+
+if ( args.cssClass )
+    {
+    controlContainer.className = args.cssClass;
+    }
 
 controlContainer.appendChild( controlValue );
 controlContainer.appendChild( controlSlider );

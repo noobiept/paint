@@ -16,12 +16,15 @@ this.addControls();
 
 BubblesBrush.prototype.addControls = function()
 {
+var container = document.querySelector( '#brushControls1' );
+
 this.opacity_control = new Control({
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
         initValue: [ 0.25, 1 ],
         step: 0.1,
+        container: container,
         onSlideFunction: function() { Paint.updateCurrentColor() }
     });
 this.radius_control = new Control({
@@ -29,7 +32,8 @@ this.radius_control = new Control({
         minValue: 1,
         maxValue: 20,
         initValue: [ this.minimum_radius, this.maximum_radius ],
-        step: 0.5
+        step: 0.5,
+        container: container
     });
 };
 

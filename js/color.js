@@ -1,86 +1,57 @@
 (function(window)
 {
-var RED = 255;
-var GREEN = 0;
-var BLUE = 0;
-
-
-function Color( container )
-{
-var redSlider = container.querySelector( '#redSlider' );
-var redValue = container.querySelector( '#redValue' );
-
-$( redValue ).text( RED );
-
-$( redSlider ).slider({
-    value : RED,
-    min   : 0,
-    max   : 255,
-    step  : 1,
-    range : 'min',
-    slide : function(event, ui)
-        {
-        $( redValue ).text( ui.value );
-        
-        RED = ui.value;
-
-        Paint.updateCurrentColor();
-        }
-    });
-
-    
-var greenSlider = container.querySelector( '#greenSlider' );
-var greenValue = container.querySelector( '#greenValue' );
-
-$( greenValue ).text( GREEN );
-
-$( greenSlider ).slider({
-    value : GREEN,
-    min   : 0,
-    max   : 255,
-    step  : 1,
-    range : 'min',
-    slide : function(event, ui)
-        {
-        $( greenValue ).text( ui.value );
-
-        GREEN = ui.value;
-
-        Paint.updateCurrentColor();
-        }
-    });    
-    
-var blueSlider = container.querySelector( '#blueSlider' );
-var blueValue = container.querySelector( '#blueValue' );
-
-$( blueValue ).text( BLUE );
-
-$( blueSlider ).slider({
-    value : BLUE,
-    min   : 0,
-    max   : 255,
-    step  : 1,
-    range : 'min',
-    slide : function(event, ui)
-        {
-        $( blueValue ).text( ui.value );
-        
-        BLUE = ui.value;
-
-        Paint.updateCurrentColor();
-        }
-    });
-}
-
-
+var Color = {
+        red: null,
+        green: null,
+        blue: null
+    };
 
 Color.getValues = function()
 {
 return {
-        red: RED,
-        green: GREEN,
-        blue: BLUE
+        red: Color.red.getValue(),
+        green: Color.green.getValue(),
+        blue: Color.blue.getValue()
     };
+};
+
+
+Color.init = function()
+{
+var container = document.querySelector( '#ColorPicker' );
+
+Color.red = new Control({
+        name: 'Red',
+        minValue: 0,
+        maxValue: 255,
+        initValue: 0,
+        step: 1,
+        container: container,
+        cssClass: 'red',
+        onSlideFunction: function() { Paint.updateCurrentColor(); }
+    });
+
+Color.green = new Control({
+        name: 'Green',
+        minValue: 0,
+        maxValue: 255,
+        initValue: 0,
+        step: 1,
+        container: container,
+        cssClass: 'green',
+        onSlideFunction: function() { Paint.updateCurrentColor(); }
+    });
+
+Color.blue = new Control({
+        name: 'Blue',
+        minValue: 0,
+        maxValue: 255,
+        initValue: 0,
+        step: 1,
+        container: container,
+        cssClass: 'blue',
+        onSlideFunction: function() { Paint.updateCurrentColor(); }
+    });
 };
 
 

@@ -12,12 +12,16 @@ this.addControls();
 
 NeighborPointsBrush.prototype.addControls = function()
 {
+var container1 = document.querySelector( '#brushControls1' );
+var container2 = document.querySelector( '#brushControls2' );
+
 this.opacity_control = new Control({
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
         initValue: 1,
         step: 0.1,
+        container: container1,
         onSlideFunction: function() { Paint.updateCurrentColor(); }
     });
 this.thickness_control = new Control({
@@ -25,14 +29,16 @@ this.thickness_control = new Control({
         minValue: 0.5,
         maxValue: 30,
         initValue: 5,
-        step: 0.5
+        step: 0.5,
+        container: container1
     });
 this.shadow_blur_control = new Control({
         name: 'Shadow Blur',
         minValue: 0,
         maxValue: 10,
         initValue: 0,
-        step: 0.5
+        step: 0.5,
+        container: container1
     });
 this.distance_control = new Control({
         name: 'Distance',
@@ -40,7 +46,7 @@ this.distance_control = new Control({
         maxValue: 50,
         initValue: 30,
         step: 1,
-        menuBlock: 2
+        container: container2
     });
 };
 

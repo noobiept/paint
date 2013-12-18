@@ -36,6 +36,8 @@ var DRAW_CANVAS;
 var DRAW_CTX;
 
 
+
+
 window.onload = function()
 {
 MAIN_CANVAS = document.querySelector( "#mainCanvas" );
@@ -50,6 +52,7 @@ DRAW_CTX = DRAW_CANVAS.getContext( '2d' );
 MAIN_CANVAS.onselectstart = function() { return false; };
 
 
+Color.init();
 Paint.init();
 
         //HERE onMouseDown funciona independentemente de qual a tecla do rato k foi pressionada

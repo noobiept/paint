@@ -11,14 +11,11 @@ Paint.init = function()
 {
 var menu = document.querySelector( '#Menu' );
 
-Color( menu );
 
 var clear = menu.querySelector( '#clearCanvas' );
-
-clear.onclick = Paint.clearCanvas;
-
 var save = menu.querySelector( '#saveCanvas' );
 
+clear.onclick = Paint.clearCanvas;
 save.onclick = Paint.saveCanvas;
 
 

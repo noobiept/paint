@@ -85,42 +85,33 @@ body
 
     /* Color Sliders */
 
-#redSlider .ui-slider-range
+.red .ui-slider-range
     {
     background: rgba(255, 0, 0, 0.6);
     }
 
-#redSlider .ui-slider-handle
+.red .ui-slider .ui-slider-handle
     {
     background: red;
     }
 
-#greenSlider .ui-slider-range
+.green .ui-slider-range
     {
     background: rgba(0, 255, 0, 0.6);
     }
     
-#greenSlider .ui-slider-handle
+.green .ui-slider .ui-slider-handle
     {
     background: green;
     }
 
-#blueSlider .ui-slider-range
+.blue .ui-slider-range
     {
     background: rgba(0, 0, 255, 0.6);
     }
     
-#blueSlider .ui-slider-handle
+.blue .ui-slider .ui-slider-handle
     {
     background: blue;
     }
     
-#alphaSlider .ui-slider-range
-    {
-    background: rgba(0, 0, 0, 0.6);
-    }
-    
-#alphaSlider .ui-slider-handle
-    {
-    background: black;
-    }

@@ -11,12 +11,15 @@ this.addControls();
 
 LineBrush.prototype.addControls = function()
 {
+var container = document.querySelector( '#brushControls1' );
+
 this.opacity_control = new Control({
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
         initValue: 1,
         step: 0.1,
+        container: container,
         onSlideFunction: function() { Paint.updateCurrentColor(); }
     });
 this.thickness_control = new Control({
@@ -24,14 +27,16 @@ this.thickness_control = new Control({
         minValue: 0.5,
         maxValue: 30,
         initValue: 5,
-        step: 0.5
+        step: 0.5,
+        container: container
     });
 this.shadow_blur_control = new Control({
         name: 'Shadow Blur',
         minValue: 0,
         maxValue: 10,
         initValue: 0,
-        step: 0.5
+        step: 0.5,
+        container: container
     });
 };
 

@@ -174,7 +174,7 @@ this.drawLine( DRAW_CTX );
 };
 
 
-NeighborPointsBrush.prototype.endDraw = function()
+NeighborPointsBrush.prototype.endDraw = function( event )
 {
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 

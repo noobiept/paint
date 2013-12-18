@@ -25,6 +25,8 @@
             - also save for the additional controls of each brush (also when selecting the brushes, save the values for next time its selected)
 
         - add brushes and stuff
+            - line pattern
+            - spray
   */
 
     // main canvas, will contain the drawing with all the shapes

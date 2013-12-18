@@ -111,7 +111,7 @@ this.drawLine( DRAW_CTX );
 };
 
 
-LineBrush.prototype.endDraw = function()
+LineBrush.prototype.endDraw = function( event )
 {
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 

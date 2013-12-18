@@ -88,7 +88,7 @@ this.setupDraw( DRAW_CTX );
 };
 
 
-BubblesBrush.prototype.duringDraw = function()
+BubblesBrush.prototype.duringDraw = function( event )
 {
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
@@ -103,7 +103,7 @@ this.drawLine( DRAW_CTX );
 };
 
 
-BubblesBrush.prototype.endDraw = function()
+BubblesBrush.prototype.endDraw = function( event )
 {
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 

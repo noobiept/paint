@@ -19,8 +19,8 @@ this.opacity_control = new Control({
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
-        initValue: 1,
-        step: 0.1,
+        initValue: [0.25, 1],
+        step: 0.05,
         container: container1,
         onSlideFunction: function() { Paint.updateCurrentColor(); }
     });
@@ -28,7 +28,7 @@ this.thickness_control = new Control({
         name: 'Thickness',
         minValue: 0.5,
         maxValue: 30,
-        initValue: 5,
+        initValue: [ 1.5, 5 ],
         step: 0.5,
         container: container1
     });
@@ -43,7 +43,7 @@ this.shadow_blur_control = new Control({
 this.distance_control = new Control({
         name: 'Distance',
         minValue: 10,
-        maxValue: 50,
+        maxValue: 100,
         initValue: 30,
         step: 1,
         container: container2
@@ -55,16 +55,25 @@ NeighborPointsBrush.prototype.setupDraw = function( context )
 {
 var color = Color.getValues();
 var opacity = this.opacity_control.getValue();
+var thickness = this.thickness_control.getValue();
 
-var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
+    // the secondary lines will have different styling (less pronounced)
+var mainLineOpacity = opacity[ 1 ];
+var secondaryLinesOpacity = opacity[ 0 ];
+
+var mainColorCss = toCssColor( color.red, color.green, color.blue, mainLineOpacity );
+
+this.secondaryLinesStyle = toCssColor( color.red, color.green, color.blue, secondaryLinesOpacity );
+this.secondaryLinesWidth = thickness[ 0 ];
+
 
 context.beginPath();
-context.strokeStyle = colorCss;
+context.strokeStyle = mainColorCss;
 context.lineCap = 'round';
 context.lineJoin = 'round';
-context.lineWidth = this.thickness_control.getValue();
+context.lineWidth = thickness[ 1 ];
 context.shadowBlur = this.shadow_blur_control.getValue();
-context.shadowColor = colorCss;
+context.shadowColor = mainColorCss;
 };
 
 
@@ -142,15 +151,6 @@ context.restore();
 
 NeighborPointsBrush.prototype.startDraw = function( event )
 {
-var colorValues = Color.getValues();
-
-var newAlpha = this.opacity_control.getValue() / 4;
-
-
-    // the secondary lines will have different styling (less pronounced)
-this.secondaryLinesStyle = toCssColor( colorValues.red, colorValues.green, colorValues.blue, newAlpha );
-this.secondaryLinesWidth = this.thickness_control.getValue() / 4;
-
 this.all_points.push({
         x: event.clientX,
         y: event.clientY

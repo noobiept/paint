@@ -52,17 +52,6 @@ for (var a = 0 ; a < brushes.length ; a++)
 selectBrushFunction( 0, selected )();
 
 
-    // :: Undo / Redo :: //
-    
-var undo = menu.querySelector( '#undo' );
-
-undo.onclick = function() { UndoRedo.stuff("undo"); };
-
-var redo = menu.querySelector( '#redo' );
-
-redo.onclick = function() { UndoRedo.stuff("redo"); };
-
-
 Paint.updateCurrentColor();
 };
 
@@ -96,7 +85,6 @@ $( currentColor ).css( 'background-color', colorCss );
 Paint.clearCanvas = function()
 {
 Brush.clear();
-UndoRedo.clear();   //HERE dar para voltar ao estado actual, em vez de fazer reset
 };
 
 

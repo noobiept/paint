@@ -77,6 +77,7 @@ ctx.strokeStyle = colorCss;
 ctx.fillStyle = colorCss;
 ctx.lineWidth = lineWidth;
 
+
 var halfWidth = width / 2;
 var halfHeight = height / 2;
 
@@ -141,8 +142,6 @@ else if ( angle == 135 )
 
     ctx.fill();
     }
-
-
 
 
 return ctx.createPattern( pattern, 'repeat' );

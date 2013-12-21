@@ -27,6 +27,9 @@
         - add brushes and stuff
             - line pattern
             - spray
+            
+        - pattern, draw a full canvas (same width/height as main canvas), to be able to have all the angles
+        - undo/redo, have separate canvas, where you draw to there instead of the main one, so that when you want to undo, you simply clear one of those canvas (so we'll have a limit to how many undos we can do)
   */
 
     // main canvas, will contain the drawing with all the shapes

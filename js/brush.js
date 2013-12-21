@@ -9,7 +9,8 @@ var BRUSHES = [
         { name: 'line', classObject: LineBrush },
         { name: 'neighbor_points', classObject: NeighborPointsBrush },
         { name: 'bubbles', classObject: BubblesBrush },
-        { name: 'line_pattern', classObject: LinePatternBrush }
+        { name: 'line_pattern', classObject: LinePatternBrush },
+        { name: 'spray', classObject: SprayBrush }
     ];
 
 var BRUSH_SELECTED = 0;

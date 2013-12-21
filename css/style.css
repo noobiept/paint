@@ -115,3 +115,8 @@ body
     background: blue;
     }
     
+
+.ui-widget
+    {
+    font-size: 0.9em;   /* reduces the size of the sliders */
+    }

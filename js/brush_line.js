@@ -5,12 +5,8 @@ function LineBrush()
 {
 this.all_points = [];
 
-this.addControls();
-}
+    // add controls
 
-
-LineBrush.prototype.addControls = function()
-{
 var container = document.querySelector( '#brushControls1' );
 
 this.opacity_control = new Control({
@@ -38,49 +34,7 @@ this.shadow_blur_control = new Control({
         step: 0.5,
         container: container
     });
-};
-
-
-LineBrush.prototype.setupDraw = function( context )
-{
-var color = Color.getValues();
-
-var opacity = this.opacity_control.getValue();
-
-var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
-
-context.beginPath();
-context.strokeStyle = colorCss;
-context.lineCap = 'round';
-context.lineJoin = 'round';
-context.lineWidth = this.thickness_control.getValue();
-context.shadowBlur = this.shadow_blur_control.getValue();
-context.shadowColor = colorCss;
-};
-
-
-LineBrush.prototype.drawLine = function( context )
-{
-var point1 = this.all_points[ 0 ];
-var point2 = this.all_points[ 1 ];
-
-
-context.beginPath();
-context.moveTo( point1.x, point1.y );
-
-for (var a = 1 ; a < this.all_points.length ; a++)
-    {
-    var midPointX = Math.floor( (point1.x + point2.x) / 2 );
-    var midPointY = Math.floor( (point1.y + point2.y) / 2 );
-
-    context.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
-
-    point1 = this.all_points[ a ];
-    point2 = this.all_points[ a + 1 ];
-    }
-
-context.stroke();
-};
+}
 
 
 
@@ -93,7 +47,19 @@ this.all_points.push({
 
 DRAW_CTX.save();
 
-this.setupDraw( DRAW_CTX );
+var color = Color.getValues();
+
+var opacity = this.opacity_control.getValue();
+
+var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
+
+DRAW_CTX.beginPath();
+DRAW_CTX.strokeStyle = colorCss;
+DRAW_CTX.lineCap = 'round';
+DRAW_CTX.lineJoin = 'round';
+DRAW_CTX.lineWidth = this.thickness_control.getValue();
+DRAW_CTX.shadowBlur = this.shadow_blur_control.getValue();
+DRAW_CTX.shadowColor = colorCss;
 };
 
 
@@ -107,22 +73,37 @@ this.all_points.push({
         y: event.clientY
     });
 
-this.drawLine( DRAW_CTX );
+
+    // draw the line
+
+var point1 = this.all_points[ 0 ];
+var point2 = this.all_points[ 1 ];
+
+
+DRAW_CTX.beginPath();
+DRAW_CTX.moveTo( point1.x, point1.y );
+
+for (var a = 1 ; a < this.all_points.length ; a++)
+    {
+    var midPointX = Math.floor( (point1.x + point2.x) / 2 );
+    var midPointY = Math.floor( (point1.y + point2.y) / 2 );
+
+    DRAW_CTX.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
+
+    point1 = this.all_points[ a ];
+    point2 = this.all_points[ a + 1 ];
+    }
+
+DRAW_CTX.stroke();
 };
 
 
 LineBrush.prototype.endDraw = function( event )
 {
+MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
+
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
-
 DRAW_CTX.restore();
-
-MAIN_CTX.save();
-
-this.setupDraw( MAIN_CTX );
-this.drawLine( MAIN_CTX );
-
-MAIN_CTX.restore();
 
 this.all_points.length = 0;
 };

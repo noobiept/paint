@@ -43,37 +43,6 @@ this.total_points_control = new Control({
     });
 }
 
-SprayBrush.prototype.setupDraw = function( context )
-{
-var opacity = this.opacity_control.getValue();
-
-this.minimum_opacity = opacity[ 0 ];
-this.maximum_opacity = opacity[ 1 ];
-
-this.radius = this.radius_control.getValue();
-this.total_points = this.total_points_control.getValue();
-
-context.beginPath();
-context.lineCap = 'round';
-context.lineJoin = 'round';
-};
-
-SprayBrush.prototype.drawLine = function( context )
-{
-for (var a = 0 ; a < this.total_points ; a++)
-    {
-    var angle = getRandomFloat( 0, 2 * Math.PI );
-    var distance = getRandomInt( 0, this.radius );
-
-    context.globalAlpha = getRandomFloat( this.minimum_opacity, this.maximum_opacity );
-    context.fillRect(
-            this.currentX + distance * Math.cos( angle ),
-            this.currentY + distance * Math.sin( angle ),
-            1,
-            1
-        );
-    }
-};
 
 
 SprayBrush.prototype.startDraw = function( event )
@@ -85,11 +54,36 @@ this.currentY = event.clientY;
 
 DRAW_CTX.save();
 
-this.setupDraw( DRAW_CTX );
+var color = Color.getValues();
+var opacity = this.opacity_control.getValue();
 
+this.minimum_opacity = opacity[ 0 ];
+this.maximum_opacity = opacity[ 1 ];
+
+this.radius = this.radius_control.getValue();
+this.total_points = this.total_points_control.getValue();
+
+DRAW_CTX.beginPath();
+DRAW_CTX.lineCap = 'round';
+DRAW_CTX.lineJoin = 'round';
+DRAW_CTX.fillStyle = toCssColor( color.red, color.green, color.blue );
+
+    // keep adding points, until the mouse button stops being pressed
 this.interval_f = window.setInterval( function()
     {
-    this_.drawLine( DRAW_CTX );
+    for (var a = 0 ; a < this_.total_points ; a++)
+        {
+        var angle = getRandomFloat( 0, 2 * Math.PI );
+        var distance = getRandomInt( 0, this_.radius );
+
+        DRAW_CTX.globalAlpha = getRandomFloat( this_.minimum_opacity, this_.maximum_opacity );
+        DRAW_CTX.fillRect(
+            this_.currentX + distance * Math.cos( angle ),
+            this_.currentY + distance * Math.sin( angle ),
+            1,
+            1
+            );
+        }
 
     }, 50 );
 };

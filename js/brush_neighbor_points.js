@@ -6,12 +6,7 @@ function NeighborPointsBrush()
 this.all_points = [];   // the main line
 this.additional_lines = [];  // the lines between the close points of the main line
 
-this.addControls();
-}
-
-
-NeighborPointsBrush.prototype.addControls = function()
-{
+    // add the controls
 var container1 = document.querySelector( '#brushControls1' );
 var container2 = document.querySelector( '#brushControls2' );
 
@@ -48,11 +43,18 @@ this.distance_control = new Control({
         step: 1,
         container: container2
     });
-};
+}
 
 
-NeighborPointsBrush.prototype.setupDraw = function( context )
+NeighborPointsBrush.prototype.startDraw = function( event )
 {
+this.all_points.push({
+        x: event.clientX,
+        y: event.clientY
+    });
+
+DRAW_CTX.save();
+
 var color = Color.getValues();
 var opacity = this.opacity_control.getValue();
 var thickness = this.thickness_control.getValue();
@@ -67,36 +69,45 @@ this.secondaryLinesStyle = toCssColor( color.red, color.green, color.blue, secon
 this.secondaryLinesWidth = thickness[ 0 ];
 
 
-context.beginPath();
-context.strokeStyle = mainColorCss;
-context.lineCap = 'round';
-context.lineJoin = 'round';
-context.lineWidth = thickness[ 1 ];
-context.shadowBlur = this.shadow_blur_control.getValue();
-context.shadowColor = mainColorCss;
+DRAW_CTX.beginPath();
+DRAW_CTX.strokeStyle = mainColorCss;
+DRAW_CTX.lineCap = 'round';
+DRAW_CTX.lineJoin = 'round';
+DRAW_CTX.lineWidth = thickness[ 1 ];
+DRAW_CTX.shadowBlur = this.shadow_blur_control.getValue();
+DRAW_CTX.shadowColor = mainColorCss;
 };
 
 
-NeighborPointsBrush.prototype.drawLine = function( context )
+NeighborPointsBrush.prototype.duringDraw = function( event )
 {
+DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+
+this.all_points.push({
+        x: event.clientX,
+        y: event.clientY
+    });
+
+
+    // draw the line
 var point1 = this.all_points[ 0 ];
 var point2 = this.all_points[ 1 ];
 
-context.beginPath();
-context.moveTo( point1.x, point1.y );
+DRAW_CTX.beginPath();
+DRAW_CTX.moveTo( point1.x, point1.y );
 
 for (var a = 1 ; a < this.all_points.length ; a++)
     {
     var midPointX = Math.floor( (point1.x + point2.x) / 2 );
     var midPointY = Math.floor( (point1.y + point2.y) / 2 );
 
-    context.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
+    DRAW_CTX.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
 
     point1 = this.all_points[ a ];
     point2 = this.all_points[ a + 1 ];
     }
 
-context.stroke();
+DRAW_CTX.stroke();
 
 
 var lastPoint = this.all_points[ this.all_points.length - 1 ];
@@ -129,63 +140,31 @@ for (a = 0 ; a < this.all_points.length ; a++)
 
 
     // save the main styling
-context.save();
+DRAW_CTX.save();
 
-context.strokeStyle = this.secondaryLinesStyle;
-context.lineWidth = this.secondaryLinesWidth;
+DRAW_CTX.strokeStyle = this.secondaryLinesStyle;
+DRAW_CTX.lineWidth = this.secondaryLinesWidth;
 
     // draw all the additional lines
 for (a = 0 ; a < this.additional_lines.length ; a++)
     {
     var line = this.additional_lines[ a ];
 
-    context.moveTo( line.x1 + line.distanceX * 0.2, line.y1 + line.distanceY * 0.2 );
-    context.lineTo( line.x2 - line.distanceX * 0.2, line.y2 - line.distanceY * 0.2 );
+    DRAW_CTX.moveTo( line.x1 + line.distanceX * 0.2, line.y1 + line.distanceY * 0.2 );
+    DRAW_CTX.lineTo( line.x2 - line.distanceX * 0.2, line.y2 - line.distanceY * 0.2 );
     }
 
-context.stroke();
-context.restore();
-};
-
-
-
-NeighborPointsBrush.prototype.startDraw = function( event )
-{
-this.all_points.push({
-        x: event.clientX,
-        y: event.clientY
-    });
-
-DRAW_CTX.save();
-this.setupDraw( DRAW_CTX );
-};
-
-
-NeighborPointsBrush.prototype.duringDraw = function( event )
-{
-DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
-
-this.all_points.push({
-        x: event.clientX,
-        y: event.clientY
-    });
-
-this.drawLine( DRAW_CTX );
+DRAW_CTX.stroke();
+DRAW_CTX.restore();
 };
 
 
 NeighborPointsBrush.prototype.endDraw = function( event )
 {
+MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
+
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
-
 DRAW_CTX.restore();
-
-MAIN_CTX.save();
-
-this.setupDraw( MAIN_CTX );
-this.drawLine( MAIN_CTX );
-
-MAIN_CTX.restore();
 
 this.all_points.length = 0;
 this.additional_lines.length = 0;

@@ -148,38 +148,6 @@ return ctx.createPattern( pattern, 'repeat' );
 };
 
 
-LinePatternBrush.prototype.setupDraw = function( context )
-{
-context.beginPath();
-context.strokeStyle = this.getPattern();
-context.lineCap = 'round';
-context.lineJoin = 'round';
-context.lineWidth = this.thickness_control.getValue();
-};
-
-
-LinePatternBrush.prototype.drawLine = function( context )
-{
-var point1 = this.all_points[ 0 ];
-var point2 = this.all_points[ 1 ];
-
-
-context.beginPath();
-context.moveTo( point1.x, point1.y );
-
-for (var a = 1 ; a < this.all_points.length ; a++)
-    {
-    var midPointX = Math.floor( (point1.x + point2.x) / 2 );
-    var midPointY = Math.floor( (point1.y + point2.y) / 2 );
-
-    context.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
-
-    point1 = this.all_points[ a ];
-    point2 = this.all_points[ a + 1 ];
-    }
-
-context.stroke();
-};
 
 
 LinePatternBrush.prototype.startDraw = function( event )
@@ -191,7 +159,11 @@ this.all_points.push({
 
 DRAW_CTX.save();
 
-this.setupDraw( DRAW_CTX );
+DRAW_CTX.beginPath();
+DRAW_CTX.strokeStyle = this.getPattern();
+DRAW_CTX.lineCap = 'round';
+DRAW_CTX.lineJoin = 'round';
+DRAW_CTX.lineWidth = this.thickness_control.getValue();
 };
 
 
@@ -205,23 +177,35 @@ this.all_points.push({
         y: event.clientY
     });
 
-this.drawLine( DRAW_CTX );
+    // draw the line
+var point1 = this.all_points[ 0 ];
+var point2 = this.all_points[ 1 ];
+
+DRAW_CTX.beginPath();
+DRAW_CTX.moveTo( point1.x, point1.y );
+
+for (var a = 1 ; a < this.all_points.length ; a++)
+    {
+    var midPointX = Math.floor( (point1.x + point2.x) / 2 );
+    var midPointY = Math.floor( (point1.y + point2.y) / 2 );
+
+    DRAW_CTX.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
+
+    point1 = this.all_points[ a ];
+    point2 = this.all_points[ a + 1 ];
+    }
+
+DRAW_CTX.stroke();
 };
 
 
 
 LinePatternBrush.prototype.endDraw = function( event )
 {
+MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
+
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
-
 DRAW_CTX.restore();
-
-MAIN_CTX.save();
-
-this.setupDraw( MAIN_CTX );
-this.drawLine( MAIN_CTX );
-
-MAIN_CTX.restore();
 
 this.all_points.length = 0;
 };

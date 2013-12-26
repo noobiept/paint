@@ -19,16 +19,11 @@
  /*
     to doo:
     
-        - turn into an application by itself (not in the home of the website, but like the games, separate app)
-
         - save to localStorage the options (what color was set, what brush was selected, ... )
             - also save for the additional controls of each brush (also when selecting the brushes, save the values for next time its selected)
 
-        - add brushes and stuff
-            - line pattern
-            - spray
-            
         - pattern, draw a full canvas (same width/height as main canvas), to be able to have all the angles
+
         - undo/redo, have separate canvas, where you draw to there instead of the main one, so that when you want to undo, you simply clear one of those canvas (so we'll have a limit to how many undos we can do)
   */
 
@@ -66,28 +61,22 @@ document.body.onmousedown = Brush.startDraw;
 document.body.onmousemove = Brush.duringDraw;
 document.body.onmouseup = Brush.endDraw;
 
+    // set the dimensions of the canvas, to fill the available space in the window
+var menuHeight = $( '#Menu' ).outerHeight();
+var windowWidth = $( window ).outerWidth();
+var windowHeight = $( window ).outerHeight();
 
-    // the canvas has its dimensions changed by css (flexbox), but it doesn't update the element width/height, and will affect when drawing (just remove these lines and try the program to see the problem)
-    // so we just update it now
-    //HERE should update on resize as well?..
-MAIN_CANVAS.width = getCanvasWidth();
-MAIN_CANVAS.height = getCanvasHeight();
+var canvasWidth = windowWidth;
+var canvasHeight = windowHeight - menuHeight;
 
-DRAW_CANVAS.width = MAIN_CANVAS.width;
-DRAW_CANVAS.height = MAIN_CANVAS.height;
+MAIN_CANVAS.width = canvasWidth;
+MAIN_CANVAS.height = canvasHeight;
+
+DRAW_CANVAS.width = canvasWidth;
+DRAW_CANVAS.height = canvasHeight;
 };
 
 
-
-function getCanvasWidth()
-{
-return parseInt( $( MAIN_CANVAS ).innerWidth() );
-}
-
-function getCanvasHeight()
-{
-return parseInt( $( MAIN_CANVAS ).innerHeight() );
-}
 
 
 function getRandomInt( min, max )

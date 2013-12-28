@@ -19,8 +19,7 @@
  /*
     to doo:
     
-        - save to localStorage the options (what color was set, what brush was selected, ... )
-            - also save for the additional controls of each brush (also when selecting the brushes, save the values for next time its selected)
+        - save to localStorage the options (what color was set, what brush was selected, and the controls values )
 
         - pattern, draw a full canvas (same width/height as main canvas), to be able to have all the angles
 

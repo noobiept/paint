@@ -1,46 +1,71 @@
 (function(window)
 {
 
-function SprayBrush()
+function SprayBrush( args )
 {
+var opacityId = 'opacity';
+var radiusId = 'radius';
+var totalPointsId = 'totalPoints';
+
+if ( typeof args[ opacityId ] == 'undefined' )
+    {
+    args[ opacityId ] = [0.25, 1];
+    }
+
+if ( typeof args[ radiusId ] == 'undefined' )
+    {
+    args[ radiusId ] = 50;
+    }
+
+if ( typeof args[ totalPointsId ] == 'undefined' )
+    {
+    args[ totalPointsId ] = 50;
+    }
+
+
     // declaring the properties that will be used later on (the values will change from these, for example from the controls in the menu
 this.currentX = 0;
 this.currentY = 0;
 this.interval_f = null;
-this.minimum_opacity = 0;
-this.maximum_opacity = 1;
-this.radius = 50;
-this.total_points = 50;
+this.minimum_opacity = args[ opacityId ][ 0 ];
+this.maximum_opacity = args[ opacityId ][ 1 ];
+this.radius = args[ radiusId ];
+this.total_points = args[ totalPointsId ];
 
     // init. controls
 
 var container1 = document.querySelector( '#brushControls1' );
 
 this.opacity_control = new Control({
+        id: opacityId,
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
-        initValue: [0.25, 1],
+        initValue: args[ opacityId ],
         step: 0.05,
         container: container1,
         onSlideFunction: function() { Paint.updateCurrentColor(); }
     });
 this.radius_control = new Control({
+        id: radiusId,
         name: 'Radius',
         minValue: 10,
         maxValue: 100,
-        initValue: 50,
+        initValue: args[ radiusId ],
         step: 1,
         container: container1
     });
 this.total_points_control = new Control({
+        id: totalPointsId,
         name: 'Total Points',
         minValue: 10,
         maxValue: 100,
-        initValue: 50,
+        initValue: args[ totalPointsId ],
         step: 1,
         container: container1
     });
+
+this.all_controls = [ this.opacity_control, this.radius_control, this.total_points_control ];
 }
 
 
@@ -107,11 +132,27 @@ DRAW_CTX.restore();
 };
 
 
+SprayBrush.prototype.getSettings = function()
+{
+var settings = {};
+
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    var control = this.all_controls[ a ];
+
+    settings[ control.id ] = control.getValue();
+    }
+
+return settings;
+};
+
+
 SprayBrush.prototype.clear = function()
 {
-this.opacity_control.clear();
-this.radius_control.clear();
-this.total_points_control.clear();
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    this.all_controls[ a ].clear();
+    }
 };
 
 

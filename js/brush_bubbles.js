@@ -1,34 +1,52 @@
 (function(window)
 {
 
-function BubblesBrush()
+function BubblesBrush( args )
 {
+var opacityId = 'opacity';
+var radiusId = 'radius';
+
+if ( typeof args[ opacityId ] == 'undefined' )
+    {
+    args[ opacityId ] = [ 0.25, 1 ];
+    }
+
+if ( typeof args[ radiusId ] == 'undefined' )
+    {
+    args[ radiusId ] = [ 5, 10 ];
+    }
+
+
 this.all_points = [];
-this.minimum_radius = 5;
-this.maximum_radius = 10;
-this.minimum_opacity = 0;   // the min/max opacity variables will be updated after depending on what is set in the menu
-this.maximum_opacity = 1;
+this.minimum_radius = args[ radiusId ][ 0 ];
+this.maximum_radius = args[ radiusId ][ 1 ];
+this.minimum_opacity = args[ opacityId ][ 0 ];
+this.maximum_opacity = args[ opacityId ][ 1 ];
 
     // add the controls
 var container = document.querySelector( '#brushControls1' );
 
 this.opacity_control = new Control({
+        id: opacityId,
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
-        initValue: [ 0.25, 1 ],
+        initValue: args[ opacityId ],
         step: 0.1,
         container: container,
         onSlideFunction: function() { Paint.updateCurrentColor() }
     });
 this.radius_control = new Control({
+        id: radiusId,
         name: 'Radius',
         minValue: 1,
         maxValue: 20,
-        initValue: [ this.minimum_radius, this.maximum_radius ],
+        initValue: args[ radiusId ],
         step: 0.5,
         container: container
     });
+
+this.all_controls = [ this.opacity_control, this.radius_control ];
 }
 
 
@@ -100,10 +118,27 @@ this.all_points.length = 0;
 };
 
 
+BubblesBrush.prototype.getSettings = function()
+{
+var settings = {};
+
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    var control = this.all_controls[ a ];
+
+    settings[ control.id ] = control.getValue();
+    }
+
+return settings;
+};
+
+
 BubblesBrush.prototype.clear = function()
 {
-this.radius_control.clear();
-this.opacity_control.clear();
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    this.all_controls[ a ].clear();
+    }
 };
 
 

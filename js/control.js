@@ -3,6 +3,7 @@
 
 /*
     args = {
+        id        : String,
         name      : String,
         minValue  : Number,
         maxValue  : Number,
@@ -22,6 +23,7 @@ function Control( args )
 {
 var _this = this;
 
+this.id = args.id;
 this.value = args.initValue;
 
 

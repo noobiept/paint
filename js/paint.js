@@ -8,11 +8,26 @@ function Paint()
 }
 
 var BRUSHES = [
-        LineBrush,
-        NeighborPointsBrush,
-        BubblesBrush,
-        LinePatternBrush,
-        SprayBrush
+        {
+            Class: LineBrush,
+            previousValues: {}
+        },
+        {
+            Class: NeighborPointsBrush,
+            previousValues: {}
+        },
+        {
+            Class: BubblesBrush,
+            previousValues: {}
+        },
+        {
+            Class: LinePatternBrush,
+            previousValues: {}
+        },
+        {
+            Class: SprayBrush,
+            previousValues: {}
+        }
     ];
 
 var BRUSH_SELECTED = 0;
@@ -104,14 +119,21 @@ return BRUSH_OBJECT.endDraw( event );
 
 Paint.selectBrush = function( brushPosition )
 {
-BRUSH_SELECTED = brushPosition;
-
+    // deal the previous brush (clear it, and save the values that were set for next time this brush is selected)
 if ( BRUSH_OBJECT )
     {
+    var current = BRUSHES[ BRUSH_SELECTED ];
+
+    current.previousValues = BRUSH_OBJECT.getSettings();
+
     BRUSH_OBJECT.clear();
     }
 
-BRUSH_OBJECT = new BRUSHES[ brushPosition ]();
+
+var next = BRUSHES[ brushPosition ];
+
+BRUSH_SELECTED = brushPosition;
+BRUSH_OBJECT = new next.Class( next.previousValues );
 
 Paint.updateCurrentColor();
 };

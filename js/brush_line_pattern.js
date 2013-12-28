@@ -1,8 +1,33 @@
 (function(window)
 {
 
-function LinePatternBrush()
+function LinePatternBrush( args )
 {
+var opacityId = 'opacity';
+var thicknessId = 'thickness';
+var patternAngleId = 'patternAngle';
+var patternThicknessId = 'patternThickness';
+
+if ( typeof args[ opacityId ] == 'undefined' )
+    {
+    args[ opacityId ] = 1;
+    }
+
+if ( typeof args[ thicknessId ] == 'undefined' )
+    {
+    args[ thicknessId ] = 10;
+    }
+
+if ( typeof args[ patternAngleId ] == 'undefined' )
+    {
+    args[ patternAngleId ] = 0;
+    }
+
+if ( typeof args[ patternThicknessId ] == 'undefined' )
+    {
+    args[ patternThicknessId ] = 5;
+    }
+
 this.all_points = [];
 
 var container1 = document.querySelector( '#brushControls1' );
@@ -10,40 +35,46 @@ var container2 = document.querySelector( '#brushControls2' );
 
     // main line
 this.opacity_control = new Control({
+        id: opacityId,
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
-        initValue: 1,
+        initValue: args[ opacityId ],
         step: 0.1,
         container: container1,
         onSlideFunction: function() { Paint.updateCurrentColor(); }
     });
 this.thickness_control = new Control({
+        id: thicknessId,
         name: 'Thickness',
         minValue: 0.5,
         maxValue: 30,
-        initValue: 10,
+        initValue: args[ thicknessId ],
         step: 0.5,
         container: container1
     });
 
     // pattern
 this.angle_control = new Control({
+        id: patternAngleId,
         name: 'Pattern Angle',
         minValue: 0,
         maxValue: 135,
-        initValue: 0,
+        initValue: args[ patternAngleId ],
         step: 45,
         container: container2
     });
 this.pattern_thickness_control = new Control({
+        id: patternThicknessId,
         name: 'Pattern Thickness',
         minValue: 0.5,
         maxValue: 10,
-        initValue: 5,
+        initValue: args[ patternThicknessId ],
         step: 0.5,
         container: container2
     });
+
+this.all_controls = [ this.opacity_control, this.thickness_control, this.angle_control, this.pattern_thickness_control ];
 }
 
 
@@ -211,13 +242,27 @@ this.all_points.length = 0;
 };
 
 
+LinePatternBrush.prototype.getSettings = function()
+{
+var settings = {};
+
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    var control = this.all_controls[ a ];
+
+    settings[ control.id ] = control.getValue();
+    }
+
+return settings;
+};
+
 
 LinePatternBrush.prototype.clear = function()
 {
-this.opacity_control.clear();
-this.thickness_control.clear();
-this.angle_control.clear();
-this.pattern_thickness_control.clear();
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    this.all_controls[ a ].clear();
+    }
 };
 
 

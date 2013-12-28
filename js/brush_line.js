@@ -1,39 +1,64 @@
 (function(window)
 {
 
-function LineBrush()
+function LineBrush( args )
 {
-this.all_points = [];
+var opacityId = 'opacity';
+var thicknessId = 'thickness';
+var shadowBlurId = 'shadowBlur';
+
+if ( typeof args[ opacityId ] == 'undefined' )
+    {
+    args[ opacityId ] = 1;
+    }
+
+if ( typeof args[ thicknessId ] == 'undefined' )
+    {
+    args[ thicknessId ] = 5;
+    }
+
+if ( typeof args[ shadowBlurId ] == 'undefined' )
+    {
+    args[ shadowBlurId ] = 0;
+    }
+
 
     // add controls
-
 var container = document.querySelector( '#brushControls1' );
 
 this.opacity_control = new Control({
+        id: opacityId,
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
-        initValue: 1,
+        initValue: args[ opacityId ],
         step: 0.1,
         container: container,
         onSlideFunction: function() { Paint.updateCurrentColor(); }
     });
 this.thickness_control = new Control({
+        id: thicknessId,
         name: 'Thickness',
         minValue: 0.5,
         maxValue: 30,
-        initValue: 5,
+        initValue: args[ thicknessId ],
         step: 0.5,
         container: container
     });
 this.shadow_blur_control = new Control({
+        id: shadowBlurId,
         name: 'Shadow Blur',
         minValue: 0,
         maxValue: 10,
-        initValue: 0,
+        initValue: args[ shadowBlurId ],
         step: 0.5,
         container: container
     });
+
+        // init stuff
+this.all_points = [];
+
+this.all_controls = [ this.opacity_control, this.thickness_control, this.shadow_blur_control ];
 }
 
 
@@ -109,11 +134,28 @@ this.all_points.length = 0;
 };
 
 
+LineBrush.prototype.getSettings = function()
+{
+var settings = {};
+
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    var control = this.all_controls[ a ];
+
+        // this assumes the setting key is the same string as the control id
+    settings[ control.id ] = control.getValue();
+    }
+
+return settings;
+};
+
+
 LineBrush.prototype.clear = function()
 {
-this.thickness_control.clear();
-this.opacity_control.clear();
-this.shadow_blur_control.clear();
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    this.all_controls[ a ].clear();
+    }
 };
 
 

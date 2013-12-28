@@ -1,8 +1,36 @@
 (function(window)
 {
 
-function NeighborPointsBrush()
+function NeighborPointsBrush( args )
 {
+var opacityId = 'opacity';
+var thicknessId = 'thickness';
+var shadowBlurId = 'shadowBlur';
+var distanceId = 'distance';
+
+if ( typeof args[ opacityId ] == 'undefined' )
+    {
+    args[ opacityId ] = [ 0.25, 1 ];
+    }
+
+if ( typeof args[ thicknessId ] == 'undefined' )
+    {
+    args[ thicknessId ] = [ 1.5, 5 ];
+    }
+
+if ( typeof args[ shadowBlurId ] == 'undefined' )
+    {
+    args[ shadowBlurId ] = 0;
+    }
+
+if ( typeof args[ distanceId ] == 'undefined' )
+    {
+    args[ distanceId ] = 30;
+    }
+
+
+
+    // init stuff
 this.all_points = [];   // the main line
 this.additional_lines = [];  // the lines between the close points of the main line
 
@@ -11,38 +39,44 @@ var container1 = document.querySelector( '#brushControls1' );
 var container2 = document.querySelector( '#brushControls2' );
 
 this.opacity_control = new Control({
+        id: opacityId,
         name: 'Opacity',
         minValue: 0,
         maxValue: 1,
-        initValue: [0.25, 1],
+        initValue: args[ opacityId ],
         step: 0.05,
         container: container1,
         onSlideFunction: function() { Paint.updateCurrentColor(); }
     });
 this.thickness_control = new Control({
+        id: thicknessId,
         name: 'Thickness',
         minValue: 0.5,
         maxValue: 30,
-        initValue: [ 1.5, 5 ],
+        initValue: args[ thicknessId ],
         step: 0.5,
         container: container1
     });
 this.shadow_blur_control = new Control({
+        id: shadowBlurId,
         name: 'Shadow Blur',
         minValue: 0,
         maxValue: 10,
-        initValue: 0,
+        initValue: args[ shadowBlurId ],
         step: 0.5,
         container: container1
     });
 this.distance_control = new Control({
+        id: distanceId,
         name: 'Distance',
         minValue: 10,
         maxValue: 100,
-        initValue: 30,
+        initValue: args[ distanceId ],
         step: 1,
         container: container2
     });
+
+this.all_controls = [ this.opacity_control, this.thickness_control, this.shadow_blur_control, this.distance_control ];
 }
 
 
@@ -171,12 +205,28 @@ this.additional_lines.length = 0;
 };
 
 
+NeighborPointsBrush.prototype.getSettings = function()
+{
+var settings = {};
+
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    var control = this.all_controls[ a ];
+
+    settings[ control.id ] = control.getValue();
+    }
+
+return settings;
+};
+
+
+
 NeighborPointsBrush.prototype.clear = function()
 {
-this.opacity_control.clear();
-this.thickness_control.clear();
-this.shadow_blur_control.clear();
-this.distance_control.clear();
+for (var a = 0 ; a < this.all_controls.length ; a++)
+    {
+    this.all_controls[ a ].clear();
+    }
 };
 
 

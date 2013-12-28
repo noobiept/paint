@@ -7,6 +7,20 @@ function Paint()
 
 }
 
+var BRUSHES = [
+        LineBrush,
+        NeighborPointsBrush,
+        BubblesBrush,
+        LinePatternBrush,
+        SprayBrush
+    ];
+
+var BRUSH_SELECTED = 0;
+var BRUSH_OBJECT = null;
+
+var IS_MOUSE_DOWN = false;
+
+
 Paint.init = function()
 {
 var menu = document.querySelector( '#Menu' );
@@ -38,7 +52,7 @@ var selectBrushFunction = function( position, htmlElement )
 
         selected = htmlElement;
 
-        Brush.select( position );
+        Paint.selectBrush( position );
         };
     };
 
@@ -57,13 +71,60 @@ Paint.updateCurrentColor();
 
 
 
+Paint.startDraw = function( event )
+{
+IS_MOUSE_DOWN = true;
+
+event.preventDefault();
+
+return BRUSH_OBJECT.startDraw( event );
+};
+
+
+Paint.duringDraw = function( event )
+{
+if ( IS_MOUSE_DOWN )
+    {
+    event.preventDefault();
+
+    BRUSH_OBJECT.duringDraw( event );
+    }
+};
+
+
+Paint.endDraw = function( event )
+{
+IS_MOUSE_DOWN = false;
+
+event.preventDefault();
+
+return BRUSH_OBJECT.endDraw( event );
+};
+
+
+Paint.selectBrush = function( brushPosition )
+{
+BRUSH_SELECTED = brushPosition;
+
+if ( BRUSH_OBJECT )
+    {
+    BRUSH_OBJECT.clear();
+    }
+
+BRUSH_OBJECT = new BRUSHES[ brushPosition ]();
+
+Paint.updateCurrentColor();
+};
+
+
+
 Paint.updateCurrentColor = function()
 {
 var currentColor = document.querySelector( '#currentColor span' );
 
 var color = Color.getValues();
 
-var opacity = Brush.getSelected().opacity_control.getValue();
+var opacity = BRUSH_OBJECT.opacity_control.getValue();
 
     // means its a range (min/max value), so get the max value
 if ( opacity instanceof Array )
@@ -84,7 +145,7 @@ $( currentColor ).css( 'background-color', colorCss );
 
 Paint.clearCanvas = function()
 {
-Brush.clear();
+MAIN_CTX.clearRect( 0, 0, MAIN_CANVAS.width, MAIN_CANVAS.height );
 };
 
 

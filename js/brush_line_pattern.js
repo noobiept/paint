@@ -36,7 +36,7 @@ var container2 = document.querySelector( '#brushControls2' );
     // main line
 this.opacity_control = new Control({
         id: opacityId,
-        name: 'Opacity',
+        name: 'Opacity:',
         minValue: 0,
         maxValue: 1,
         initValue: args[ opacityId ],
@@ -46,7 +46,7 @@ this.opacity_control = new Control({
     });
 this.thickness_control = new Control({
         id: thicknessId,
-        name: 'Thickness',
+        name: 'Thickness:',
         minValue: 0.5,
         maxValue: 30,
         initValue: args[ thicknessId ],
@@ -57,7 +57,7 @@ this.thickness_control = new Control({
     // pattern
 this.angle_control = new Control({
         id: patternAngleId,
-        name: 'Pattern Angle',
+        name: 'Pattern Angle:',
         minValue: 0,
         maxValue: 135,
         initValue: args[ patternAngleId ],
@@ -66,7 +66,7 @@ this.angle_control = new Control({
     });
 this.pattern_thickness_control = new Control({
         id: patternThicknessId,
-        name: 'Pattern Thickness',
+        name: 'Pattern Thickness:',
         minValue: 0.5,
         maxValue: 10,
         initValue: args[ patternThicknessId ],

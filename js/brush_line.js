@@ -28,7 +28,7 @@ var container = document.querySelector( '#brushControls1' );
 
 this.opacity_control = new Control({
         id: opacityId,
-        name: 'Opacity',
+        name: 'Opacity:',
         minValue: 0,
         maxValue: 1,
         initValue: args[ opacityId ],
@@ -38,7 +38,7 @@ this.opacity_control = new Control({
     });
 this.thickness_control = new Control({
         id: thicknessId,
-        name: 'Thickness',
+        name: 'Thickness:',
         minValue: 0.5,
         maxValue: 30,
         initValue: args[ thicknessId ],
@@ -47,7 +47,7 @@ this.thickness_control = new Control({
     });
 this.shadow_blur_control = new Control({
         id: shadowBlurId,
-        name: 'Shadow Blur',
+        name: 'Shadow Blur:',
         minValue: 0,
         maxValue: 10,
         initValue: args[ shadowBlurId ],

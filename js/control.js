@@ -30,17 +30,21 @@ this.value = args.initValue;
 var container = args.container;
 
 var controlContainer = document.createElement( 'div' );
+var controlText = document.createElement( 'span' );
 var controlValue = document.createElement( 'span' );
 var controlSlider = document.createElement( 'div' );
 
-$( controlContainer ).text( args.name + ': ' );
+$( controlText ).text( args.name );
 $( controlValue ).text( this.value );
+
+$( controlContainer ).addClass( 'Control' );
 
 if ( args.cssClass )
     {
-    controlContainer.className = args.cssClass;
+    $( controlContainer ).addClass( args.cssClass );
     }
 
+controlContainer.appendChild( controlText );
 controlContainer.appendChild( controlValue );
 controlContainer.appendChild( controlSlider );
 

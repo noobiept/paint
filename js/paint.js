@@ -142,8 +142,20 @@ Paint.updateCurrentColor();
 
 Paint.updateCurrentColor = function()
 {
-var currentColor = document.querySelector( '#currentColor span' );
+var colorContainer = document.querySelector( '#ColorPicker' );
 
+    // get the elements to change the background color
+var sliderHandles = colorContainer.querySelectorAll( '.ui-slider-handle' );
+var sliderRanges = colorContainer.querySelectorAll( '.ui-slider-range' );
+
+    // convert from nodelist to array
+var handlesArray = Array.prototype.slice.call( sliderHandles );
+var rangesArray = Array.prototype.slice.call( sliderRanges );
+
+    // merge the 2 arrays
+var elements = handlesArray.concat( rangesArray );
+
+    // get the color
 var color = Color.getValues();
 
 var opacity = BRUSH_OBJECT.opacity_control.getValue();
@@ -156,7 +168,11 @@ if ( opacity instanceof Array )
 
 var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
 
-$( currentColor ).css( 'background-color', colorCss );
+    // change the background color
+for (var a = 0 ; a < elements.length ; a++)
+    {
+    $( elements[ a ] ).css( 'background', colorCss );
+    }
 };
 
 

@@ -54,56 +54,34 @@ canvas
     }
 
 
-#currentColor
-    {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    }
-
-#currentColor span
-    {
-    display: inline-block;
-    border-radius: 5px;
-    width: 50px;
-    height: 50px;
-    }
-
-
-    /* Color Sliders */
-
-.red .ui-slider-range
-    {
-    background: rgba(255, 0, 0, 0.6);
-    }
-
-.red .ui-slider .ui-slider-handle
-    {
-    background: red;
-    }
-
-.green .ui-slider-range
-    {
-    background: rgba(0, 255, 0, 0.6);
-    }
-    
-.green .ui-slider .ui-slider-handle
-    {
-    background: green;
-    }
-
-.blue .ui-slider-range
-    {
-    background: rgba(0, 0, 255, 0.6);
-    }
-    
-.blue .ui-slider .ui-slider-handle
-    {
-    background: blue;
-    }
-    
+    /* Controls */
 
 .ui-widget
     {
     font-size: 0.9em;   /* reduces the size of the sliders */
     }
+
+.Control span
+    {
+    margin: 0 4px;
+    padding: 0 2px;
+    }
+
+.red > span:first-child
+    {
+    background: rgba(255, 0, 0, 0.5);
+    border-radius: 5px;
+    }
+
+.green > span:first-child
+    {
+    background: rgba(0, 255, 0, 0.5);
+    border-radius: 5px;
+    }
+    
+.blue > span:first-child
+    {
+    background: rgba(0, 0, 255, 0.5);
+    border-radius: 5px;
+    }
+    

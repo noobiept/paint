@@ -38,7 +38,7 @@ var container1 = document.querySelector( '#brushControls1' );
 
 this.opacity_control = new Control({
         id: opacityId,
-        name: 'Opacity',
+        name: 'Opacity:',
         minValue: 0,
         maxValue: 1,
         initValue: args[ opacityId ],
@@ -48,7 +48,7 @@ this.opacity_control = new Control({
     });
 this.radius_control = new Control({
         id: radiusId,
-        name: 'Radius',
+        name: 'Radius:',
         minValue: 10,
         maxValue: 100,
         initValue: args[ radiusId ],
@@ -57,7 +57,7 @@ this.radius_control = new Control({
     });
 this.total_points_control = new Control({
         id: totalPointsId,
-        name: 'Total Points',
+        name: 'Total Points:',
         minValue: 10,
         maxValue: 100,
         initValue: args[ totalPointsId ],

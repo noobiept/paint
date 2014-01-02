@@ -38,6 +38,8 @@ var IS_MOUSE_DOWN = false;
 
 Paint.init = function()
 {
+SaveLoad.loadBrushesValues( BRUSHES );
+
 var menu = document.querySelector( '#Menu' );
 
 
@@ -54,7 +56,10 @@ var brushesContainer = menu.querySelector( '#BrushesContainer' );
 
 var brushes = brushesContainer.querySelectorAll( '.button' );
 
-var selected = brushes[ 0 ];
+    // start with the previously selected brush, or with the first brush (if fresh start)
+var position = SaveLoad.getSelectedBrush();
+
+var selected = brushes[ position ];
 
 
 var selectBrushFunction = function( position, htmlElement )
@@ -77,9 +82,7 @@ for (var a = 0 ; a < brushes.length ; a++)
     brushes[ a ].onclick = selectBrushFunction( a, brushes[ a ] );
     }
 
-    // start the program with the first brush selected
-selectBrushFunction( 0, selected )();
-
+selectBrushFunction( position, selected )();
 
 Paint.updateCurrentColor();
 };
@@ -175,6 +178,33 @@ for (var a = 0 ; a < elements.length ; a++)
     }
 };
 
+
+Paint.getBrushesValues = function()
+{
+    // update the .previousValues of the current selected brush (since we only update when switching between brushes)
+if ( BRUSH_OBJECT )
+    {
+    BRUSHES[ BRUSH_SELECTED ].previousValues = BRUSH_OBJECT.getSettings();
+    }
+
+
+var values = [];
+
+for (var a = 0 ; a < BRUSHES.length ; a++)
+    {
+    values.push({
+            previousValues: BRUSHES[ a ].previousValues
+        });
+    }
+
+return values;
+};
+
+
+Paint.getSelectedBrush = function()
+{
+return BRUSH_SELECTED;
+};
 
 
 /*

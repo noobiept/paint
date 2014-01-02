@@ -16,15 +16,25 @@ return {
 };
 
 
-Color.init = function()
+Color.init = function( initialValues )
 {
+if ( typeof initialValues == 'undefined' || initialValues == null )
+    {
+    initialValues = {
+            red: 0,
+            green: 0,
+            blue: 0
+        };
+    }
+
+
 var container = document.querySelector( '#ColorPicker' );
 
 Color.red = new Control({
         name: 'Red',
         minValue: 0,
         maxValue: 255,
-        initValue: 0,
+        initValue: initialValues.red,
         step: 1,
         container: container,
         cssClass: 'red',
@@ -35,7 +45,7 @@ Color.green = new Control({
         name: 'Green',
         minValue: 0,
         maxValue: 255,
-        initValue: 0,
+        initValue: initialValues.green,
         step: 1,
         container: container,
         cssClass: 'green',
@@ -46,7 +56,7 @@ Color.blue = new Control({
         name: 'Blue',
         minValue: 0,
         maxValue: 255,
-        initValue: 0,
+        initValue: initialValues.blue,
         step: 1,
         container: container,
         cssClass: 'blue',

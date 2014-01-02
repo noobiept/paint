@@ -1,9 +1,3 @@
-/*global $, Paint*/
-/*jslint vars: true, white: true*/
-
-"use strict";
-
-
 /*
     Libraries required:
     
@@ -50,8 +44,7 @@ DRAW_CTX = DRAW_CANVAS.getContext( '2d' );
     // so that the cursor stays the default (instead of the text selection image)
 MAIN_CANVAS.onselectstart = function() { return false; };
 
-
-Color.init();
+Color.init( SaveLoad.getRgb() );
 Paint.init();
 
         //HERE onMouseDown funciona independentemente de qual a tecla do rato k foi pressionada
@@ -77,25 +70,7 @@ DRAW_CANVAS.height = canvasHeight;
 
 
 
-
-function getRandomInt( min, max )
+window.onunload = function()
 {
-return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-function getRandomFloat( min, max )
-{
-return Math.random() * (max - min) + min;
-}
-
-
-function toCssColor( red, green, blue, alpha )
-{
-if ( typeof alpha == 'undefined' )
-    {
-    alpha = 1;
-    }
-
-return 'rgba(' + red + ',' + green + ',' + blue + ',' + alpha + ')';
-}
+SaveLoad.save();
+};

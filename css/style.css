@@ -63,25 +63,25 @@ canvas
 
 .Control span
     {
-    margin: 0 4px;
-    padding: 0 2px;
+    margin: 0 3px;
+    padding: 0 4px;
     }
 
 .red > span:first-child
     {
-    background: rgba(255, 0, 0, 0.5);
+    background: rgba(255, 0, 0, 0.3);
     border-radius: 5px;
     }
 
 .green > span:first-child
     {
-    background: rgba(0, 255, 0, 0.5);
+    background: rgba(0, 255, 0, 0.3);
     border-radius: 5px;
     }
     
 .blue > span:first-child
     {
-    background: rgba(0, 0, 255, 0.5);
+    background: rgba(18, 202, 255, 0.30);
     border-radius: 5px;
     }
     

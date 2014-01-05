@@ -17,6 +17,21 @@ localStorage.setObject( 'brushes_values', Paint.getBrushesValues() );
 
     // save which brush is currently selected
 localStorage.setObject( 'selected_brush', Paint.getSelectedBrush() );
+
+if ( Paint.savingCanvas() )
+    {
+    localStorage.setObject( 'saved_canvas', true );
+
+        // save the canvas
+    localStorage.setObject( 'canvas', MAIN_CANVAS.toDataURL( 'image/png' ) );
+    localStorage.setObject( 'canvas_width', MAIN_CANVAS.width );
+    localStorage.setObject( 'canvas_height', MAIN_CANVAS.height );
+    }
+
+else
+    {
+    localStorage.setObject( 'saved_canvas', false );
+    }
 };
 
 
@@ -78,6 +93,31 @@ else
     }
 };
 
+
+
+SaveLoad.loadCanvasImage = function()
+{
+var canvas = localStorage.getObject( 'canvas' );
+var canvasWidth = localStorage.getObject( 'canvas_width' );
+var canvasHeight = localStorage.getObject( 'canvas_height' );
+
+if ( canvas && $.isNumeric( canvasWidth ) && $.isNumeric( canvasHeight ) )
+    {
+    MAIN_CANVAS.width = canvasWidth;
+    MAIN_CANVAS.height = canvasHeight;
+
+    DRAW_CANVAS.width = canvasWidth;
+    DRAW_CANVAS.height = canvasHeight;
+
+    var img = new Image();
+
+    img.src = canvas;
+    img.onload = function()
+        {
+        MAIN_CTX.drawImage( img, 0, 0 );
+        };
+    }
+};
 
 
 

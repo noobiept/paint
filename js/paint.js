@@ -36,7 +36,13 @@ var BRUSH_OBJECT = null;
 var IS_MOUSE_DOWN = false;
 
 
-Paint.init = function()
+var SAVE_CANVAS = false;
+
+/**
+    @param savedCanvas {Boolean} If we're going to load a saved canvas from the previous session (we need to know this to update the related button in the menu)
+ */
+
+Paint.init = function( savedCanvas )
 {
 SaveLoad.loadBrushesValues( BRUSHES );
 
@@ -44,11 +50,18 @@ var menu = document.querySelector( '#Menu' );
 
 
 var clear = menu.querySelector( '#clearCanvas' );
-var save = menu.querySelector( '#saveCanvas' );
+var saveCanvas = menu.querySelector( '#saveCanvas' );
+var exportCanvas = menu.querySelector( '#exportCanvas' );
 
 clear.onclick = Paint.clearCanvas;
-save.onclick = Paint.saveCanvas;
+saveCanvas.onclick = Paint.saveCanvas;
+exportCanvas.onclick = Paint.exportCanvas;
 
+if ( savedCanvas == true )
+    {
+        // the default is being off, so by calling the .saveCanvas() function we turn in to on
+    Paint.saveCanvas();
+    }
 
     // :: Brushes menu :: //
 
@@ -83,6 +96,7 @@ for (var a = 0 ; a < brushes.length ; a++)
     }
 
 selectBrushFunction( position, selected )();
+
 
 Paint.updateCurrentColor();
 };
@@ -221,11 +235,43 @@ MAIN_CTX.clearRect( 0, 0, MAIN_CANVAS.width, MAIN_CANVAS.height );
     Opens a new tab with the image (so that you can just right-click on the image and save it to the computer)
  */
 
-Paint.saveCanvas = function()
+Paint.exportCanvas = function()
 {
-var image = MAIN_CANVAS.toDataURL("image/png");
+var image = MAIN_CANVAS.toDataURL( "image/png" );
 
 window.open( image, '_newtab' );
+};
+
+
+Paint.saveCanvas = function()
+{
+var saveCanvas = $( '#saveCanvas' );
+
+if ( saveCanvas.hasClass( 'off' ) )
+    {
+    saveCanvas.removeClass( 'off' );
+    saveCanvas.addClass( 'on' );
+
+    SAVE_CANVAS = true;
+    }
+
+else
+    {
+    saveCanvas.removeClass( 'on' );
+    saveCanvas.addClass( 'off' );
+
+    SAVE_CANVAS = false;
+    }
+};
+
+
+/**
+    @return {Boolean}
+ */
+
+Paint.savingCanvas = function()
+{
+return SAVE_CANVAS;
 };
 
 

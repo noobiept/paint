@@ -85,3 +85,25 @@ canvas
     border-radius: 5px;
     }
     
+
+    /* Save Canvas checkbox */
+
+#saveCanvas.on
+    {
+    opacity: 1;
+    }
+
+#saveCanvas.on:after
+    {
+    content: ": On";
+    }
+
+#saveCanvas.off
+    {
+    opacity: 0.5;
+    }
+
+#saveCanvas.off:after
+    {
+    content: ": Off";
+    }

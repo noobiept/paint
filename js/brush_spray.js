@@ -6,6 +6,7 @@ function SprayBrush( args )
 var opacityId = 'opacity';
 var radiusId = 'radius';
 var totalPointsId = 'totalPoints';
+var pointsLengthId = 'pointsLength';
 
 if ( typeof args[ opacityId ] == 'undefined' )
     {
@@ -22,6 +23,11 @@ if ( typeof args[ totalPointsId ] == 'undefined' )
     args[ totalPointsId ] = 50;
     }
 
+if ( typeof args[ pointsLengthId ] == 'undefined' )
+    {
+    args[ pointsLengthId ] = 1;
+    }
+
 
     // declaring the properties that will be used later on (the values will change from these, for example from the controls in the menu
 this.currentX = 0;
@@ -35,6 +41,7 @@ this.total_points = args[ totalPointsId ];
     // init. controls
 
 var container1 = document.querySelector( '#brushControls1' );
+var container2 = document.querySelector( '#brushControls2' );
 
 this.opacity_control = new Control({
         id: opacityId,
@@ -62,10 +69,19 @@ this.total_points_control = new Control({
         maxValue: 100,
         initValue: args[ totalPointsId ],
         step: 1,
-        container: container1
+        container: container2
+    });
+this.points_length_control = new Control({
+        id: pointsLengthId,
+        name: 'Points Length:',
+        minValue: 1,
+        maxValue: 5,
+        initValue: args[ pointsLengthId ],
+        step: 1,
+        container: container2
     });
 
-this.all_controls = [ this.opacity_control, this.radius_control, this.total_points_control ];
+this.all_controls = [ this.opacity_control, this.radius_control, this.total_points_control, this.points_length_control ];
 }
 
 
@@ -87,6 +103,7 @@ this.maximum_opacity = opacity[ 1 ];
 
 this.radius = this.radius_control.getValue();
 this.total_points = this.total_points_control.getValue();
+this.points_length = this.points_length_control.getValue();
 
 DRAW_CTX.beginPath();
 DRAW_CTX.lineCap = 'round';
@@ -105,8 +122,8 @@ this.interval_f = window.setInterval( function()
         DRAW_CTX.fillRect(
             this_.currentX + distance * Math.cos( angle ),
             this_.currentY + distance * Math.sin( angle ),
-            1,
-            1
+            this_.points_length,
+            this_.points_length
             );
         }
 

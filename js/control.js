@@ -23,6 +23,22 @@ function Control( args )
 {
 var _this = this;
 
+if ( typeof args.step == 'undefined' )
+    {
+    args.step = 1;
+    }
+
+    // find number of digits past the decimal point
+var stepStr = args.step.toString();
+var digits = 0;
+var pointIndex = stepStr.indexOf( '.' );
+
+    // found the decimal point, so its not a whole number
+if ( pointIndex >= 0 )
+    {
+    digits = stepStr.length - pointIndex - 1;
+    }
+
 this.id = args.id;
 this.value = args.initValue;
 
@@ -35,7 +51,6 @@ var controlValue = document.createElement( 'span' );
 var controlSlider = document.createElement( 'div' );
 
 $( controlText ).text( args.name );
-$( controlValue ).text( this.value );
 
 $( controlContainer ).addClass( 'Control' );
 
@@ -61,6 +76,18 @@ var sliderOptions = {
     };
 
 
+    // functions used to set the text with the values
+var rangeSliderText = function( min, max )
+    {
+    $( controlValue ).text( min.toFixed( digits ) + ', ' + max.toFixed( digits ) );
+    };
+
+var singleSliderText = function( value )
+    {
+    $( controlValue ).text( value.toFixed( digits ) );
+    };
+
+
     // means its a range slider
 if ( args.initValue instanceof Array )
     {
@@ -71,7 +98,7 @@ if ( args.initValue instanceof Array )
         var min = ui.values[ 0 ];
         var max = ui.values[ 1 ];
 
-        $( controlValue ).text( min + ', ' + max );
+        rangeSliderText( min, max );
 
         _this.value = [ min, max ];
 
@@ -80,6 +107,8 @@ if ( args.initValue instanceof Array )
             args.onSlideFunction( event, ui );
             }
         };
+
+    rangeSliderText( args.initValue[ 0 ], args.initValue[ 1 ] );
     }
 
     // single value slider
@@ -89,7 +118,7 @@ else
     sliderOptions.value = args.initValue;
     sliderOptions.slide = function( event, ui )
         {
-        $( controlValue ).text( ui.value );
+        singleSliderText( ui.value );
 
         _this.value = ui.value;
 
@@ -98,6 +127,8 @@ else
             args.onSlideFunction( event, ui );
             }
         };
+
+    singleSliderText( args.initValue );
     }
 
 

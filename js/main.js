@@ -17,8 +17,6 @@
 
         - undo/redo, have separate canvas, where you draw to there instead of the main one, so that when you want to undo, you simply clear one of those canvas (so we'll have a limit to how many undos we can do)
 
-        - force the number of positions in the numbers in the controls, for example if it goes like 0.3, 0.35, 0.4 then should be 0.30, 0.35, 0.40, etc
-
         - when changing the color in the menu, and using the spray brush, it draws on the canvas (if the radius is big enough)
   */
 

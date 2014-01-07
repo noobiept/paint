@@ -18,6 +18,8 @@
         - undo/redo, have separate canvas, where you draw to there instead of the main one, so that when you want to undo, you simply clear one of those canvas (so we'll have a limit to how many undos we can do)
 
         - when changing the color in the menu, and using the spray brush, it draws on the canvas (if the radius is big enough)
+
+        - when erasing, don't draw in the draw canvas (basically show stuff being erased)
   */
 
     // main canvas, will contain the drawing with all the shapes

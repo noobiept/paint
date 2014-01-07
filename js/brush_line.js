@@ -70,6 +70,7 @@ this.all_points.push({
         y: event.clientY
     });
 
+
 DRAW_CTX.save();
 
 var color = Color.getValues();
@@ -113,7 +114,7 @@ for (var a = 1 ; a < this.all_points.length ; a++)
     var midPointX = Math.floor( (point1.x + point2.x) / 2 );
     var midPointY = Math.floor( (point1.y + point2.y) / 2 );
 
-    DRAW_CTX.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY);
+    DRAW_CTX.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY );
 
     point1 = this.all_points[ a ];
     point2 = this.all_points[ a + 1 ];
@@ -125,9 +126,20 @@ DRAW_CTX.stroke();
 
 LineBrush.prototype.endDraw = function( event )
 {
+    // draw what is in the draw canvas into the main one
+MAIN_CTX.save();
+
+if ( Paint.isEraseBrush() )
+    {
+    MAIN_CTX.globalCompositeOperation = 'destination-out';
+    }
+
 MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
+MAIN_CTX.restore();
 
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+
+    // we're done with drawing, so restore the previous styling
 DRAW_CTX.restore();
 
 this.all_points.length = 0;

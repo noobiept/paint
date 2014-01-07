@@ -195,9 +195,20 @@ DRAW_CTX.restore();
 
 NeighborPointsBrush.prototype.endDraw = function( event )
 {
+    // draw what is in the draw canvas into the main one
+MAIN_CTX.save();
+
+if ( Paint.isEraseBrush() )
+    {
+    MAIN_CTX.globalCompositeOperation = 'destination-out';
+    }
+
 MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
+MAIN_CTX.restore();
 
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+
+    // we're done with drawing, so restore the previous styling
 DRAW_CTX.restore();
 
 this.all_points.length = 0;

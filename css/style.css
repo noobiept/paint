@@ -86,24 +86,24 @@ canvas
     }
     
 
-    /* Save Canvas checkbox */
+    /* toggle button */
 
-#saveCanvas.on
+.toggle.on
     {
     opacity: 1;
     }
 
-#saveCanvas.on:after
+.toggle.on:after
     {
     content: ": On";
     }
 
-#saveCanvas.off
+.toggle.off
     {
     opacity: 0.5;
     }
 
-#saveCanvas.off:after
+.toggle.off:after
     {
     content: ": Off";
     }

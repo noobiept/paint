@@ -37,6 +37,7 @@ var IS_MOUSE_DOWN = false;
 
 
 var SAVE_CANVAS = false;
+var ERASE_BRUSH = false;    // if the current selected brush is used to draw or to erase
 
 /**
     @param savedCanvas {Boolean} If we're going to load a saved canvas from the previous session (we need to know this to update the related button in the menu)
@@ -48,13 +49,14 @@ SaveLoad.loadBrushesValues( BRUSHES );
 
 var menu = document.querySelector( '#Menu' );
 
-
-var clear = menu.querySelector( '#clearCanvas' );
 var saveCanvas = menu.querySelector( '#saveCanvas' );
+var eraseBrush = menu.querySelector( '#erase' );
+var clear = menu.querySelector( '#clearCanvas' );
 var exportCanvas = menu.querySelector( '#exportCanvas' );
 
-clear.onclick = Paint.clearCanvas;
 saveCanvas.onclick = Paint.saveCanvas;
+eraseBrush.onclick = Paint.eraseBrush;
+clear.onclick = Paint.clearCanvas;
 exportCanvas.onclick = Paint.exportCanvas;
 
 if ( savedCanvas == true )
@@ -265,6 +267,28 @@ else
 };
 
 
+Paint.eraseBrush = function()
+{
+var erase = $( '#erase' );
+
+if ( erase.hasClass( 'off' ) )
+    {
+    erase.removeClass( 'off' );
+    erase.addClass( 'on' );
+
+    ERASE_BRUSH = true;
+    }
+
+else
+    {
+    erase.removeClass( 'on' );
+    erase.addClass( 'off' );
+
+    ERASE_BRUSH = false;
+    }
+};
+
+
 /**
     @return {Boolean}
  */
@@ -274,6 +298,14 @@ Paint.savingCanvas = function()
 return SAVE_CANVAS;
 };
 
+/**
+    @return {Boolean}
+ */
+
+Paint.isEraseBrush = function()
+{
+return ERASE_BRUSH;
+};
 
 
 window.Paint = Paint;

@@ -90,8 +90,8 @@ SprayBrush.prototype.startDraw = function( event )
 {
 var this_ = this;
 
-this.currentX = event.clientX;
-this.currentY = event.clientY;
+this.currentX = event.pageX;
+this.currentY = event.pageY;
 
 DRAW_CTX.save();
 
@@ -149,8 +149,8 @@ this.interval_f = window.setInterval( function()
 
 SprayBrush.prototype.duringDraw = function( event )
 {
-this.currentX = event.clientX;
-this.currentY = event.clientY;
+this.currentX = event.pageX;
+this.currentY = event.pageY;
 };
 
 

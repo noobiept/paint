@@ -66,8 +66,8 @@ this.all_controls = [ this.opacity_control, this.thickness_control, this.shadow_
 LineBrush.prototype.startDraw = function( event )
 {
 this.all_points.push({
-        x: event.clientX,
-        y: event.clientY
+        x: event.pageX,
+        y: event.pageY
     });
 
 
@@ -110,8 +110,8 @@ LineBrush.prototype.duringDraw = function( event )
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
 this.all_points.push({
-        x: event.clientX,
-        y: event.clientY
+        x: event.pageX,
+        y: event.pageY
     });
 
 

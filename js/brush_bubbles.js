@@ -53,8 +53,8 @@ this.all_controls = [ this.opacity_control, this.radius_control ];
 BubblesBrush.prototype.startDraw = function( event )
 {
 this.all_points.push({
-        x : event.clientX,
-        y : event.clientY,
+        x : event.pageX,
+        y : event.pageY,
         radius  : getRandomInt( this.minimum_radius, this.maximum_radius ),
         opacity : getRandomFloat( this.minimum_opacity, this.maximum_opacity )
     });
@@ -101,8 +101,8 @@ BubblesBrush.prototype.duringDraw = function( event )
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
 this.all_points.push({
-        x : event.clientX,
-        y : event.clientY,
+        x : event.pageX,
+        y : event.pageY,
         radius  : getRandomInt( this.minimum_radius, this.maximum_radius ),
         opacity : getRandomFloat( this.minimum_opacity, this.maximum_opacity )
     });

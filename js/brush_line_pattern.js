@@ -193,8 +193,8 @@ return ctx.createPattern( pattern, 'repeat' );
 LinePatternBrush.prototype.startDraw = function( event )
 {
 this.all_points.push({
-        x: event.clientX,
-        y: event.clientY
+        x: event.pageX,
+        y: event.pageY
     });
 
 DRAW_CTX.save();
@@ -213,8 +213,8 @@ LinePatternBrush.prototype.duringDraw = function( event )
 DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
 this.all_points.push({
-        x: event.clientX,
-        y: event.clientY
+        x: event.pageX,
+        y: event.pageY
     });
 
     // draw the line

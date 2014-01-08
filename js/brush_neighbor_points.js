@@ -89,13 +89,29 @@ this.all_points.push({
 
 DRAW_CTX.save();
 
-var color = Color.getValues();
+var color;
 var opacity = this.opacity_control.getValue();
 var thickness = this.thickness_control.getValue();
 
     // the secondary lines will have different styling (less pronounced)
 var mainLineOpacity = opacity[ 1 ];
 var secondaryLinesOpacity = opacity[ 0 ];
+
+    // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
+if ( Paint.isEraseBrush() )
+    {
+    color = {
+            red: 255,
+            green: 255,
+            blue: 255
+        };
+    }
+
+    // otherwise just get the color from the color picker in the menu
+else
+    {
+    color = Color.getValues();
+    }
 
 var mainColorCss = toCssColor( color.red, color.green, color.blue, mainLineOpacity );
 

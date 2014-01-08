@@ -62,7 +62,23 @@ this.all_points.push({
     // before making changes to the styling, call context.save(), to save the previous state (we'll restore at the end)
 DRAW_CTX.save();
 
-var color = Color.getValues();
+var color;
+
+    // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
+if ( Paint.isEraseBrush() )
+    {
+    color = {
+            red: 255,
+            green: 255,
+            blue: 255
+        };
+    }
+
+    // otherwise just get the color from the color picker in the menu
+else
+    {
+    color = Color.getValues();
+    }
 
 DRAW_CTX.beginPath();
 DRAW_CTX.fillStyle = toCssColor( color.red, color.green, color.blue );

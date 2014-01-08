@@ -82,9 +82,24 @@ LinePatternBrush.prototype.getPattern = function()
 {
 var lineWidth = this.pattern_thickness_control.getValue();
 var angle = this.angle_control.getValue();
-var color = Color.getValues();
-
+var color;
 var opacity = this.opacity_control.getValue();
+
+    // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
+if ( Paint.isEraseBrush() )
+    {
+    color = {
+            red: 255,
+            green: 255,
+            blue: 255
+        };
+    }
+
+    // otherwise just get the color from the color picker in the menu
+else
+    {
+    color = Color.getValues();
+    }
 
 var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
 
@@ -98,16 +113,10 @@ pattern.height = height;
 
 var ctx = pattern.getContext( '2d' );
 
-//var length = 40;
-//var angleRads = angle * Math.PI / 180;
-//var adjacent = length * Math.cos( angleRads );
-//var opposite = length * Math.sin( angleRads );
-
 ctx.beginPath();
 ctx.strokeStyle = colorCss;
 ctx.fillStyle = colorCss;
 ctx.lineWidth = lineWidth;
-
 
 var halfWidth = width / 2;
 var halfHeight = height / 2;

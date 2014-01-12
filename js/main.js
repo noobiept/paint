@@ -19,6 +19,8 @@
 
         - when changing the color in the menu, and using the spray brush, it draws on the canvas (if the radius is big enough)
             - we could disallow drawing when the mouse is not on the canvas, but that is something useful..
+
+        - control the time it takes to draw a circle in the bubbles brush (different browsers have a different timing to run the .duringDraw() (on mouse move)
 */
 
     // main canvas, will contain the drawing with all the shapes

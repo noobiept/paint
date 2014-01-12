@@ -10,8 +10,8 @@ import create_release_script.main as main
 
 
     # relative paths
-default_htmlFile = "../home.html"
-default_concatenateConfig = "config.txt"
+default_htmlFile = "../index.html"
+default_concatenateConfig = "concatenate_config.txt"
 default_copyFilesConfig = "copy_files_config.txt"
 default_resultingFolder = "paint"
 

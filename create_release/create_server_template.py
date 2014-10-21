@@ -7,7 +7,7 @@ import sys
 sys.path.append( 'C:/Users/drk/Dropbox/projects/' )
 
 
-import create_release_script.create_server_template as create_server_template
+from create_release_script import create_server_template
 
 
     # relative paths

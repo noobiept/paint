@@ -1,5 +1,4 @@
 {
-    "resultingFolder": "paint",
     "basePath": "..",
     "files":
         [
@@ -11,5 +10,12 @@
             "libraries/",
 
             "manifest.json"
+        ],
+    "extensions":
+        [
+            ".css",
+            ".js",
+            ".gif",
+            ".png"
         ]
 }

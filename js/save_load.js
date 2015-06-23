@@ -103,11 +103,19 @@ var canvasHeight = localStorage.getObject( 'canvas_height' );
 
 if ( canvas && $.isNumeric( canvasWidth ) && $.isNumeric( canvasHeight ) )
     {
-    MAIN_CANVAS.width = canvasWidth;
-    MAIN_CANVAS.height = canvasHeight;
+    var currentWidth = MAIN_CANVAS.width;
+    var currentHeight = MAIN_CANVAS.height;
 
-    DRAW_CANVAS.width = canvasWidth;
-    DRAW_CANVAS.height = canvasHeight;
+        // see if we need to increase the size of the canvas (to avoid loosing part of the image)
+    if ( currentWidth < canvasWidth )
+        {
+        MAIN_CANVAS.width = DRAW_CANVAS.width = canvasWidth;
+        }
+
+    if ( currentHeight < canvasHeight )
+        {
+        MAIN_CANVAS.height = DRAW_CANVAS.height = canvasHeight;
+        }
 
     var img = new Image();
 

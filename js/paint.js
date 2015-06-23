@@ -241,9 +241,7 @@ Paint.exportCanvas = function()
 {
 var image = MAIN_CANVAS.toDataURL( "image/png" );
 
-var win = window.open();
-
-win.document.write( '<img src="' + image + '"/>' );
+window.open( image, '_newtab' );
 };
 
 

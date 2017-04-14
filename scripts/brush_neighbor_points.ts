@@ -128,9 +128,9 @@ class NeighborPointsBrush
             color = Color.getValues();
             }
 
-        var mainColorCss = toCssColor( color.red, color.green, color.blue, mainLineOpacity );
+        var mainColorCss = Utilities.toCssColor( color.red, color.green, color.blue, mainLineOpacity );
 
-        this.secondaryLinesStyle = toCssColor( color.red, color.green, color.blue, secondaryLinesOpacity );
+        this.secondaryLinesStyle = Utilities.toCssColor( color.red, color.green, color.blue, secondaryLinesOpacity );
         this.secondaryLinesWidth = thickness[ 0 ];
 
         DRAW_CTX.beginPath();

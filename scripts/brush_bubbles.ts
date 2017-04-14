@@ -71,8 +71,8 @@ class BubblesBrush
         this.all_points.push({
                 x : event.pageX,
                 y : event.pageY,
-                radius  : getRandomInt( this.minimum_radius, this.maximum_radius ),
-                opacity : getRandomFloat( this.minimum_opacity, this.maximum_opacity )
+                radius  : Utilities.getRandomInt( this.minimum_radius, this.maximum_radius ),
+                opacity : Utilities.getRandomFloat( this.minimum_opacity, this.maximum_opacity )
             });
 
             // before making changes to the styling, call context.save(), to save the previous state (we'll restore at the end)
@@ -97,7 +97,7 @@ class BubblesBrush
             }
 
         DRAW_CTX.beginPath();
-        DRAW_CTX.fillStyle = toCssColor( color.red, color.green, color.blue );
+        DRAW_CTX.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
 
 
         var opacity = this.opacity_control.getValue();
@@ -119,8 +119,8 @@ class BubblesBrush
         this.all_points.push({
                 x : event.pageX,
                 y : event.pageY,
-                radius  : getRandomInt( this.minimum_radius, this.maximum_radius ),
-                opacity : getRandomFloat( this.minimum_opacity, this.maximum_opacity )
+                radius  : Utilities.getRandomInt( this.minimum_radius, this.maximum_radius ),
+                opacity : Utilities.getRandomFloat( this.minimum_opacity, this.maximum_opacity )
             });
 
             // draw the line

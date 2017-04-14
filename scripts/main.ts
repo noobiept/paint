@@ -42,7 +42,7 @@ MAIN_CANVAS.onselectstart = function() { return false; };
 
 Color.init( SaveLoad.getRgb() );
 
-var savedCanvas = localStorage.getObject( 'saved_canvas' );
+var savedCanvas = Utilities.getObject( 'saved_canvas' );
 
 if ( savedCanvas != true )
     {

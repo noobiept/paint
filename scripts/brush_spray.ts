@@ -145,17 +145,17 @@ class SprayBrush
         DRAW_CTX.beginPath();
         DRAW_CTX.lineCap = 'round';
         DRAW_CTX.lineJoin = 'round';
-        DRAW_CTX.fillStyle = toCssColor( color.red, color.green, color.blue );
+        DRAW_CTX.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
 
             // keep adding points, until the mouse button stops being pressed
         this.interval_f = window.setInterval( function()
             {
             for (var a = 0 ; a < this_.total_points ; a++)
                 {
-                var angle = getRandomFloat( 0, 2 * Math.PI );
-                var distance = getRandomInt( 0, this_.radius );
+                var angle = Utilities.getRandomFloat( 0, 2 * Math.PI );
+                var distance = Utilities.getRandomInt( 0, this_.radius );
 
-                DRAW_CTX.globalAlpha = getRandomFloat( this_.minimum_opacity, this_.maximum_opacity );
+                DRAW_CTX.globalAlpha = Utilities.getRandomFloat( this_.minimum_opacity, this_.maximum_opacity );
                 DRAW_CTX.fillRect(
                     this_.currentX + distance * Math.cos( angle ),
                     this_.currentY + distance * Math.sin( angle ),

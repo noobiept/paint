@@ -5,34 +5,34 @@ namespace SaveLoad
             // save the RGB values that were set
         var rgb = Color.getValues();
 
-        localStorage.setObject( 'rgb', rgb );
+        Utilities.setObject( 'rgb', rgb );
 
             // save the control values of the brushes
-        localStorage.setObject( 'brushes_values', Paint.getBrushesValues() );
+        Utilities.setObject( 'brushes_values', Paint.getBrushesValues() );
 
             // save which brush is currently selected
-        localStorage.setObject( 'selected_brush', Paint.getSelectedBrush() );
+        Utilities.setObject( 'selected_brush', Paint.getSelectedBrush() );
 
         if ( Paint.savingCanvas() )
             {
-            localStorage.setObject( 'saved_canvas', true );
+            Utilities.setObject( 'saved_canvas', true );
 
                 // save the canvas
-            localStorage.setObject( 'canvas', MAIN_CANVAS.toDataURL( 'image/png' ) );
-            localStorage.setObject( 'canvas_width', MAIN_CANVAS.width );
-            localStorage.setObject( 'canvas_height', MAIN_CANVAS.height );
+            Utilities.setObject( 'canvas', MAIN_CANVAS.toDataURL( 'image/png' ) );
+            Utilities.setObject( 'canvas_width', MAIN_CANVAS.width );
+            Utilities.setObject( 'canvas_height', MAIN_CANVAS.height );
             }
 
         else
             {
-            localStorage.setObject( 'saved_canvas', false );
+            Utilities.setObject( 'saved_canvas', false );
             }
         }
 
 
     export function getRgb()
         {
-        var rgb = localStorage.getObject( 'rgb' );
+        var rgb = Utilities.getObject( 'rgb' );
 
         if ( rgb )
             {
@@ -50,7 +50,7 @@ namespace SaveLoad
         {
         try
             {
-            var brushesValues = localStorage.getObject( 'brushes_values' );
+            var brushesValues = Utilities.getObject( 'brushes_values' );
             }
 
         catch (error)
@@ -72,7 +72,7 @@ namespace SaveLoad
 
     export function getSelectedBrush()
         {
-        var selectedBrush = localStorage.getObject( 'selected_brush' );
+        var selectedBrush = Utilities.getObject( 'selected_brush' );
 
         if ( selectedBrush && $.isNumeric( selectedBrush ) )
             {
@@ -88,9 +88,9 @@ namespace SaveLoad
 
     export function loadCanvasImage()
         {
-        var canvas = localStorage.getObject( 'canvas' );
-        var canvasWidth = localStorage.getObject( 'canvas_width' );
-        var canvasHeight = localStorage.getObject( 'canvas_height' );
+        var canvas = Utilities.getObject( 'canvas' );
+        var canvasWidth = Utilities.getObject( 'canvas_width' );
+        var canvasHeight = Utilities.getObject( 'canvas_height' );
 
         if ( canvas && $.isNumeric( canvasWidth ) && $.isNumeric( canvasHeight ) )
             {

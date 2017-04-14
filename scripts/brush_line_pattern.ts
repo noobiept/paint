@@ -117,7 +117,7 @@ class LinePatternBrush
             color = Color.getValues();
             }
 
-        var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
+        var colorCss = Utilities.toCssColor( color.red, color.green, color.blue, opacity );
 
         var width = 15;
         var height = 15;

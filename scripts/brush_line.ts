@@ -97,7 +97,7 @@ class LineBrush
             color = Color.getValues();
             }
 
-        var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
+        var colorCss = Utilities.toCssColor( color.red, color.green, color.blue, opacity );
 
         DRAW_CTX.beginPath();
         DRAW_CTX.strokeStyle = colorCss;

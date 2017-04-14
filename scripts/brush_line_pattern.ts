@@ -1,3 +1,12 @@
+interface LinePatternBrushArgs
+    {
+    opacity?: number;
+    thickness?: number;
+    patternAngle?: number;
+    patternThickness?: number;
+    }
+
+
 class LinePatternBrush
     {
     all_points: Point[];
@@ -8,7 +17,7 @@ class LinePatternBrush
     all_controls: Control[];
 
 
-    constructor( args )
+    constructor( args: LinePatternBrushArgs )
         {
         var opacityId = 'opacity';
         var thicknessId = 'thickness';

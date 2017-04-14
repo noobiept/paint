@@ -7,6 +7,17 @@ interface Point
     }
 
 
+interface Line
+    {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    distanceX: number;
+    distanceY: number;
+    }
+
+
     // main canvas, will contain the drawing with all the shapes
 var MAIN_CANVAS: HTMLCanvasElement;
 var MAIN_CTX: CanvasRenderingContext2D;

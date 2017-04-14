@@ -5,7 +5,7 @@ interface ControlArgs
     minValue: number;
     maxValue: number;
     initValue: number | number[];
-    step: number;
+    step?: number;
     container: HTMLElement;
     onSlideFunction: () => void;
     cssClass: string;
@@ -74,21 +74,19 @@ class Control
         this.mainContainer = container;
         this.thicknessContainer = controlContainer;
 
-
         var sliderOptions = {
             min   : args.minValue,
             max   : args.maxValue,
             step  : args.step
             };
 
-
             // functions used to set the text with the values
-        var rangeSliderText = function( min, max )
+        var rangeSliderText = function( min: number, max: number )
             {
             $( controlValue ).text( min.toFixed( digits ) + ', ' + max.toFixed( digits ) );
             };
 
-        var singleSliderText = function( value )
+        var singleSliderText = function( value: number )
             {
             $( controlValue ).text( value.toFixed( digits ) );
             };

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Draw stuff</title>
+
+        <!-- Libraries -->
+        <script type="text/javascript" src="libraries/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="libraries/jqueryui-1.11/jquery-ui.min.js"></script>
+
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="libraries/jqueryui-1.11/jquery-ui.min.css" />
+
+        <!-- CONCATENATE_START -->
+        <script type="text/javascript" src="js/brush_line.js"></script>
+        <script type="text/javascript" src="js/brush_bubbles.js"></script>
+        <script type="text/javascript" src="js/brush_spray.js"></script>
+        <script type="text/javascript" src="js/brush_neighbor_points.js"></script>
+        <script type="text/javascript" src="js/brush_line_pattern.js"></script>
+        <script type="text/javascript" src="js/color.js"></script>
+        <script type="text/javascript" src="js/control.js"></script>
+        <script type="text/javascript" src="js/paint.js"></script>
+        <script type="text/javascript" src="js/utilities.js"></script>
+        <script type="text/javascript" src="js/save_load.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <!-- CONCATENATE_END -->
+
+    </head>
+<body>
+
+    <canvas id="mainCanvas"></canvas>
+    <canvas id="drawCanvas"></canvas>
+
+    <div id="Menu">
+
+        <div class="Menu-block" id="ColorPicker"></div>
+
+        <div class="Menu-block" id="brushControls1"></div>
+        <div class="Menu-block" id="brushControls2"></div>
+
+        <div class="Menu-block" id="BrushesContainer">
+            <div id="LineBrush" class="button">Line</div>
+            <div id="NeighborPointsBrush" class="button">Neighbor Points</div>
+            <div id="BubblesBrush" class="button">Bubbles</div>
+            <div id="LinePatternBrush" class="button">Line Pattern</div>
+            <div id="SprayBrush" class="button">Spray</div>
+        </div>
+
+        <div class="Menu-block">
+            <div id="saveCanvas" class="button toggle off">Save Canvas</div>
+            <div id="erase" class="button toggle off">Erase</div>
+            <div id="clearCanvas" class="button">Clear Canvas</div>
+            <div id="exportCanvas" class="button">Export Canvas</div>
+        </div>
+    </div>
+
+</body>   
+</html>

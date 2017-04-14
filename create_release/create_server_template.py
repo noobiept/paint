@@ -1,60 +1,41 @@
+# python3
+
 import os.path
-import re
 import argparse
+import sys
 
-from bs4 import BeautifulSoup
-
-
-
-def go( resultingFolder ):
-
-        # update the base.html to point to the paint's minimized file
-
-    pathBaseHtml = os.path.join( resultingFolder, 'templates/pagina/base.html' )
-
-    with open( pathBaseHtml, 'r' ) as f:
-        baseContent = f.read()
-
-    soup = BeautifulSoup( baseContent )
-
-    scripts = soup.find_all( 'script' )
-
-    paintScripts = []
-
-        # identify the paint's scripts
-    for aScript in scripts:
-
-        src = aScript.get( 'src' )
+sys.path.append( 'C:/Users/drk/Dropbox/projects/' )
 
 
-            # confirm that it has a 'src' attribute, and that it has the 'paint' string somewhere on its path
-        if src and re.search( 'paint', src ):
-
-            paintScripts.append( aScript )
+from create_release_script import create_server_template
 
 
-        # remove all but one
-    minimizedPaint = paintScripts.pop()
+    # relative paths
+default_indexPath = '../index.html'
+default_appName = 'paint'
+default_copyToPath = 'C:/Users/drk/Dropbox/projects/website/templates/{}/'.format( default_appName )
 
-    for aScript in paintScripts:
-        aScript.decompose()
 
-        # change the source to point to the minimized script
-    minimizedPaint['src'] = '{{ STATIC_URL }}paint/minimized.js'
+def go( indexPath= default_indexPath,
+        appName= default_appName,
+        copyToPath= default_copyToPath,
+        templateName= None ):
 
-        # save back to base.html
-    with open( pathBaseHtml, 'w' ) as f:
-        f.write( soup.prettify() )
+    indexPath = os.path.realpath( indexPath )
+    copyToPath = os.path.realpath( copyToPath )
+
+    create_server_template.go( indexPath, appName, copyToPath, templateName )
 
 
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser( description= "Update the server's base.html template."  )
+    parser = argparse.ArgumentParser( description= 'Create the server template.' )
 
-    parser.add_argument( 'resultingFolder' )
+    parser.add_argument( 'indexPath', nargs= '?', default= default_indexPath )
+    parser.add_argument( 'appName', nargs= '?', default= default_appName )
+    parser.add_argument( 'copyToPath', nargs= '?', default= default_copyToPath )
 
     args = parser.parse_args()
 
-    go( args.resultingFolder )
-
+    go( args.indexPath, args.appName, args.copyToPath )

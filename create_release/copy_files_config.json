@@ -1,0 +1,21 @@
+{
+    "basePath": "..",
+    "files":
+        [
+            "css/",
+
+            "images/icon16.png",
+            "images/icon128.png",
+
+            "libraries/",
+
+            "manifest.json"
+        ],
+    "extensions":
+        [
+            ".css",
+            ".js",
+            ".gif",
+            ".png"
+        ]
+}

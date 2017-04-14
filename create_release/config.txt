@@ -1,8 +1,0 @@
-{
-    "C:\\Users\\drk\\Dropbox\\projects\\paint": [
-        "color.js", 
-        "thickness.js", 
-        "undo_redo.js", 
-        "paint.js"
-    ]
-}

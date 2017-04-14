@@ -11,6 +11,8 @@ class NeighborPointsBrush implements Brush
     {
     all_points: Point[]
     additional_lines: Line[];
+    secondaryLinesStyle: string;
+    secondaryLinesWidth: number;
     opacity_control: Control;
     thickness_control: Control;
     shadow_blur_control: Control;

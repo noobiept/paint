@@ -48,16 +48,13 @@ class Control
         this.id = args.id;
         this.value = args.initValue;
 
-
         var container = args.container;
-
         var controlContainer = document.createElement( 'div' );
         var controlText = document.createElement( 'span' );
         var controlValue = document.createElement( 'span' );
         var controlSlider = document.createElement( 'div' );
 
         $( controlText ).text( args.name );
-
         $( controlContainer ).addClass( 'Control' );
 
         if ( args.cssClass )

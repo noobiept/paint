@@ -96,7 +96,7 @@ namespace Paint
 
         event.preventDefault();
 
-        return BRUSH_OBJECT.startDraw( event );
+        return BRUSH_OBJECT!.startDraw( event );
         }
 
 
@@ -106,7 +106,7 @@ namespace Paint
             {
             event.preventDefault();
 
-            BRUSH_OBJECT.duringDraw( event );
+            BRUSH_OBJECT!.duringDraw( event );
             }
         }
 
@@ -117,11 +117,11 @@ namespace Paint
 
         event.preventDefault();
 
-        return BRUSH_OBJECT.endDraw( event );
+        return BRUSH_OBJECT!.endDraw( event );
         }
 
 
-    export function selectBrush( brushPosition )
+    export function selectBrush( brushPosition: number )
         {
             // deal the previous brush (clear it, and save the values that were set for next time this brush is selected)
         if ( BRUSH_OBJECT )
@@ -129,10 +129,8 @@ namespace Paint
             var current = BRUSHES[ BRUSH_SELECTED ];
 
             current.previousValues = BRUSH_OBJECT.getSettings();
-
             BRUSH_OBJECT.clear();
             }
-
 
         var next = BRUSHES[ brushPosition ];
 
@@ -145,7 +143,7 @@ namespace Paint
 
     export function updateCurrentColor()
         {
-        var colorContainer = document.querySelector( '#ColorPicker' );
+        var colorContainer = document.getElementById( 'ColorPicker' )!;
 
             // get the elements to change the background color
         var sliderHandles = colorContainer.querySelectorAll( '.ui-slider-handle' );
@@ -160,8 +158,7 @@ namespace Paint
 
             // get the color
         var color = Color.getValues();
-
-        var opacity = BRUSH_OBJECT.opacity_control.getValue();
+        var opacity = BRUSH_OBJECT!.opacity_control.getValue();
 
             // means its a range (min/max value), so get the max value
         if ( opacity instanceof Array )
@@ -169,7 +166,7 @@ namespace Paint
             opacity = opacity[ 1 ];
             }
 
-        var colorCss = toCssColor( color.red, color.green, color.blue, opacity );
+        var colorCss = Utilities.toCssColor( color.red, color.green, color.blue, opacity );
 
             // change the background color
         for (var a = 0 ; a < elements.length ; a++)

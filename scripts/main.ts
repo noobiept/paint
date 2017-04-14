@@ -20,9 +20,13 @@ interface Line
 
 interface Brush
     {
+    opacity_control: Control;
+
     startDraw( event: MouseEvent ): void;
     duringDraw( event: MouseEvent ): void;
     endDraw( event: MouseEvent ): void;
+    getSettings(): { [name: string]: number | number[] };
+    clear(): void;
     }
 
 

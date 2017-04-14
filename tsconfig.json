@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "strictNullChecks": true,
+        "noUnusedParameters": true,
+        "alwaysStrict": true,
+        "target": "es2015"
+    },
+    "include": [
+        "js/*.ts"
+    ]
+}

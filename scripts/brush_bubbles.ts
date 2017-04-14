@@ -99,16 +99,11 @@ class BubblesBrush implements Brush
         DRAW_CTX.beginPath();
         DRAW_CTX.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
 
+        this.minimum_opacity = this.opacity_control.getLowerValue();
+        this.maximum_opacity = this.opacity_control.getUpperValue();
 
-        var opacity = this.opacity_control.getValue();
-
-        this.minimum_opacity = opacity[ 0 ];
-        this.maximum_opacity = opacity[ 1 ];
-
-        var radius = this.radius_control.getValue();
-
-        this.minimum_radius = radius[ 0 ];
-        this.maximum_radius = radius[ 1 ];
+        this.minimum_radius = this.radius_control.getLowerValue();
+        this.maximum_radius = this.radius_control.getUpperValue();
         }
 
 

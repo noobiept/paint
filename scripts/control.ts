@@ -5,25 +5,26 @@ interface ControlArgs
     minValue: number;
     maxValue: number;
     initValue: number | number[];
-    step?: number;
     container: HTMLElement;
-    onSlideFunction: () => void;
-    cssClass: string;
+
+    onSlideFunction?: () => void;
+    cssClass?: string;
+    step?: number;
     }
 
 
 class Control
     {
     id: string;
-    value: number | number[];
+    lowerValue: number;
+    upperValue: number;
     mainContainer: HTMLElement;
     thicknessContainer: HTMLElement;
+    isRangeControl: boolean;
 
 
-    /*
-        If initValue is an array, means its a range slider (has a minimum and maximum value, otherwise is a single value slider
-
-        The return of .getValue() also depends on the type of slider, if its a single value slider it returns a number, otherwise an array with the min/max values
+    /**
+     * If 'initValue' is an array, means its a range slider (has a lower and upper value, otherwise its a single value slider.
     */
     constructor( args: ControlArgs )
         {
@@ -46,7 +47,6 @@ class Control
             }
 
         this.id = args.id;
-        this.value = args.initValue;
 
         var container = args.container;
         var controlContainer = document.createElement( 'div' );
@@ -92,6 +92,10 @@ class Control
             // means its a range slider
         if ( args.initValue instanceof Array )
             {
+            this.isRangeControl = true;
+            this.lowerValue = args.initValue[ 0 ];
+            this.upperValue = args.initValue[ 1 ];
+
             sliderOptions.range = true;
             sliderOptions.values = args.initValue;
             sliderOptions.slide = function( event, ui )
@@ -101,7 +105,8 @@ class Control
 
                 rangeSliderText( min, max );
 
-                _this.value = [ min, max ];
+                _this.lowerValue = min;
+                _this.upperValue = max;
 
                 if ( args.onSlideFunction )
                     {
@@ -115,13 +120,16 @@ class Control
             // single value slider
         else
             {
+            this.isRangeControl = false;
+            this.upperValue = this.lowerValue = args.initValue;
+
             sliderOptions.range = 'min';
             sliderOptions.value = args.initValue;
             sliderOptions.slide = function( event, ui )
                 {
                 singleSliderText( ui.value );
 
-                _this.value = ui.value;
+                _this.upperValue = _this.lowerValue = ui.value;
 
                 if ( args.onSlideFunction )
                     {
@@ -137,9 +145,35 @@ class Control
         }
 
 
+    /**
+     * On single value controls, the upper and lower value is the same.
+     */
+    getUpperValue()
+        {
+        return this.upperValue;
+        }
+
+
+    /**
+     * On single value controls, the upper and lower value is the same.
+     */
+    getLowerValue()
+        {
+        return this.lowerValue;
+        }
+
+
+    /**
+     * The return value depends on the type of slider, if its a single value slider it returns a number, otherwise an array with the lower/upper values.
+     */
     getValue()
         {
-        return this.value;
+        if ( this.isRangeControl )
+            {
+            return [ this.lowerValue, this.upperValue ];
+            }
+
+        return this.upperValue;
         }
 
 

@@ -46,8 +46,8 @@ class LinePatternBrush implements Brush
 
         this.all_points = [];
 
-        var container1 = document.querySelector( '#brushControls1' );
-        var container2 = document.querySelector( '#brushControls2' );
+        var container1 = <HTMLElement> document.querySelector( '#brushControls1' );
+        var container2 = <HTMLElement> document.querySelector( '#brushControls2' );
 
             // main line
         this.opacity_control = new Control({

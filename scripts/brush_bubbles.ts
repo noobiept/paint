@@ -180,4 +180,4 @@ class BubblesBrush
             this.all_controls[ a ].clear();
             }
         }
-}
+    }

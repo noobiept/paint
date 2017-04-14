@@ -5,7 +5,7 @@ interface BubblesBrushArgs
     }
 
 
-class BubblesBrush
+class BubblesBrush implements Brush
     {
     all_points: Point[];
     minimum_radius: number;
@@ -66,7 +66,7 @@ class BubblesBrush
         }
 
 
-    startDraw( event )
+    startDraw( event: MouseEvent )
         {
         this.all_points.push({
                 x : event.pageX,
@@ -112,7 +112,7 @@ class BubblesBrush
         }
 
 
-    duringDraw( event )
+    duringDraw( event: MouseEvent )
         {
         DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
@@ -136,7 +136,7 @@ class BubblesBrush
         }
 
 
-    endDraw( event )
+    endDraw( event: MouseEvent )
         {
             // draw what is in the draw canvas into the main one
         MAIN_CTX.save();

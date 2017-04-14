@@ -7,7 +7,7 @@ interface LinePatternBrushArgs
     }
 
 
-class LinePatternBrush
+class LinePatternBrush implements Brush
     {
     all_points: Point[];
     opacity_control: Control;
@@ -204,7 +204,7 @@ class LinePatternBrush
         }
 
 
-    startDraw( event )
+    startDraw( event: MouseEvent )
         {
         this.all_points.push({
                 x: event.pageX,
@@ -221,7 +221,7 @@ class LinePatternBrush
         }
 
 
-    duringDraw( event )
+    duringDraw( event: MouseEvent )
         {
         DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
@@ -252,7 +252,7 @@ class LinePatternBrush
         }
 
 
-    endDraw( event )
+    endDraw( event: MouseEvent )
         {
             // draw what is in the draw canvas into the main one
         MAIN_CTX.save();

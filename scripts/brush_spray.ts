@@ -7,7 +7,7 @@ interface SprayBrushArgs
     }
 
 
-class SprayBrush
+class SprayBrush implements Brush
     {
     currentX: number;
     currentY: number;
@@ -107,7 +107,7 @@ class SprayBrush
         }
 
 
-    startDraw( event )
+    startDraw( event: MouseEvent )
         {
         var this_ = this;
 
@@ -168,14 +168,14 @@ class SprayBrush
         }
 
 
-    duringDraw( event )
+    duringDraw( event: MouseEvent )
         {
         this.currentX = event.pageX;
         this.currentY = event.pageY;
         }
 
 
-    endDraw( event )
+    endDraw( event: MouseEvent )
         {
         window.clearInterval( this.interval_f );
 

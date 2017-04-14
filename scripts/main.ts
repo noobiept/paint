@@ -18,6 +18,14 @@ interface Line
     }
 
 
+interface Brush
+    {
+    startDraw( event: MouseEvent ): void;
+    duringDraw( event: MouseEvent ): void;
+    endDraw( event: MouseEvent ): void;
+    }
+
+
     // main canvas, will contain the drawing with all the shapes
 var MAIN_CANVAS: HTMLCanvasElement;
 var MAIN_CTX: CanvasRenderingContext2D;

@@ -24,7 +24,7 @@ namespace Paint
         ];
 
     var BRUSH_SELECTED = 0;
-    var BRUSH_OBJECT = null;
+    var BRUSH_OBJECT: Brush | null = null;
 
     var IS_MOUSE_DOWN = false;
 
@@ -39,12 +39,10 @@ namespace Paint
         {
         SaveLoad.loadBrushesValues( BRUSHES );
 
-        var menu = document.querySelector( '#Menu' );
-
-        var saveCanvas = menu.querySelector( '#saveCanvas' );
-        var eraseBrush = menu.querySelector( '#erase' );
-        var clear = menu.querySelector( '#clearCanvas' );
-        var exportCanvas = menu.querySelector( '#exportCanvas' );
+        var saveCanvas = document.getElementById( 'saveCanvas' )!;
+        var eraseBrush = document.getElementById( 'erase' )!;
+        var clear = document.getElementById( 'clearCanvas' )!;
+        var exportCanvas = document.getElementById( 'exportCanvas' )!;
 
         saveCanvas.onclick = Paint.saveCanvas;
         eraseBrush.onclick = Paint.eraseBrush;
@@ -59,17 +57,14 @@ namespace Paint
 
             // :: Brushes menu :: //
 
-        var brushesContainer = menu.querySelector( '#BrushesContainer' );
-
+        var brushesContainer = document.getElementById( 'BrushesContainer' )!;
         var brushes = brushesContainer.querySelectorAll( '.button' );
 
             // start with the previously selected brush, or with the first brush (if fresh start)
         var position = SaveLoad.getSelectedBrush();
-
         var selected = brushes[ position ];
 
-
-        var selectBrushFunction = function( position, htmlElement )
+        var selectBrushFunction = function( position: number, htmlElement: Element )
             {
                 // this has a function within, to create a closure, so that the arguments are retained (otherwise in the loop below it wouldn't work, all would get the last value of 'a')
             return function()
@@ -86,17 +81,16 @@ namespace Paint
 
         for (var a = 0 ; a < brushes.length ; a++)
             {
-            brushes[ a ].onclick = selectBrushFunction( a, brushes[ a ] );
+            let brush = <HTMLElement> brushes[ a ];
+            brush.onclick = selectBrushFunction( a, brush );
             }
 
         selectBrushFunction( position, selected )();
-
-
         Paint.updateCurrentColor();
         }
 
 
-    export function startDraw( event )
+    export function startDraw( event: MouseEvent )
         {
         IS_MOUSE_DOWN = true;
 
@@ -106,7 +100,7 @@ namespace Paint
         }
 
 
-    export function duringDraw( event )
+    export function duringDraw( event: MouseEvent )
         {
         if ( IS_MOUSE_DOWN )
             {
@@ -117,7 +111,7 @@ namespace Paint
         }
 
 
-    export function endDraw( event )
+    export function endDraw( event: MouseEvent )
         {
         IS_MOUSE_DOWN = false;
 

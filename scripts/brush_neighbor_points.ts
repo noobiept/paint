@@ -7,7 +7,7 @@ interface NeighborPointsBrushArgs
     }
 
 
-class NeighborPointsBrush
+class NeighborPointsBrush implements Brush
     {
     all_points: Point[]
     additional_lines: Line[];
@@ -95,7 +95,7 @@ class NeighborPointsBrush
         }
 
 
-    startDraw( event )
+    startDraw( event: MouseEvent )
         {
         this.all_points.push({
                 x: event.pageX,
@@ -143,7 +143,7 @@ class NeighborPointsBrush
         }
 
 
-    duringDraw( event )
+    duringDraw( event: MouseEvent )
         {
         DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
 
@@ -222,7 +222,7 @@ class NeighborPointsBrush
         }
 
 
-    endDraw( event )
+    endDraw( event: MouseEvent )
         {
             // draw what is in the draw canvas into the main one
         MAIN_CTX.save();

@@ -15,10 +15,10 @@ Menu
 Libraries
 =========
 
-- jquery -- 2.1
-- jqueryui -- 1.11
+- jquery -- 3.2
+- jqueryui -- 1.12
     - slider
     - start theme
-    
+
 - createjs
-    - easeljs - 0.7
+    - easeljs - 0.8

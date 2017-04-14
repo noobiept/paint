@@ -10,6 +10,6 @@
         "target": "es2015"
     },
     "include": [
-        "js/*.ts"
+        "scripts/*.ts"
     ]
 }

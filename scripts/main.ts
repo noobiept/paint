@@ -1,20 +1,20 @@
     // main canvas, will contain the drawing with all the shapes
-var MAIN_CANVAS;
-var MAIN_CTX;
+var MAIN_CANVAS: HTMLCanvasElement;
+var MAIN_CTX: CanvasRenderingContext2D;
 
     // draw canvas, used to show the line being drawn only
-var DRAW_CANVAS;
-var DRAW_CTX;
+var DRAW_CANVAS: HTMLCanvasElement;
+var DRAW_CTX: CanvasRenderingContext2D;
 
 
 window.onload = function()
 {
-MAIN_CANVAS = document.querySelector( "#mainCanvas" );
-MAIN_CTX = MAIN_CANVAS.getContext( '2d' );
+MAIN_CANVAS = <HTMLCanvasElement> document.querySelector( "#mainCanvas" );
+MAIN_CTX = MAIN_CANVAS.getContext( '2d' )!;
 
 
-DRAW_CANVAS = document.querySelector( '#drawCanvas' );
-DRAW_CTX = DRAW_CANVAS.getContext( '2d' );
+DRAW_CANVAS = <HTMLCanvasElement> document.querySelector( '#drawCanvas' );
+DRAW_CTX = DRAW_CANVAS.getContext( '2d' )!;
 
 
     // so that the cursor stays the default (instead of the text selection image)
@@ -50,13 +50,11 @@ MAIN_CANVAS.height = canvasHeight;
 DRAW_CANVAS.width = canvasWidth;
 DRAW_CANVAS.height = canvasHeight;
 
-
 if ( savedCanvas )
     {
     SaveLoad.loadCanvasImage();
     }
 };
-
 
 
 window.onunload = function()

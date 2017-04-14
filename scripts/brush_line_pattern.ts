@@ -19,29 +19,24 @@ class LinePatternBrush implements Brush
 
     constructor( args: LinePatternBrushArgs )
         {
-        var opacityId = 'opacity';
-        var thicknessId = 'thickness';
-        var patternAngleId = 'patternAngle';
-        var patternThicknessId = 'patternThickness';
-
-        if ( typeof args[ opacityId ] == 'undefined' )
+        if ( typeof args.opacity == 'undefined' )
             {
-            args[ opacityId ] = 1;
+            args.opacity = 1;
             }
 
-        if ( typeof args[ thicknessId ] == 'undefined' )
+        if ( typeof args.thickness == 'undefined' )
             {
-            args[ thicknessId ] = 10;
+            args.thickness = 10;
             }
 
-        if ( typeof args[ patternAngleId ] == 'undefined' )
+        if ( typeof args.patternAngle == 'undefined' )
             {
-            args[ patternAngleId ] = 0;
+            args.patternAngle = 0;
             }
 
-        if ( typeof args[ patternThicknessId ] == 'undefined' )
+        if ( typeof args.patternThickness == 'undefined' )
             {
-            args[ patternThicknessId ] = 5;
+            args.patternThickness = 5;
             }
 
         this.all_points = [];
@@ -51,41 +46,41 @@ class LinePatternBrush implements Brush
 
             // main line
         this.opacity_control = new Control({
-                id: opacityId,
+                id: 'opacity',
                 name: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
-                initValue: args[ opacityId ],
+                initValue: args.opacity,
                 step: 0.1,
                 container: container1,
                 onSlideFunction: function() { Paint.updateCurrentColor(); }
             });
         this.thickness_control = new Control({
-                id: thicknessId,
+                id: 'thickness',
                 name: 'Thickness:',
                 minValue: 0.5,
                 maxValue: 30,
-                initValue: args[ thicknessId ],
+                initValue: args.thickness,
                 step: 0.5,
                 container: container1
             });
 
             // pattern
         this.angle_control = new Control({
-                id: patternAngleId,
+                id: 'patternAngle',
                 name: 'Pattern Angle:',
                 minValue: 0,
                 maxValue: 135,
-                initValue: args[ patternAngleId ],
+                initValue: args.patternAngle,
                 step: 45,
                 container: container2
             });
         this.pattern_thickness_control = new Control({
-                id: patternThicknessId,
+                id: 'patternThickness',
                 name: 'Pattern Thickness:',
                 minValue: 0.5,
                 maxValue: 10,
-                initValue: args[ patternThicknessId ],
+                initValue: args.patternThickness,
                 step: 0.5,
                 container: container2
             });
@@ -96,10 +91,10 @@ class LinePatternBrush implements Brush
 
     getPattern()
         {
-        var lineWidth = this.pattern_thickness_control.getValue();
+        var lineWidth = this.pattern_thickness_control.getUpperValue();
         var angle = this.angle_control.getValue();
         var color;
-        var opacity = this.opacity_control.getValue();
+        var opacity = this.opacity_control.getUpperValue();
 
             // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if ( Paint.isEraseBrush() )
@@ -127,7 +122,7 @@ class LinePatternBrush implements Brush
         pattern.width = width;
         pattern.height = height;
 
-        var ctx = pattern.getContext( '2d' );
+        var ctx = pattern.getContext( '2d' )!;
 
         ctx.beginPath();
         ctx.strokeStyle = colorCss;

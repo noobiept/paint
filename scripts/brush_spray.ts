@@ -15,6 +15,7 @@ class SprayBrush implements Brush
     minimum_opacity: number;
     maximum_opacity: number;
     radius: number;
+    points_length: number;
     total_points: number;
     opacity_control: Control;
     radius_control: Control;
@@ -25,80 +26,74 @@ class SprayBrush implements Brush
 
     constructor( args: SprayBrushArgs )
         {
-        var opacityId = 'opacity';
-        var radiusId = 'radius';
-        var totalPointsId = 'totalPoints';
-        var pointsLengthId = 'pointsLength';
-
-        if ( typeof args[ opacityId ] == 'undefined' )
+        if ( typeof args.opacity == 'undefined' )
             {
-            args[ opacityId ] = [0.25, 1];
+            args.opacity = [0.25, 1];
             }
 
-        if ( typeof args[ radiusId ] == 'undefined' )
+        if ( typeof args.radius == 'undefined' )
             {
-            args[ radiusId ] = 50;
+            args.radius = 50;
             }
 
-        if ( typeof args[ totalPointsId ] == 'undefined' )
+        if ( typeof args.totalPoints == 'undefined' )
             {
-            args[ totalPointsId ] = 50;
+            args.totalPoints = 50;
             }
 
-        if ( typeof args[ pointsLengthId ] == 'undefined' )
+        if ( typeof args.pointsLength == 'undefined' )
             {
-            args[ pointsLengthId ] = 1;
+            args.pointsLength = 1;
             }
-
 
             // declaring the properties that will be used later on (the values will change from these, for example from the controls in the menu
         this.currentX = 0;
         this.currentY = 0;
         this.interval_f = null;
-        this.minimum_opacity = args[ opacityId ][ 0 ];
-        this.maximum_opacity = args[ opacityId ][ 1 ];
-        this.radius = args[ radiusId ];
-        this.total_points = args[ totalPointsId ];
+        this.minimum_opacity = args.opacity[ 0 ];
+        this.maximum_opacity = args.opacity[ 1 ];
+        this.radius = args.radius;
+        this.total_points = args.totalPoints;
 
             // init. controls
 
-        var container1 = document.querySelector( '#brushControls1' );
-        var container2 = document.querySelector( '#brushControls2' );
+        var container1 = <HTMLElement> document.querySelector( '#brushControls1' );
+        var container2 = <HTMLElement> document.querySelector( '#brushControls2' );
 
         this.opacity_control = new Control({
-                id: opacityId,
+                id: 'opacity',
                 name: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
-                initValue: args[ opacityId ],
+                initValue: args.opacity,
                 step: 0.05,
                 container: container1,
                 onSlideFunction: function() { Paint.updateCurrentColor(); }
             });
         this.radius_control = new Control({
-                id: radiusId,
+                id: 'radius',
                 name: 'Radius:',
                 minValue: 10,
                 maxValue: 100,
-                initValue: args[ radiusId ],
+                initValue: args.radius,
                 step: 1,
                 container: container1
             });
         this.total_points_control = new Control({
-                id: totalPointsId,
+                id: 'totalPoints',
                 name: 'Total Points:',
                 minValue: 10,
                 maxValue: 100,
-                initValue: args[ totalPointsId ],
+                initValue: args.totalPoints,
                 step: 1,
                 container: container2
             });
         this.points_length_control = new Control({
-                id: pointsLengthId,
+                id: 'pointsLength',
                 name: 'Points Length:',
                 minValue: 1,
                 maxValue: 5,
-                initValue: args[ pointsLengthId ],
+                initValue: args.pointsLength,
                 step: 1,
                 container: container2
             });
@@ -117,7 +112,6 @@ class SprayBrush implements Brush
         DRAW_CTX.save();
 
         var color;
-        var opacity = this.opacity_control.getValue();
 
             // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if ( Paint.isEraseBrush() )
@@ -135,12 +129,12 @@ class SprayBrush implements Brush
             color = Color.getValues();
             }
 
-        this.minimum_opacity = opacity[ 0 ];
-        this.maximum_opacity = opacity[ 1 ];
+        this.minimum_opacity = this.opacity_control.getLowerValue();
+        this.maximum_opacity = this.opacity_control.getUpperValue();
 
-        this.radius = this.radius_control.getValue();
-        this.total_points = this.total_points_control.getValue();
-        this.points_length = this.points_length_control.getValue();
+        this.radius = this.radius_control.getUpperValue();
+        this.total_points = this.total_points_control.getUpperValue();
+        this.points_length = this.points_length_control.getUpperValue();
 
         DRAW_CTX.beginPath();
         DRAW_CTX.lineCap = 'round';
@@ -199,7 +193,7 @@ class SprayBrush implements Brush
 
     getSettings()
         {
-        var settings = {};
+        var settings: Settings = {};
 
         for (var a = 0 ; a < this.all_controls.length ; a++)
             {

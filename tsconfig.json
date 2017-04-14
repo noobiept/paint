@@ -5,7 +5,6 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "strictNullChecks": true,
-        "noUnusedParameters": true,
         "alwaysStrict": true,
         "target": "es2015"
     },

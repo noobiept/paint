@@ -8,56 +8,59 @@ interface LineBrushArgs
 
 class LineBrush implements Brush
     {
+    opacity_control: Control;
+    thickness_control: Control;
+    shadow_blur_control: Control;
+    all_points: Point[];
+    all_controls: Control[];
+
+
     constructor( args: LineBrushArgs )
         {
-        var opacityId = 'opacity';
-        var thicknessId = 'thickness';
-        var shadowBlurId = 'shadowBlur';
-
-        if ( typeof args[ opacityId ] == 'undefined' )
+        if ( typeof args.opacity == 'undefined' )
             {
-            args[ opacityId ] = 1;
+            args.opacity = 1;
             }
 
-        if ( typeof args[ thicknessId ] == 'undefined' )
+        if ( typeof args.thickness == 'undefined' )
             {
-            args[ thicknessId ] = 5;
+            args.thickness = 5;
             }
 
-        if ( typeof args[ shadowBlurId ] == 'undefined' )
+        if ( typeof args.shadowBlur == 'undefined' )
             {
-            args[ shadowBlurId ] = 0;
+            args.shadowBlur = 0;
             }
 
 
             // add controls
-        var container = document.querySelector( '#brushControls1' );
+        var container = <HTMLElement> document.querySelector( '#brushControls1' );
 
         this.opacity_control = new Control({
-                id: opacityId,
+                id: 'opacity',
                 name: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
-                initValue: args[ opacityId ],
+                initValue: args.opacity,
                 step: 0.1,
                 container: container,
                 onSlideFunction: function() { Paint.updateCurrentColor(); }
             });
         this.thickness_control = new Control({
-                id: thicknessId,
+                id: 'thickness',
                 name: 'Thickness:',
                 minValue: 0.5,
                 maxValue: 30,
-                initValue: args[ thicknessId ],
+                initValue: args.thickness,
                 step: 0.5,
                 container: container
             });
         this.shadow_blur_control = new Control({
-                id: shadowBlurId,
+                id: 'shadowBlur',
                 name: 'Shadow Blur:',
                 minValue: 0,
                 maxValue: 10,
-                initValue: args[ shadowBlurId ],
+                initValue: args.shadowBlur,
                 step: 0.5,
                 container: container
             });
@@ -79,7 +82,7 @@ class LineBrush implements Brush
         DRAW_CTX.save();
 
         var color;
-        var opacity = this.opacity_control.getValue();
+        var opacity = this.opacity_control.getUpperValue();
 
             // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if ( Paint.isEraseBrush() )
@@ -103,8 +106,8 @@ class LineBrush implements Brush
         DRAW_CTX.strokeStyle = colorCss;
         DRAW_CTX.lineCap = 'round';
         DRAW_CTX.lineJoin = 'round';
-        DRAW_CTX.lineWidth = this.thickness_control.getValue();
-        DRAW_CTX.shadowBlur = this.shadow_blur_control.getValue();
+        DRAW_CTX.lineWidth = this.thickness_control.getUpperValue();
+        DRAW_CTX.shadowBlur = this.shadow_blur_control.getUpperValue();
         DRAW_CTX.shadowColor = colorCss;
         }
 
@@ -166,7 +169,7 @@ class LineBrush implements Brush
 
     getSettings()
         {
-        var settings = {};
+        var settings: Settings = {};
 
         for (var a = 0 ; a < this.all_controls.length ; a++)
             {

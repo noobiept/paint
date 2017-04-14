@@ -2,6 +2,11 @@ interface Point
     {
     x: number;
     y: number;
+    }
+
+
+interface BubblePoint extends Point
+    {
     radius: number;
     opacity: number;
     }
@@ -18,14 +23,21 @@ interface Line
     }
 
 
+interface Settings
+    {
+    [id: string]: number | number[]
+    }
+
+
 interface Brush
     {
     opacity_control: Control;
+    all_controls: Control[];
 
     startDraw( event: MouseEvent ): void;
     duringDraw( event: MouseEvent ): void;
     endDraw( event: MouseEvent ): void;
-    getSettings(): { [name: string]: number | number[] };
+    getSettings(): Settings;
     clear(): void;
     }
 

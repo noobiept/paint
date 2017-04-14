@@ -22,29 +22,24 @@ class NeighborPointsBrush implements Brush
 
     constructor( args: NeighborPointsBrushArgs )
         {
-        var opacityId = 'opacity';
-        var thicknessId = 'thickness';
-        var shadowBlurId = 'shadowBlur';
-        var distanceId = 'distance';
-
-        if ( typeof args[ opacityId ] == 'undefined' )
+        if ( typeof args.opacity == 'undefined' )
             {
-            args[ opacityId ] = [ 0.25, 1 ];
+            args.opacity = [ 0.25, 1 ];
             }
 
-        if ( typeof args[ thicknessId ] == 'undefined' )
+        if ( typeof args.thickness == 'undefined' )
             {
-            args[ thicknessId ] = [ 1.5, 5 ];
+            args.thickness = [ 1.5, 5 ];
             }
 
-        if ( typeof args[ shadowBlurId ] == 'undefined' )
+        if ( typeof args.shadowBlur == 'undefined' )
             {
-            args[ shadowBlurId ] = 0;
+            args.shadowBlur = 0;
             }
 
-        if ( typeof args[ distanceId ] == 'undefined' )
+        if ( typeof args.distance == 'undefined' )
             {
-            args[ distanceId ] = 30;
+            args.distance = 30;
             }
 
             // init stuff
@@ -52,43 +47,43 @@ class NeighborPointsBrush implements Brush
         this.additional_lines = [];  // the lines between the close points of the main line
 
             // add the controls
-        var container1 = document.querySelector( '#brushControls1' );
-        var container2 = document.querySelector( '#brushControls2' );
+        var container1 = <HTMLElement> document.querySelector( '#brushControls1' );
+        var container2 = <HTMLElement> document.querySelector( '#brushControls2' );
 
         this.opacity_control = new Control({
-                id: opacityId,
+                id: 'opacity',
                 name: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
-                initValue: args[ opacityId ],
+                initValue: args.opacity,
                 step: 0.05,
                 container: container1,
                 onSlideFunction: function() { Paint.updateCurrentColor(); }
             });
         this.thickness_control = new Control({
-                id: thicknessId,
+                id: 'thickness',
                 name: 'Thickness:',
                 minValue: 0.5,
                 maxValue: 30,
-                initValue: args[ thicknessId ],
+                initValue: args.thickness,
                 step: 0.5,
                 container: container1
             });
         this.shadow_blur_control = new Control({
-                id: shadowBlurId,
+                id: 'shadowBlur',
                 name: 'Shadow Blur:',
                 minValue: 0,
                 maxValue: 10,
-                initValue: args[ shadowBlurId ],
+                initValue: args.shadowBlur,
                 step: 0.5,
                 container: container1
             });
         this.distance_control = new Control({
-                id: distanceId,
+                id: 'distance',
                 name: 'Distance:',
                 minValue: 10,
                 maxValue: 100,
-                initValue: args[ distanceId ],
+                initValue: args.distance,
                 step: 1,
                 container: container2
             });
@@ -107,12 +102,10 @@ class NeighborPointsBrush implements Brush
         DRAW_CTX.save();
 
         var color;
-        var opacity = this.opacity_control.getValue();
-        var thickness = this.thickness_control.getValue();
 
             // the secondary lines will have different styling (less pronounced)
-        var mainLineOpacity = opacity[ 1 ];
-        var secondaryLinesOpacity = opacity[ 0 ];
+        var mainLineOpacity = this.opacity_control.getUpperValue();
+        var secondaryLinesOpacity = this.opacity_control.getLowerValue();
 
             // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if ( Paint.isEraseBrush() )
@@ -133,14 +126,14 @@ class NeighborPointsBrush implements Brush
         var mainColorCss = Utilities.toCssColor( color.red, color.green, color.blue, mainLineOpacity );
 
         this.secondaryLinesStyle = Utilities.toCssColor( color.red, color.green, color.blue, secondaryLinesOpacity );
-        this.secondaryLinesWidth = thickness[ 0 ];
+        this.secondaryLinesWidth = this.thickness_control.getLowerValue();
 
         DRAW_CTX.beginPath();
         DRAW_CTX.strokeStyle = mainColorCss;
         DRAW_CTX.lineCap = 'round';
         DRAW_CTX.lineJoin = 'round';
-        DRAW_CTX.lineWidth = thickness[ 1 ];
-        DRAW_CTX.shadowBlur = this.shadow_blur_control.getValue();
+        DRAW_CTX.lineWidth = this.thickness_control.getUpperValue();
+        DRAW_CTX.shadowBlur = this.shadow_blur_control.getUpperValue();
         DRAW_CTX.shadowColor = mainColorCss;
         }
 
@@ -188,7 +181,7 @@ class NeighborPointsBrush implements Brush
 
                 // the distance would be the square root of this. we don't do that as an optimization
             var distance = adjacent * adjacent + opposite * opposite;
-            var distanceLimit = this.distance_control.getValue();
+            var distanceLimit = this.distance_control.getUpperValue();
 
             if ( distance < distanceLimit * distanceLimit )
                 {
@@ -249,7 +242,7 @@ class NeighborPointsBrush implements Brush
 
     getSettings()
         {
-        var settings = {};
+        var settings: Settings = {};
 
         for (var a = 0 ; a < this.all_controls.length ; a++)
             {

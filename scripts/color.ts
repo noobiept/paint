@@ -24,7 +24,7 @@ namespace Color
                 };
             }
 
-        var container = document.querySelector( '#ColorPicker' );
+        var container = <HTMLElement> document.querySelector( '#ColorPicker' );
 
         RED = new Control({
                 name: 'Red',
@@ -64,9 +64,9 @@ namespace Color
     export function getValues()
         {
         return {
-                red: RED.getValue(),
-                green: GREEN.getValue(),
-                blue: BLUE.getValue()
+                red: RED.getUpperValue(),
+                green: GREEN.getUpperValue(),
+                blue: BLUE.getUpperValue()
             };
         }
     }

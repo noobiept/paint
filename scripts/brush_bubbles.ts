@@ -7,7 +7,7 @@ interface BubblesBrushArgs
 
 class BubblesBrush implements Brush
     {
-    all_points: Point[];
+    all_points: BubblePoint[];
     minimum_radius: number;
     maximum_radius: number;
     minimum_opacity: number;
@@ -19,45 +19,41 @@ class BubblesBrush implements Brush
 
     constructor( args: BubblesBrushArgs )
         {
-        var opacityId = 'opacity';
-        var radiusId = 'radius';
-
-        if ( typeof args[ opacityId ] == 'undefined' )
+        if ( typeof args.opacity == 'undefined' )
             {
-            args[ opacityId ] = [ 0.25, 1 ];
+            args.opacity = [ 0.25, 1 ];
             }
 
-        if ( typeof args[ radiusId ] == 'undefined' )
+        if ( typeof args.radius == 'undefined' )
             {
-            args[ radiusId ] = [ 5, 10 ];
+            args.radius = [ 5, 10 ];
             }
-
 
         this.all_points = [];
-        this.minimum_radius = args[ radiusId ][ 0 ];
-        this.maximum_radius = args[ radiusId ][ 1 ];
-        this.minimum_opacity = args[ opacityId ][ 0 ];
-        this.maximum_opacity = args[ opacityId ][ 1 ];
+        this.minimum_radius = args.radius[ 0 ];
+        this.maximum_radius = args.radius[ 1 ];
+        this.minimum_opacity = args.opacity[ 0 ];
+        this.maximum_opacity = args.opacity[ 1 ];
 
             // add the controls
-        var container = document.querySelector( '#brushControls1' );
+        var container = <HTMLElement> document.querySelector( '#brushControls1' );
 
         this.opacity_control = new Control({
-                id: opacityId,
+                id: 'opacity',
                 name: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
-                initValue: args[ opacityId ],
+                initValue: args.opacity,
                 step: 0.1,
                 container: container,
                 onSlideFunction: function() { Paint.updateCurrentColor() }
             });
         this.radius_control = new Control({
-                id: radiusId,
+                id: 'radius',
                 name: 'Radius:',
                 minValue: 1,
                 maxValue: 20,
-                initValue: args[ radiusId ],
+                initValue: args.radius,
                 step: 0.5,
                 container: container
             });
@@ -155,7 +151,7 @@ class BubblesBrush implements Brush
 
     getSettings()
         {
-        var settings = {};
+        var settings: Settings = {};
 
         for (var a = 0 ; a < this.all_controls.length ; a++)
             {

@@ -46,7 +46,7 @@ namespace SaveLoad
         }
 
 
-    export function loadBrushesValues( brushes )
+    export function loadBrushesValues( brushes: Paint.PreviousBrushSettings[] )
         {
         try
             {
@@ -65,7 +65,7 @@ namespace SaveLoad
 
         for (var a = 0 ; a < brushes.length ; a++)
             {
-            brushes[ a ].previousValues = brushesValues[ a ].previousValues;
+            brushes[ a ].previousSettings = brushesValues[ a ].previousValues;
             }
         }
 

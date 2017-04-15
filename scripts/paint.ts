@@ -1,25 +1,32 @@
 namespace Paint
     {
-    var BRUSHES: { Class: { new( args: BrushArgs ): Brush }, previousValues: Settings }[] = [
+    export interface PreviousBrushSettings
+        {
+        brushClass: { new( args: BrushArgs ): Brush };
+        previousSettings: Settings;
+        }
+
+
+    var BRUSHES: PreviousBrushSettings[] = [
             {
-                Class: LineBrush,
-                previousValues: {}
+                brushClass: LineBrush,
+                previousSettings: {}
             },
             {
-                Class: NeighborPointsBrush,
-                previousValues: {}
+                brushClass: NeighborPointsBrush,
+                previousSettings: {}
             },
             {
-                Class: BubblesBrush,
-                previousValues: {}
+                brushClass: BubblesBrush,
+                previousSettings: {}
             },
             {
-                Class: LinePatternBrush,
-                previousValues: {}
+                brushClass: LinePatternBrush,
+                previousSettings: {}
             },
             {
-                Class: SprayBrush,
-                previousValues: {}
+                brushClass: SprayBrush,
+                previousSettings: {}
             }
         ];
 
@@ -128,14 +135,14 @@ namespace Paint
             {
             var current = BRUSHES[ BRUSH_SELECTED ];
 
-            current.previousValues = BRUSH_OBJECT.getSettings();
+            current.previousSettings = BRUSH_OBJECT.getSettings();
             BRUSH_OBJECT.clear();
             }
 
         var next = BRUSHES[ brushPosition ];
 
         BRUSH_SELECTED = brushPosition;
-        BRUSH_OBJECT = new next.Class( next.previousValues );
+        BRUSH_OBJECT = new next.brushClass( next.previousSettings );
 
         Paint.updateCurrentColor();
         }
@@ -181,7 +188,7 @@ namespace Paint
             // update the .previousValues of the current selected brush (since we only update when switching between brushes)
         if ( BRUSH_OBJECT )
             {
-            BRUSHES[ BRUSH_SELECTED ].previousValues = BRUSH_OBJECT.getSettings();
+            BRUSHES[ BRUSH_SELECTED ].previousSettings = BRUSH_OBJECT.getSettings();
             }
 
         var values = [];
@@ -189,7 +196,7 @@ namespace Paint
         for (var a = 0 ; a < BRUSHES.length ; a++)
             {
             values.push({
-                    previousValues: BRUSHES[ a ].previousValues
+                    previousValues: BRUSHES[ a ].previousSettings
                 });
             }
 

@@ -212,7 +212,7 @@ class LinePatternBrush implements Brush
         DRAW_CTX.strokeStyle = this.getPattern();
         DRAW_CTX.lineCap = 'round';
         DRAW_CTX.lineJoin = 'round';
-        DRAW_CTX.lineWidth = this.thickness_control.getValue();
+        DRAW_CTX.lineWidth = this.thickness_control.getUpperValue();
         }
 
 
@@ -271,7 +271,7 @@ class LinePatternBrush implements Brush
 
     getSettings()
         {
-        var settings = {};
+        var settings: Settings = {};
 
         for (var a = 0 ; a < this.all_controls.length ; a++)
             {

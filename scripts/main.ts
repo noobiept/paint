@@ -25,7 +25,7 @@ interface Line
 
 interface Settings
     {
-    [id: string]: number | number[]
+    [id: string]: number | number[];
     }
 
 

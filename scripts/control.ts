@@ -7,7 +7,7 @@ interface ControlArgs
     container: HTMLElement;
 
     label?: string;     // if not provided, then the 'id' is used
-    onSlideFunction?: () => void;
+    onSlideFunction?: (event: Event, ui: JQueryUI.SliderUIParams) => void;
     cssClass?: string;
     step?: number;
     }
@@ -76,7 +76,7 @@ class Control
         this.mainContainer = container;
         this.thicknessContainer = controlContainer;
 
-        var sliderOptions = {
+        var sliderOptions: JQueryUI.SliderOptions = {
             min   : args.minValue,
             max   : args.maxValue,
             step  : args.step
@@ -105,8 +105,8 @@ class Control
             sliderOptions.values = args.initValue;
             sliderOptions.slide = function( event, ui )
                 {
-                var min = ui.values[ 0 ];
-                var max = ui.values[ 1 ];
+                var min = ui.values![ 0 ];
+                var max = ui.values![ 1 ];
 
                 rangeSliderText( min, max );
 
@@ -132,9 +132,9 @@ class Control
             sliderOptions.value = args.initValue;
             sliderOptions.slide = function( event, ui )
                 {
-                singleSliderText( ui.value );
+                singleSliderText( ui.value! );
 
-                _this.upperValue = _this.lowerValue = ui.value;
+                _this.upperValue = _this.lowerValue = ui.value!;
 
                 if ( args.onSlideFunction )
                     {

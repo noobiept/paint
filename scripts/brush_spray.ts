@@ -11,7 +11,7 @@ class SprayBrush implements Brush
     {
     currentX: number;
     currentY: number;
-    interval_f: number | null;
+    interval_f: number;
     minimum_opacity: number;
     maximum_opacity: number;
     radius: number;
@@ -49,7 +49,6 @@ class SprayBrush implements Brush
             // declaring the properties that will be used later on (the values will change from these, for example from the controls in the menu
         this.currentX = 0;
         this.currentY = 0;
-        this.interval_f = null;
         this.minimum_opacity = args.opacity[ 0 ];
         this.maximum_opacity = args.opacity[ 1 ];
         this.radius = args.radius;

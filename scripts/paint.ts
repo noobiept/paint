@@ -1,6 +1,6 @@
 namespace Paint
     {
-    var BRUSHES = [
+    var BRUSHES: { Class: { new( args: BrushArgs ): Brush }, previousValues: Settings }[] = [
             {
                 Class: LineBrush,
                 previousValues: {}

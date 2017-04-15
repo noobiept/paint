@@ -1,12 +1,12 @@
 interface ControlArgs
     {
     id: string;
-    name: string;
     minValue: number;
     maxValue: number;
     initValue: number | number[];
     container: HTMLElement;
 
+    label?: string;     // if not provided, then the 'id' is used
     onSlideFunction?: () => void;
     cssClass?: string;
     step?: number;
@@ -35,6 +35,11 @@ class Control
             args.step = 1;
             }
 
+        if ( typeof args.label === 'undefined' )
+            {
+            args.label = args.id;
+            }
+
             // find number of digits past the decimal point
         var stepStr = args.step.toString();
         var digits = 0;
@@ -54,7 +59,7 @@ class Control
         var controlValue = document.createElement( 'span' );
         var controlSlider = document.createElement( 'div' );
 
-        $( controlText ).text( args.name );
+        $( controlText ).text( args.label );
         $( controlContainer ).addClass( 'Control' );
 
         if ( args.cssClass )

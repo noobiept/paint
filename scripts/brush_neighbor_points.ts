@@ -1,4 +1,4 @@
-interface NeighborPointsBrushArgs
+interface NeighborPointsBrushArgs extends BrushArgs
     {
     opacity: number[];
     thickness: number[];
@@ -52,7 +52,7 @@ class NeighborPointsBrush implements Brush
 
         this.opacity_control = new Control({
                 id: 'opacity',
-                name: 'Opacity:',
+                label: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
                 initValue: args.opacity,
@@ -62,7 +62,7 @@ class NeighborPointsBrush implements Brush
             });
         this.thickness_control = new Control({
                 id: 'thickness',
-                name: 'Thickness:',
+                label: 'Thickness:',
                 minValue: 0.5,
                 maxValue: 30,
                 initValue: args.thickness,
@@ -71,7 +71,7 @@ class NeighborPointsBrush implements Brush
             });
         this.shadow_blur_control = new Control({
                 id: 'shadowBlur',
-                name: 'Shadow Blur:',
+                label: 'Shadow Blur:',
                 minValue: 0,
                 maxValue: 10,
                 initValue: args.shadowBlur,
@@ -80,7 +80,7 @@ class NeighborPointsBrush implements Brush
             });
         this.distance_control = new Control({
                 id: 'distance',
-                name: 'Distance:',
+                label: 'Distance:',
                 minValue: 10,
                 maxValue: 100,
                 initValue: args.distance,

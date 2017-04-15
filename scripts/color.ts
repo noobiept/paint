@@ -27,7 +27,7 @@ namespace Color
         var container = <HTMLElement> document.querySelector( '#ColorPicker' );
 
         RED = new Control({
-                name: 'Red',
+                id: 'Red',
                 minValue: 0,
                 maxValue: 255,
                 initValue: initialValues.red,
@@ -38,7 +38,7 @@ namespace Color
             });
 
         GREEN = new Control({
-                name: 'Green',
+                id: 'Green',
                 minValue: 0,
                 maxValue: 255,
                 initValue: initialValues.green,
@@ -49,7 +49,7 @@ namespace Color
             });
 
         BLUE = new Control({
-                name: 'Blue',
+                id: 'Blue',
                 minValue: 0,
                 maxValue: 255,
                 initValue: initialValues.blue,

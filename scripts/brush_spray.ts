@@ -1,4 +1,4 @@
-interface SprayBrushArgs
+interface SprayBrushArgs extends BrushArgs
     {
     opacity: number[];
     radius: number;
@@ -62,7 +62,7 @@ class SprayBrush implements Brush
 
         this.opacity_control = new Control({
                 id: 'opacity',
-                name: 'Opacity:',
+                label: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
                 initValue: args.opacity,
@@ -72,7 +72,7 @@ class SprayBrush implements Brush
             });
         this.radius_control = new Control({
                 id: 'radius',
-                name: 'Radius:',
+                label: 'Radius:',
                 minValue: 10,
                 maxValue: 100,
                 initValue: args.radius,
@@ -81,7 +81,7 @@ class SprayBrush implements Brush
             });
         this.total_points_control = new Control({
                 id: 'totalPoints',
-                name: 'Total Points:',
+                label: 'Total Points:',
                 minValue: 10,
                 maxValue: 100,
                 initValue: args.totalPoints,
@@ -90,7 +90,7 @@ class SprayBrush implements Brush
             });
         this.points_length_control = new Control({
                 id: 'pointsLength',
-                name: 'Points Length:',
+                label: 'Points Length:',
                 minValue: 1,
                 maxValue: 5,
                 initValue: args.pointsLength,

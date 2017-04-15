@@ -1,4 +1,4 @@
-interface BubblesBrushArgs
+interface BubblesBrushArgs extends BrushArgs
     {
     opacity: number[];
     radius: number[];
@@ -40,7 +40,7 @@ class BubblesBrush implements Brush
 
         this.opacity_control = new Control({
                 id: 'opacity',
-                name: 'Opacity:',
+                label: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
                 initValue: args.opacity,
@@ -50,7 +50,7 @@ class BubblesBrush implements Brush
             });
         this.radius_control = new Control({
                 id: 'radius',
-                name: 'Radius:',
+                label: 'Radius:',
                 minValue: 1,
                 maxValue: 20,
                 initValue: args.radius,

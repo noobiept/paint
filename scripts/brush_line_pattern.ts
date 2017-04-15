@@ -1,4 +1,4 @@
-interface LinePatternBrushArgs
+interface LinePatternBrushArgs extends BrushArgs
     {
     opacity?: number;
     thickness?: number;
@@ -47,7 +47,7 @@ class LinePatternBrush implements Brush
             // main line
         this.opacity_control = new Control({
                 id: 'opacity',
-                name: 'Opacity:',
+                label: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
                 initValue: args.opacity,
@@ -57,7 +57,7 @@ class LinePatternBrush implements Brush
             });
         this.thickness_control = new Control({
                 id: 'thickness',
-                name: 'Thickness:',
+                label: 'Thickness:',
                 minValue: 0.5,
                 maxValue: 30,
                 initValue: args.thickness,
@@ -68,7 +68,7 @@ class LinePatternBrush implements Brush
             // pattern
         this.angle_control = new Control({
                 id: 'patternAngle',
-                name: 'Pattern Angle:',
+                label: 'Pattern Angle:',
                 minValue: 0,
                 maxValue: 135,
                 initValue: args.patternAngle,
@@ -77,7 +77,7 @@ class LinePatternBrush implements Brush
             });
         this.pattern_thickness_control = new Control({
                 id: 'patternThickness',
-                name: 'Pattern Thickness:',
+                label: 'Pattern Thickness:',
                 minValue: 0.5,
                 maxValue: 10,
                 initValue: args.patternThickness,

@@ -1,4 +1,4 @@
-interface LineBrushArgs
+interface LineBrushArgs extends BrushArgs
     {
     opacity: number;
     thickness: number;
@@ -38,7 +38,7 @@ class LineBrush implements Brush
 
         this.opacity_control = new Control({
                 id: 'opacity',
-                name: 'Opacity:',
+                label: 'Opacity:',
                 minValue: 0,
                 maxValue: 1,
                 initValue: args.opacity,
@@ -48,7 +48,7 @@ class LineBrush implements Brush
             });
         this.thickness_control = new Control({
                 id: 'thickness',
-                name: 'Thickness:',
+                label: 'Thickness:',
                 minValue: 0.5,
                 maxValue: 30,
                 initValue: args.thickness,
@@ -57,7 +57,7 @@ class LineBrush implements Brush
             });
         this.shadow_blur_control = new Control({
                 id: 'shadowBlur',
-                name: 'Shadow Blur:',
+                label: 'Shadow Blur:',
                 minValue: 0,
                 maxValue: 10,
                 initValue: args.shadowBlur,

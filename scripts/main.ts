@@ -29,6 +29,7 @@ interface Settings
     }
 
 
+interface BrushArgs {}
 interface Brush
     {
     opacity_control: Control;

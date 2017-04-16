@@ -31,6 +31,7 @@ namespace Paint
         ];
 
     var BRUSH_SELECTED = 0;
+    var BRUSHES_CONTAINER: HTMLElement;
     var BRUSH_OBJECT: Brush | null = null;
 
     var IS_MOUSE_DOWN = false;
@@ -64,35 +65,22 @@ namespace Paint
 
             // :: Brushes menu :: //
 
-        var brushesContainer = document.getElementById( 'BrushesContainer' )!;
-        var brushes = brushesContainer.querySelectorAll( '.button' );
+        BRUSHES_CONTAINER = document.getElementById( 'BrushesContainer' )!;
 
             // start with the previously selected brush, or with the first brush (if fresh start)
-        var position = SaveLoad.getSelectedBrush();
-        var selected = brushes[ position ];
+        selectBrush( SaveLoad.getSelectedBrush() );
 
-        var selectBrushFunction = function( position: number, htmlElement: Element )
+            // set the click listeners on the menu elements
+        for (var a = 0 ; a < BRUSHES_CONTAINER.children.length ; a++)
             {
-                // this has a function within, to create a closure, so that the arguments are retained (otherwise in the loop below it wouldn't work, all would get the last value of 'a')
-            return function()
+            let item = <HTMLElement> BRUSHES_CONTAINER.children[ a ];
+            let position = a;   // capture the value
+            item.onclick = function()
                 {
-                $( selected ).removeClass( 'selected' );
-                $( htmlElement ).addClass( 'selected' );
-
-                selected = htmlElement;
-
-                Paint.selectBrush( position );
+                selectBrush( position );
                 };
-            };
-
-
-        for (var a = 0 ; a < brushes.length ; a++)
-            {
-            let brush = <HTMLElement> brushes[ a ];
-            brush.onclick = selectBrushFunction( a, brush );
             }
 
-        selectBrushFunction( position, selected )();
         Paint.updateCurrentColor();
 
         document.body.onmousedown = startDraw;
@@ -151,12 +139,17 @@ namespace Paint
 
             current.previousSettings = BRUSH_OBJECT.getSettings();
             BRUSH_OBJECT.clear();
+
+                // remove the selected styling
+            BRUSHES_CONTAINER.children[ BRUSH_SELECTED ].classList.remove( 'selected' );
             }
 
         var next = BRUSHES[ brushPosition ];
 
         BRUSH_SELECTED = brushPosition;
         BRUSH_OBJECT = new next.brushClass( next.previousSettings );
+
+        BRUSHES_CONTAINER.children[ brushPosition  ].classList.add( 'selected' );
 
         Paint.updateCurrentColor();
         }

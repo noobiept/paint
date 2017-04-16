@@ -43,6 +43,9 @@ interface Brush
     }
 
 
+enum MouseButton { left = 0, middle = 1, right = 2, back = 3, forward = 4 }
+
+
     // main canvas, will contain the drawing with all the shapes
 var MAIN_CANVAS: HTMLCanvasElement;
 var MAIN_CTX: CanvasRenderingContext2D;

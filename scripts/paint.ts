@@ -97,31 +97,40 @@ namespace Paint
         }
 
 
+    /**
+     * Start drawing with the selected brush.
+     */
     export function startDraw( event: MouseEvent )
         {
-        IS_MOUSE_DOWN = true;
+        if ( event.button === MouseButton.left )
+            {
+            IS_MOUSE_DOWN = true;
+            event.preventDefault();
 
-        event.preventDefault();
-
-        return BRUSH_OBJECT!.startDraw( event );
+            return BRUSH_OBJECT!.startDraw( event );
+            }
         }
 
 
+    /**
+     * Keep drawing while the mouse is being pressed.
+     */
     export function duringDraw( event: MouseEvent )
         {
         if ( IS_MOUSE_DOWN )
             {
             event.preventDefault();
-
             BRUSH_OBJECT!.duringDraw( event );
             }
         }
 
 
+    /**
+     * Finish the current draw path.
+     */
     export function endDraw( event: MouseEvent )
         {
         IS_MOUSE_DOWN = false;
-
         event.preventDefault();
 
         return BRUSH_OBJECT!.endDraw( event );

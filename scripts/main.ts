@@ -43,9 +43,6 @@ interface Brush
     }
 
 
-enum MouseButton { left = 0, middle = 1, right = 2, back = 3, forward = 4 }
-
-
     // main canvas, will contain the drawing with all the shapes
 var MAIN_CANVAS: HTMLCanvasElement;
 var MAIN_CTX: CanvasRenderingContext2D;
@@ -78,11 +75,6 @@ if ( savedCanvas != true )
     }
 
 Paint.init( savedCanvas );
-
-document.body.onmousedown = Paint.startDraw;
-document.body.onmousemove = Paint.duringDraw;
-document.body.onmouseup = Paint.endDraw;
-
 
     // set the dimensions of the canvas, to fill the available space in the window
 var menuHeight = $( '#Menu' ).outerHeight();

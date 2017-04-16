@@ -94,15 +94,20 @@ namespace Paint
 
         selectBrushFunction( position, selected )();
         Paint.updateCurrentColor();
+
+        document.body.onmousedown = startDraw;
+        document.body.onmousemove = duringDraw;
+        document.body.onmouseup = endDraw;
+        document.body.onkeydown = keyboardShortcuts;
         }
 
 
     /**
      * Start drawing with the selected brush.
      */
-    export function startDraw( event: MouseEvent )
+    function startDraw( event: MouseEvent )
         {
-        if ( event.button === MouseButton.left )
+        if ( event.button === Utilities.MouseButton.left )
             {
             IS_MOUSE_DOWN = true;
             event.preventDefault();
@@ -115,7 +120,7 @@ namespace Paint
     /**
      * Keep drawing while the mouse is being pressed.
      */
-    export function duringDraw( event: MouseEvent )
+    function duringDraw( event: MouseEvent )
         {
         if ( IS_MOUSE_DOWN )
             {
@@ -128,7 +133,7 @@ namespace Paint
     /**
      * Finish the current draw path.
      */
-    export function endDraw( event: MouseEvent )
+    function endDraw( event: MouseEvent )
         {
         IS_MOUSE_DOWN = false;
         event.preventDefault();
@@ -292,5 +297,42 @@ namespace Paint
     export function isEraseBrush()
         {
         return ERASE_BRUSH;
+        }
+
+
+    /**
+     * - `: Toggle erase mode.
+     * - 1-5: Select a brush.
+     */
+    function keyboardShortcuts( event: KeyboardEvent )
+        {
+        var key = event.keyCode;
+
+        switch( key )
+            {
+            case Utilities.KeyCode.graveAccent:
+                eraseBrush();
+                break;
+
+            case Utilities.KeyCode.one:
+                selectBrush( 0 );
+                break;
+
+            case Utilities.KeyCode.two:
+                selectBrush( 1 );
+                break;
+
+            case Utilities.KeyCode.three:
+                selectBrush( 2 );
+                break;
+
+            case Utilities.KeyCode.four:
+                selectBrush( 3 );
+                break;
+
+            case Utilities.KeyCode.five:
+                selectBrush( 4 );
+                break;
+            }
         }
     }

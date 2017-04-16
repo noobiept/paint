@@ -294,8 +294,8 @@ namespace Paint
 
 
     /**
-     * - `: Toggle erase mode.
-     * - 1-5: Select a brush.
+     * - `: Toggle the erase mode.
+     * - 1-5: Select the brush on that position.
      */
     function keyboardShortcuts( event: KeyboardEvent )
         {

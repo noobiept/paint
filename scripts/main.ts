@@ -35,9 +35,9 @@ interface Brush
     opacity_control: Control;
     all_controls: Control[];
 
-    startDraw( event: MouseEvent ): void;
-    duringDraw( event: MouseEvent ): void;
-    endDraw( event: MouseEvent ): void;
+    startDraw( x: number, y: number, ctx: CanvasRenderingContext2D ): void;
+    duringDraw( x: number, y: number, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D ): void;
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D ): void;
     getSettings(): Settings;
     clear(): void;
     }

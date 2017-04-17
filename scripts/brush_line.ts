@@ -72,14 +72,14 @@ class LineBrush implements Brush
         }
 
 
-    startDraw( event: MouseEvent )
+    startDraw( x: number, y: number, ctx: CanvasRenderingContext2D )
         {
         this.all_points.push({
-                x: event.pageX,
-                y: event.pageY
+                x: x,
+                y: y
             });
 
-        DRAW_CTX.save();
+        ctx.save();
 
         var color;
         var opacity = this.opacity_control.getUpperValue();
@@ -102,23 +102,23 @@ class LineBrush implements Brush
 
         var colorCss = Utilities.toCssColor( color.red, color.green, color.blue, opacity );
 
-        DRAW_CTX.beginPath();
-        DRAW_CTX.strokeStyle = colorCss;
-        DRAW_CTX.lineCap = 'round';
-        DRAW_CTX.lineJoin = 'round';
-        DRAW_CTX.lineWidth = this.thickness_control.getUpperValue();
-        DRAW_CTX.shadowBlur = this.shadow_blur_control.getUpperValue();
-        DRAW_CTX.shadowColor = colorCss;
+        ctx.beginPath();
+        ctx.strokeStyle = colorCss;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = this.thickness_control.getUpperValue();
+        ctx.shadowBlur = this.shadow_blur_control.getUpperValue();
+        ctx.shadowColor = colorCss;
         }
 
 
-    duringDraw( event: MouseEvent )
+    duringDraw( x: number, y: number, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D )
         {
-        DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+        ctx.clearRect( 0, 0, canvas.width, canvas.height );
 
         this.all_points.push({
-                x: event.pageX,
-                y: event.pageY
+                x: x,
+                y: y
             });
 
             // draw the line
@@ -127,41 +127,41 @@ class LineBrush implements Brush
         var point2 = this.all_points[ 1 ];
 
 
-        DRAW_CTX.beginPath();
-        DRAW_CTX.moveTo( point1.x, point1.y );
+        ctx.beginPath();
+        ctx.moveTo( point1.x, point1.y );
 
         for (var a = 1 ; a < this.all_points.length ; a++)
             {
             var midPointX = Math.floor( (point1.x + point2.x) / 2 );
             var midPointY = Math.floor( (point1.y + point2.y) / 2 );
 
-            DRAW_CTX.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY );
+            ctx.quadraticCurveTo( point1.x, point1.y, midPointX, midPointY );
 
             point1 = this.all_points[ a ];
             point2 = this.all_points[ a + 1 ];
             }
 
-        DRAW_CTX.stroke();
+        ctx.stroke();
         }
 
 
-    endDraw( event: MouseEvent )
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
             // draw what is in the draw canvas into the main one
-        MAIN_CTX.save();
+        mainCtx.save();
 
         if ( Paint.isEraseBrush() )
             {
-            MAIN_CTX.globalCompositeOperation = 'destination-out';
+            mainCtx.globalCompositeOperation = 'destination-out';
             }
 
-        MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
-        MAIN_CTX.restore();
+        mainCtx.drawImage( drawCanvas, 0, 0 );
+        mainCtx.restore();
 
-        DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+        drawCtx.clearRect( 0, 0, drawCanvas.width, drawCanvas.height );
 
             // we're done with drawing, so restore the previous styling
-        DRAW_CTX.restore();
+        drawCtx.restore();
 
         this.all_points.length = 0;
         };

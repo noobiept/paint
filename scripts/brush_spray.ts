@@ -101,14 +101,14 @@ class SprayBrush implements Brush
         }
 
 
-    startDraw( event: MouseEvent )
+    startDraw( x: number, y: number, ctx: CanvasRenderingContext2D )
         {
         var this_ = this;
 
-        this.currentX = event.pageX;
-        this.currentY = event.pageY;
+        this.currentX = x;
+        this.currentY = y;
 
-        DRAW_CTX.save();
+        ctx.save();
 
         var color;
 
@@ -135,10 +135,10 @@ class SprayBrush implements Brush
         this.total_points = this.total_points_control.getUpperValue();
         this.points_length = this.points_length_control.getUpperValue();
 
-        DRAW_CTX.beginPath();
-        DRAW_CTX.lineCap = 'round';
-        DRAW_CTX.lineJoin = 'round';
-        DRAW_CTX.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
 
             // keep adding points, until the mouse button stops being pressed
         this.interval_f = window.setInterval( function()
@@ -148,8 +148,8 @@ class SprayBrush implements Brush
                 var angle = Utilities.getRandomFloat( 0, 2 * Math.PI );
                 var distance = Utilities.getRandomInt( 0, this_.radius );
 
-                DRAW_CTX.globalAlpha = Utilities.getRandomFloat( this_.minimum_opacity, this_.maximum_opacity );
-                DRAW_CTX.fillRect(
+                ctx.globalAlpha = Utilities.getRandomFloat( this_.minimum_opacity, this_.maximum_opacity );
+                ctx.fillRect(
                     this_.currentX + distance * Math.cos( angle ),
                     this_.currentY + distance * Math.sin( angle ),
                     this_.points_length,
@@ -161,32 +161,32 @@ class SprayBrush implements Brush
         }
 
 
-    duringDraw( event: MouseEvent )
+    duringDraw( x: number, y: number, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D )
         {
-        this.currentX = event.pageX;
-        this.currentY = event.pageY;
+        this.currentX = x;
+        this.currentY = y;
         }
 
 
-    endDraw( event: MouseEvent )
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
         window.clearInterval( this.interval_f );
 
             // draw what is in the draw canvas into the main one
-        MAIN_CTX.save();
+        mainCtx.save();
 
         if ( Paint.isEraseBrush() )
             {
-            MAIN_CTX.globalCompositeOperation = 'destination-out';
+            mainCtx.globalCompositeOperation = 'destination-out';
             }
 
-        MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
-        MAIN_CTX.restore();
+        mainCtx.drawImage( drawCanvas, 0, 0 );
+        mainCtx.restore();
 
-        DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+        drawCtx.clearRect( 0, 0, drawCanvas.width, drawCanvas.height );
 
             // we're done with drawing, so restore the previous styling
-        DRAW_CTX.restore();
+        drawCtx.restore();
         }
 
 

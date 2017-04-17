@@ -145,7 +145,7 @@ namespace Paint
             IS_MOUSE_DOWN = true;
             event.preventDefault();
 
-            return BRUSH_OBJECT!.startDraw( event );
+            return BRUSH_OBJECT!.startDraw( event.pageX, event.pageY, DRAW_CTX );
             }
         }
 
@@ -158,7 +158,7 @@ namespace Paint
         if ( IS_MOUSE_DOWN )
             {
             event.preventDefault();
-            BRUSH_OBJECT!.duringDraw( event );
+            BRUSH_OBJECT!.duringDraw( event.pageX, event.pageY, DRAW_CANVAS, DRAW_CTX );
             }
         }
 
@@ -171,7 +171,7 @@ namespace Paint
         IS_MOUSE_DOWN = false;
         event.preventDefault();
 
-        return BRUSH_OBJECT!.endDraw( event );
+        return BRUSH_OBJECT!.endDraw( DRAW_CANVAS, DRAW_CTX, MAIN_CANVAS, MAIN_CTX );
         }
 
 

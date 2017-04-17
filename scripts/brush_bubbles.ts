@@ -62,17 +62,17 @@ class BubblesBrush implements Brush
         }
 
 
-    startDraw( event: MouseEvent )
+    startDraw( x: number, y: number, ctx: CanvasRenderingContext2D )
         {
         this.all_points.push({
-                x : event.pageX,
-                y : event.pageY,
+                x : x,
+                y : y,
                 radius  : Utilities.getRandomInt( this.minimum_radius, this.maximum_radius ),
                 opacity : Utilities.getRandomFloat( this.minimum_opacity, this.maximum_opacity )
             });
 
             // before making changes to the styling, call context.save(), to save the previous state (we'll restore at the end)
-        DRAW_CTX.save();
+        ctx.save();
 
         var color;
 
@@ -92,8 +92,8 @@ class BubblesBrush implements Brush
             color = Color.getValues();
             }
 
-        DRAW_CTX.beginPath();
-        DRAW_CTX.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
+        ctx.beginPath();
+        ctx.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
 
         this.minimum_opacity = this.opacity_control.getLowerValue();
         this.maximum_opacity = this.opacity_control.getUpperValue();
@@ -103,13 +103,13 @@ class BubblesBrush implements Brush
         }
 
 
-    duringDraw( event: MouseEvent )
+    duringDraw( x: number, y: number, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D )
         {
-        DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+        ctx.clearRect( 0, 0, canvas.width, canvas.height );
 
         this.all_points.push({
-                x : event.pageX,
-                y : event.pageY,
+                x : x,
+                y : y,
                 radius  : Utilities.getRandomInt( this.minimum_radius, this.maximum_radius ),
                 opacity : Utilities.getRandomFloat( this.minimum_opacity, this.maximum_opacity )
             });
@@ -119,31 +119,31 @@ class BubblesBrush implements Brush
             {
             var circle = this.all_points[ a ];
 
-            DRAW_CTX.beginPath();
-            DRAW_CTX.globalAlpha = circle.opacity;
-            DRAW_CTX.arc( circle.x, circle.y, circle.radius, 0, Math.PI * 2 );
-            DRAW_CTX.fill();
+            ctx.beginPath();
+            ctx.globalAlpha = circle.opacity;
+            ctx.arc( circle.x, circle.y, circle.radius, 0, Math.PI * 2 );
+            ctx.fill();
             }
         }
 
 
-    endDraw( event: MouseEvent )
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
             // draw what is in the draw canvas into the main one
-        MAIN_CTX.save();
+        mainCtx.save();
 
         if ( Paint.isEraseBrush() )
             {
-            MAIN_CTX.globalCompositeOperation = 'destination-out';
+            mainCtx.globalCompositeOperation = 'destination-out';
             }
 
-        MAIN_CTX.drawImage( DRAW_CANVAS, 0, 0 );
-        MAIN_CTX.restore();
+        mainCtx.drawImage( drawCanvas, 0, 0 );
+        mainCtx.restore();
 
-        DRAW_CTX.clearRect( 0, 0, DRAW_CANVAS.width, DRAW_CANVAS.height );
+        drawCtx.clearRect( 0, 0, drawCanvas.width, drawCanvas.height );
 
             // we're done with drawing, so restore the previous styling
-        DRAW_CTX.restore();
+        drawCtx.restore();
 
         this.all_points.length = 0;
         }

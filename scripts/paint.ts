@@ -130,7 +130,7 @@ namespace Paint
 
         if ( savedCanvas )
             {
-            SaveLoad.loadCanvasImage();
+            SaveLoad.loadCanvasImage( DRAW_CANVAS, MAIN_CANVAS, MAIN_CTX );
             }
         }
 
@@ -372,5 +372,14 @@ namespace Paint
                 selectBrush( 4 );
                 break;
             }
+        }
+
+
+    /**
+     * Get the main canvas html element (for saving purposes).
+     */
+    export function getMainCanvas()
+        {
+        return MAIN_CANVAS;
         }
     }

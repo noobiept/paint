@@ -2,6 +2,8 @@ namespace SaveLoad
     {
     export function save()
         {
+        let mainCanvas = Paint.getMainCanvas();
+
             // save the RGB values that were set
         var rgb = Color.getValues();
 
@@ -18,9 +20,9 @@ namespace SaveLoad
             Utilities.setObject( 'saved_canvas', true );
 
                 // save the canvas
-            Utilities.setObject( 'canvas', MAIN_CANVAS.toDataURL( 'image/png' ) );
-            Utilities.setObject( 'canvas_width', MAIN_CANVAS.width );
-            Utilities.setObject( 'canvas_height', MAIN_CANVAS.height );
+            Utilities.setObject( 'canvas', mainCanvas.toDataURL( 'image/png' ) );
+            Utilities.setObject( 'canvas_width', mainCanvas.width );
+            Utilities.setObject( 'canvas_height', mainCanvas.height );
             }
 
         else
@@ -86,34 +88,34 @@ namespace SaveLoad
         }
 
 
-    export function loadCanvasImage()
+    export function loadCanvasImage( drawCanvas: HTMLCanvasElement, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
-        var canvas = Utilities.getObject( 'canvas' );
+        var canvasData = Utilities.getObject( 'canvas' );
         var canvasWidth = Utilities.getObject( 'canvas_width' );
         var canvasHeight = Utilities.getObject( 'canvas_height' );
 
-        if ( canvas && $.isNumeric( canvasWidth ) && $.isNumeric( canvasHeight ) )
+        if ( canvasData && $.isNumeric( canvasWidth ) && $.isNumeric( canvasHeight ) )
             {
-            var currentWidth = MAIN_CANVAS.width;
-            var currentHeight = MAIN_CANVAS.height;
+            var currentWidth = mainCanvas.width;
+            var currentHeight = mainCanvas.height;
 
                 // see if we need to increase the size of the canvas (to avoid loosing part of the image)
             if ( currentWidth < canvasWidth )
                 {
-                MAIN_CANVAS.width = DRAW_CANVAS.width = canvasWidth;
+                mainCanvas.width = drawCanvas.width = canvasWidth;
                 }
 
             if ( currentHeight < canvasHeight )
                 {
-                MAIN_CANVAS.height = DRAW_CANVAS.height = canvasHeight;
+                mainCanvas.height = drawCanvas.height = canvasHeight;
                 }
 
             var img = new Image();
 
-            img.src = canvas;
+            img.src = canvasData;
             img.onload = function()
                 {
-                MAIN_CTX.drawImage( img, 0, 0 );
+                mainCtx.drawImage( img, 0, 0 );
                 };
             }
         }

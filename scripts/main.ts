@@ -29,6 +29,13 @@ interface Settings
     }
 
 
+interface PreviousBrushSettings
+    {
+    brushClass: { new( args: BrushArgs ): Brush };
+    previousSettings: Settings;
+    }
+
+
 interface BrushArgs {}
 interface Brush
     {
@@ -45,8 +52,6 @@ interface Brush
 
 window.onload = function()
 {
-Color.init( SaveLoad.getRgb() );
-
 var savedCanvas = Utilities.getObject( 'saved_canvas' );
 
 if ( savedCanvas !== true )
@@ -54,6 +59,7 @@ if ( savedCanvas !== true )
     savedCanvas = false;
     }
 
+Color.init( SaveLoad.getRgb() );
 Menu.init();
 Paint.init( savedCanvas );
 };

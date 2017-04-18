@@ -1,12 +1,5 @@
 namespace Paint
     {
-    export interface PreviousBrushSettings
-        {
-        brushClass: { new( args: BrushArgs ): Brush };
-        previousSettings: Settings;
-        }
-
-
         // main canvas, will contain the drawing with all the shapes
     var MAIN_CANVAS: HTMLCanvasElement;
     var MAIN_CTX: CanvasRenderingContext2D;

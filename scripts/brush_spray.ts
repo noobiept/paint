@@ -67,7 +67,7 @@ class SprayBrush implements Brush
                 initValue: args.opacity,
                 step: 0.05,
                 container: container1,
-                onSlideFunction: function() { Paint.updateCurrentColor(); }
+                onSlideFunction: function() { Menu.updateCurrentColor(); }
             });
         this.radius_control = new Control({
                 id: 'radius',

@@ -54,6 +54,7 @@ if ( savedCanvas !== true )
     savedCanvas = false;
     }
 
+Menu.init();
 Paint.init( savedCanvas );
 };
 

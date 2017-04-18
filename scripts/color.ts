@@ -34,7 +34,7 @@ namespace Color
                 step: 1,
                 container: container,
                 cssClass: 'red',
-                onSlideFunction: function() { Paint.updateCurrentColor(); }
+                onSlideFunction: function() { Menu.updateCurrentColor(); }
             });
 
         GREEN = new Control({
@@ -45,7 +45,7 @@ namespace Color
                 step: 1,
                 container: container,
                 cssClass: 'green',
-                onSlideFunction: function() { Paint.updateCurrentColor(); }
+                onSlideFunction: function() { Menu.updateCurrentColor(); }
             });
 
         BLUE = new Control({
@@ -56,7 +56,7 @@ namespace Color
                 step: 1,
                 container: container,
                 cssClass: 'blue',
-                onSlideFunction: function() { Paint.updateCurrentColor(); }
+                onSlideFunction: function() { Menu.updateCurrentColor(); }
             });
         }
 

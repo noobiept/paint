@@ -40,11 +40,8 @@ namespace Paint
         ];
 
     var BRUSH_SELECTED = 0;
-    var BRUSHES_CONTAINER: HTMLElement;
     var BRUSH_OBJECT: Brush | null = null;
-
     var IS_MOUSE_DOWN = false;
-
 
     var SAVE_CANVAS = false;
     var ERASE_BRUSH = false;    // if the current selected brush is used to draw or to erase
@@ -57,41 +54,15 @@ namespace Paint
         initCanvas( savedCanvas );
         SaveLoad.loadBrushesValues( BRUSHES );
 
-        var saveCanvas = document.getElementById( 'saveCanvas' )!;
-        var eraseBrush = document.getElementById( 'erase' )!;
-        var clear = document.getElementById( 'clearCanvas' )!;
-        var exportCanvas = document.getElementById( 'exportCanvas' )!;
-
-        saveCanvas.onclick = Paint.saveCanvas;
-        eraseBrush.onclick = Paint.eraseBrush;
-        clear.onclick = Paint.clearCanvas;
-        exportCanvas.onclick = Paint.exportCanvas;
-
-        if ( savedCanvas == true )
+        if ( savedCanvas === true )
             {
                 // the default is being off, so by calling the .saveCanvas() function we turn in to on
             Paint.saveCanvas();
             }
 
-            // :: Brushes menu :: //
-
-        BRUSHES_CONTAINER = document.getElementById( 'BrushesContainer' )!;
-
             // start with the previously selected brush, or with the first brush (if fresh start)
         selectBrush( SaveLoad.getSelectedBrush() );
-
-            // set the click listeners on the menu elements
-        for (var a = 0 ; a < BRUSHES_CONTAINER.children.length ; a++)
-            {
-            let item = <HTMLElement> BRUSHES_CONTAINER.children[ a ];
-            let position = a;   // capture the value
-            item.onclick = function()
-                {
-                selectBrush( position );
-                };
-            }
-
-        Paint.updateCurrentColor();
+        Menu.updateCurrentColor();
 
         document.body.onmousedown = startDraw;
         document.body.onmousemove = duringDraw;
@@ -186,7 +157,7 @@ namespace Paint
             BRUSH_OBJECT.clear();
 
                 // remove the selected styling
-            BRUSHES_CONTAINER.children[ BRUSH_SELECTED ].classList.remove( 'selected' );
+            Menu.unselectBrush( BRUSH_SELECTED );
             }
 
         var next = BRUSHES[ brushPosition ];
@@ -194,44 +165,8 @@ namespace Paint
         BRUSH_SELECTED = brushPosition;
         BRUSH_OBJECT = new next.brushClass( next.previousSettings );
 
-        BRUSHES_CONTAINER.children[ brushPosition  ].classList.add( 'selected' );
-
-        Paint.updateCurrentColor();
-        }
-
-
-    export function updateCurrentColor()
-        {
-        var colorContainer = document.getElementById( 'ColorPicker' )!;
-
-            // get the elements to change the background color
-        var sliderHandles = colorContainer.querySelectorAll( '.ui-slider-handle' );
-        var sliderRanges = colorContainer.querySelectorAll( '.ui-slider-range' );
-
-            // convert from nodelist to array
-        var handlesArray = Array.prototype.slice.call( sliderHandles );
-        var rangesArray = Array.prototype.slice.call( sliderRanges );
-
-            // merge the 2 arrays
-        var elements = handlesArray.concat( rangesArray );
-
-            // get the color
-        var color = Color.getValues();
-        var opacity = BRUSH_OBJECT!.opacity_control.getValue();
-
-            // means its a range (min/max value), so get the max value
-        if ( opacity instanceof Array )
-            {
-            opacity = opacity[ 1 ];
-            }
-
-        var colorCss = Utilities.toCssColor( color.red, color.green, color.blue, opacity );
-
-            // change the background color
-        for (var a = 0 ; a < elements.length ; a++)
-            {
-            $( elements[ a ] ).css( 'background', colorCss );
-            }
+        Menu.selectBrush( brushPosition );
+        Menu.updateCurrentColor();
         }
 
 
@@ -282,47 +217,25 @@ namespace Paint
         }
 
 
+    /**
+     * Toggle the save canvas control state.
+     */
     export function saveCanvas()
         {
-        var saveCanvas = $( '#saveCanvas' );
+        SAVE_CANVAS = !SAVE_CANVAS;
 
-        if ( saveCanvas.hasClass( 'off' ) )
-            {
-            saveCanvas.removeClass( 'off' );
-            saveCanvas.addClass( 'on' );
-
-            SAVE_CANVAS = true;
-            }
-
-        else
-            {
-            saveCanvas.removeClass( 'on' );
-            saveCanvas.addClass( 'off' );
-
-            SAVE_CANVAS = false;
-            }
+        Menu.setSaveCanvasState( SAVE_CANVAS );
         }
 
 
+    /**
+     * Toggle the erase brush control state.
+     */
     export function eraseBrush()
         {
-        var erase = $( '#erase' );
+        ERASE_BRUSH = !ERASE_BRUSH;
 
-        if ( erase.hasClass( 'off' ) )
-            {
-            erase.removeClass( 'off' );
-            erase.addClass( 'on' );
-
-            ERASE_BRUSH = true;
-            }
-
-        else
-            {
-            erase.removeClass( 'on' );
-            erase.addClass( 'off' );
-
-            ERASE_BRUSH = false;
-            }
+        Menu.setEraseBrushState( ERASE_BRUSH );
         }
 
 
@@ -381,5 +294,11 @@ namespace Paint
     export function getMainCanvas()
         {
         return MAIN_CANVAS;
+        }
+
+
+    export function getOpacityValue()
+        {
+        return BRUSH_OBJECT!.opacity_control.getValue();
         }
     }

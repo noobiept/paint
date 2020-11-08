@@ -1,7 +1,7 @@
 interface BubblesBrushArgs extends BrushArgs
     {
-    opacity: number[];
-    radius: number[];
+    opacity?: number[];
+    radius?: number[];
     }
 
 
@@ -127,7 +127,7 @@ class BubblesBrush implements Brush
         }
 
 
-    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, _mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
             // draw what is in the draw canvas into the main one
         mainCtx.save();

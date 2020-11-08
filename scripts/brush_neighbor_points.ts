@@ -1,9 +1,9 @@
 interface NeighborPointsBrushArgs extends BrushArgs
     {
-    opacity: number[];
-    thickness: number[];
-    shadowBlur: number;
-    distance: number;
+    opacity?: number[];
+    thickness?: number[];
+    shadowBlur?: number;
+    distance?: number;
     }
 
 
@@ -11,8 +11,8 @@ class NeighborPointsBrush implements Brush
     {
     all_points: Point[]
     additional_lines: Line[];
-    secondaryLinesStyle: string;
-    secondaryLinesWidth: number;
+    secondaryLinesStyle?: string;
+    secondaryLinesWidth?: number;
     opacity_control: Control;
     thickness_control: Control;
     shadow_blur_control: Control;
@@ -198,8 +198,8 @@ class NeighborPointsBrush implements Brush
             // save the main styling
         ctx.save();
 
-        ctx.strokeStyle = this.secondaryLinesStyle;
-        ctx.lineWidth = this.secondaryLinesWidth;
+        ctx.strokeStyle = this.secondaryLinesStyle ?? '#000';
+        ctx.lineWidth = this.secondaryLinesWidth ?? 1;
 
             // draw all the additional lines
         for (a = 0 ; a < this.additional_lines.length ; a++)
@@ -215,7 +215,7 @@ class NeighborPointsBrush implements Brush
         }
 
 
-    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, _mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
             // draw what is in the draw canvas into the main one
         mainCtx.save();

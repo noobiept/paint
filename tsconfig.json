@@ -1,12 +1,11 @@
 {
     "compilerOptions": {
-        "noImplicitAny": true,
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
-        "noImplicitThis": true,
         "noUnusedLocals": true,
-        "strictNullChecks": true,
-        "alwaysStrict": true,
-        "target": "es2015"
+        "noUnusedParameters": true,
+        "target": "es2020"
     },
     "include": [
         "scripts/*.ts"

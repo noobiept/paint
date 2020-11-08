@@ -1,9 +1,9 @@
 interface SprayBrushArgs extends BrushArgs
     {
-    opacity: number[];
-    radius: number;
-    totalPoints: number;
-    pointsLength: number;
+    opacity?: number[];
+    radius?: number;
+    totalPoints?: number;
+    pointsLength?: number;
     }
 
 
@@ -11,11 +11,10 @@ class SprayBrush implements Brush
     {
     currentX: number;
     currentY: number;
-    interval_f: number;
+    interval_f?: number;
     minimum_opacity: number;
     maximum_opacity: number;
     radius: number;
-    points_length: number;
     total_points: number;
     opacity_control: Control;
     radius_control: Control;
@@ -133,7 +132,7 @@ class SprayBrush implements Brush
 
         this.radius = this.radius_control.getUpperValue();
         this.total_points = this.total_points_control.getUpperValue();
-        this.points_length = this.points_length_control.getUpperValue();
+        const points_length = this.points_length_control.getUpperValue();
 
         ctx.beginPath();
         ctx.lineCap = 'round';
@@ -152,8 +151,8 @@ class SprayBrush implements Brush
                 ctx.fillRect(
                     this_.currentX + distance * Math.cos( angle ),
                     this_.currentY + distance * Math.sin( angle ),
-                    this_.points_length,
-                    this_.points_length
+                    points_length,
+                    points_length
                     );
                 }
 
@@ -161,14 +160,14 @@ class SprayBrush implements Brush
         }
 
 
-    duringDraw( x: number, y: number, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D )
+    duringDraw( x: number, y: number, _canvas: HTMLCanvasElement, _ctx: CanvasRenderingContext2D )
         {
         this.currentX = x;
         this.currentY = y;
         }
 
 
-    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, _mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
         window.clearInterval( this.interval_f );
 

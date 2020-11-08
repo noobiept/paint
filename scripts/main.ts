@@ -31,7 +31,7 @@ interface Settings
 
 interface PreviousBrushSettings
     {
-    brushClass: { new( args: BrushArgs ): Brush };
+    brushClass: { new(args: BrushArgs): Brush };
     previousSettings: Settings;
     }
 

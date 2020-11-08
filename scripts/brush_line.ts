@@ -1,8 +1,8 @@
 interface LineBrushArgs extends BrushArgs
     {
-    opacity: number;
-    thickness: number;
-    shadowBlur: number;
+    opacity?: number;
+    thickness?: number;
+    shadowBlur?: number;
     }
 
 
@@ -145,7 +145,7 @@ class LineBrush implements Brush
         }
 
 
-    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
+    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, _mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
         {
             // draw what is in the draw canvas into the main one
         mainCtx.save();

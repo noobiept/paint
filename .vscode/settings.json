@@ -1,0 +1,5 @@
+{
+    "files.exclude": {
+        "scripts/*.js": true
+    }
+}

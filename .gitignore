@@ -2,3 +2,4 @@
 node_modules
 /info.txt
 .DS_Store
+/scripts/*.js

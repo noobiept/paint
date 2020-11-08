@@ -2,7 +2,7 @@
     "name": "paint",
     "version": "1.4.0",
     "scripts": {
-        "dev": "tsc"
+        "dev": "tsc -w"
     },
     "devDependencies": {
         "grunt": "^1.3.0",

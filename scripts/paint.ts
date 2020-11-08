@@ -79,9 +79,9 @@ namespace Paint
         MAIN_CANVAS.onselectstart = function() { return false; };
 
             // set the dimensions of the canvas, to fill the available space in the window
-        var menuHeight = $( '#Menu' ).outerHeight();
-        var windowWidth = $( window ).outerWidth();
-        var windowHeight = $( window ).outerHeight();
+        var menuHeight = $( '#Menu' ).outerHeight()!;
+        var windowWidth = $( window ).outerWidth()!;
+        var windowHeight = $( window ).outerHeight()!;
 
         var canvasWidth = windowWidth;
         var canvasHeight = windowHeight - menuHeight;

@@ -195,7 +195,7 @@ class LinePatternBrush implements Brush
             }
 
 
-        return ctx.createPattern( pattern, 'repeat' );
+        return ctx.createPattern( pattern, 'repeat' )!;
         }
 
 

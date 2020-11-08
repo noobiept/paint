@@ -3,6 +3,7 @@
     "version": "1.4.0",
     "scripts": {
         "dev": "tsc -w",
+        "build": "tsc",
         "format:check": "prettier --check \"**/*.{html,css,json,js,ts,tsx,md}\"",
         "format:run": "prettier --write \"**/*.{html,css,json,js,ts,tsx,md}\""
     },

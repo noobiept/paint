@@ -1,14 +1,11 @@
-interface SprayBrushArgs extends BrushArgs
-    {
+interface SprayBrushArgs extends BrushArgs {
     opacity?: number[];
     radius?: number;
     totalPoints?: number;
     pointsLength?: number;
-    }
+}
 
-
-class SprayBrush implements Brush
-    {
+class SprayBrush implements Brush {
     currentX: number;
     currentY: number;
     interval_f?: number;
@@ -22,86 +19,85 @@ class SprayBrush implements Brush
     points_length_control: Control;
     all_controls: Control[];
 
-
-    constructor( args: SprayBrushArgs )
-        {
-        if ( typeof args.opacity == 'undefined' )
-            {
+    constructor(args: SprayBrushArgs) {
+        if (typeof args.opacity == "undefined") {
             args.opacity = [0.25, 1];
-            }
+        }
 
-        if ( typeof args.radius == 'undefined' )
-            {
+        if (typeof args.radius == "undefined") {
             args.radius = 50;
-            }
+        }
 
-        if ( typeof args.totalPoints == 'undefined' )
-            {
+        if (typeof args.totalPoints == "undefined") {
             args.totalPoints = 50;
-            }
+        }
 
-        if ( typeof args.pointsLength == 'undefined' )
-            {
+        if (typeof args.pointsLength == "undefined") {
             args.pointsLength = 1;
-            }
+        }
 
-            // declaring the properties that will be used later on (the values will change from these, for example from the controls in the menu
+        // declaring the properties that will be used later on (the values will change from these, for example from the controls in the menu
         this.currentX = 0;
         this.currentY = 0;
-        this.minimum_opacity = args.opacity[ 0 ];
-        this.maximum_opacity = args.opacity[ 1 ];
+        this.minimum_opacity = args.opacity[0];
+        this.maximum_opacity = args.opacity[1];
         this.radius = args.radius;
         this.total_points = args.totalPoints;
 
-            // init. controls
+        // init. controls
 
-        var container1 = <HTMLElement> document.querySelector( '#brushControls1' );
-        var container2 = <HTMLElement> document.querySelector( '#brushControls2' );
+        var container1 = <HTMLElement>document.querySelector("#brushControls1");
+        var container2 = <HTMLElement>document.querySelector("#brushControls2");
 
         this.opacity_control = new Control({
-                id: 'opacity',
-                label: 'Opacity:',
-                minValue: 0,
-                maxValue: 1,
-                initValue: args.opacity,
-                step: 0.05,
-                container: container1,
-                onSlideFunction: function() { Menu.updateCurrentColor(); }
-            });
+            id: "opacity",
+            label: "Opacity:",
+            minValue: 0,
+            maxValue: 1,
+            initValue: args.opacity,
+            step: 0.05,
+            container: container1,
+            onSlideFunction: function () {
+                Menu.updateCurrentColor();
+            },
+        });
         this.radius_control = new Control({
-                id: 'radius',
-                label: 'Radius:',
-                minValue: 10,
-                maxValue: 100,
-                initValue: args.radius,
-                step: 1,
-                container: container1
-            });
+            id: "radius",
+            label: "Radius:",
+            minValue: 10,
+            maxValue: 100,
+            initValue: args.radius,
+            step: 1,
+            container: container1,
+        });
         this.total_points_control = new Control({
-                id: 'totalPoints',
-                label: 'Total Points:',
-                minValue: 10,
-                maxValue: 100,
-                initValue: args.totalPoints,
-                step: 1,
-                container: container2
-            });
+            id: "totalPoints",
+            label: "Total Points:",
+            minValue: 10,
+            maxValue: 100,
+            initValue: args.totalPoints,
+            step: 1,
+            container: container2,
+        });
         this.points_length_control = new Control({
-                id: 'pointsLength',
-                label: 'Points Length:',
-                minValue: 1,
-                maxValue: 5,
-                initValue: args.pointsLength,
-                step: 1,
-                container: container2
-            });
+            id: "pointsLength",
+            label: "Points Length:",
+            minValue: 1,
+            maxValue: 5,
+            initValue: args.pointsLength,
+            step: 1,
+            container: container2,
+        });
 
-        this.all_controls = [ this.opacity_control, this.radius_control, this.total_points_control, this.points_length_control ];
-        }
+        this.all_controls = [
+            this.opacity_control,
+            this.radius_control,
+            this.total_points_control,
+            this.points_length_control,
+        ];
+    }
 
-
-    startDraw( x: number, y: number, ctx: CanvasRenderingContext2D )
-        {
+    startDraw(x: number, y: number, ctx: CanvasRenderingContext2D) {
         var this_ = this;
 
         this.currentX = x;
@@ -111,21 +107,19 @@ class SprayBrush implements Brush
 
         var color;
 
-            // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
-        if ( Paint.isEraseBrush() )
-            {
+        // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
+        if (Paint.isEraseBrush()) {
             color = {
-                    red: 255,
-                    green: 255,
-                    blue: 255
-                };
-            }
+                red: 255,
+                green: 255,
+                blue: 255,
+            };
+        }
 
-            // otherwise just get the color from the color picker in the menu
-        else
-            {
+        // otherwise just get the color from the color picker in the menu
+        else {
             color = Color.getValues();
-            }
+        }
 
         this.minimum_opacity = this.opacity_control.getLowerValue();
         this.maximum_opacity = this.opacity_control.getUpperValue();
@@ -135,80 +129,83 @@ class SprayBrush implements Brush
         const points_length = this.points_length_control.getUpperValue();
 
         ctx.beginPath();
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.fillStyle = Utilities.toCssColor( color.red, color.green, color.blue );
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.fillStyle = Utilities.toCssColor(
+            color.red,
+            color.green,
+            color.blue
+        );
 
-            // keep adding points, until the mouse button stops being pressed
-        this.interval_f = window.setInterval( function()
-            {
-            for (var a = 0 ; a < this_.total_points ; a++)
-                {
-                var angle = Utilities.getRandomFloat( 0, 2 * Math.PI );
-                var distance = Utilities.getRandomInt( 0, this_.radius );
+        // keep adding points, until the mouse button stops being pressed
+        this.interval_f = window.setInterval(function () {
+            for (var a = 0; a < this_.total_points; a++) {
+                var angle = Utilities.getRandomFloat(0, 2 * Math.PI);
+                var distance = Utilities.getRandomInt(0, this_.radius);
 
-                ctx.globalAlpha = Utilities.getRandomFloat( this_.minimum_opacity, this_.maximum_opacity );
+                ctx.globalAlpha = Utilities.getRandomFloat(
+                    this_.minimum_opacity,
+                    this_.maximum_opacity
+                );
                 ctx.fillRect(
-                    this_.currentX + distance * Math.cos( angle ),
-                    this_.currentY + distance * Math.sin( angle ),
+                    this_.currentX + distance * Math.cos(angle),
+                    this_.currentY + distance * Math.sin(angle),
                     points_length,
                     points_length
-                    );
-                }
+                );
+            }
+        }, 50);
+    }
 
-            }, 50 );
-        }
-
-
-    duringDraw( x: number, y: number, _canvas: HTMLCanvasElement, _ctx: CanvasRenderingContext2D )
-        {
+    duringDraw(
+        x: number,
+        y: number,
+        _canvas: HTMLCanvasElement,
+        _ctx: CanvasRenderingContext2D
+    ) {
         this.currentX = x;
         this.currentY = y;
-        }
+    }
 
+    endDraw(
+        drawCanvas: HTMLCanvasElement,
+        drawCtx: CanvasRenderingContext2D,
+        _mainCanvas: HTMLCanvasElement,
+        mainCtx: CanvasRenderingContext2D
+    ) {
+        window.clearInterval(this.interval_f);
 
-    endDraw( drawCanvas: HTMLCanvasElement, drawCtx: CanvasRenderingContext2D, _mainCanvas: HTMLCanvasElement, mainCtx: CanvasRenderingContext2D )
-        {
-        window.clearInterval( this.interval_f );
-
-            // draw what is in the draw canvas into the main one
+        // draw what is in the draw canvas into the main one
         mainCtx.save();
 
-        if ( Paint.isEraseBrush() )
-            {
-            mainCtx.globalCompositeOperation = 'destination-out';
-            }
+        if (Paint.isEraseBrush()) {
+            mainCtx.globalCompositeOperation = "destination-out";
+        }
 
-        mainCtx.drawImage( drawCanvas, 0, 0 );
+        mainCtx.drawImage(drawCanvas, 0, 0);
         mainCtx.restore();
 
-        drawCtx.clearRect( 0, 0, drawCanvas.width, drawCanvas.height );
+        drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
 
-            // we're done with drawing, so restore the previous styling
+        // we're done with drawing, so restore the previous styling
         drawCtx.restore();
-        }
+    }
 
-
-    getSettings()
-        {
+    getSettings() {
         var settings: Settings = {};
 
-        for (var a = 0 ; a < this.all_controls.length ; a++)
-            {
-            var control = this.all_controls[ a ];
+        for (var a = 0; a < this.all_controls.length; a++) {
+            var control = this.all_controls[a];
 
-            settings[ control.id ] = control.getValue();
-            }
+            settings[control.id] = control.getValue();
+        }
 
         return settings;
-        }
+    }
 
-
-    clear()
-        {
-        for (var a = 0 ; a < this.all_controls.length ; a++)
-            {
-            this.all_controls[ a ].clear();
-            }
+    clear() {
+        for (var a = 0; a < this.all_controls.length; a++) {
+            this.all_controls[a].clear();
         }
     }
+}

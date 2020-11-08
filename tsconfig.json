@@ -7,7 +7,5 @@
         "noUnusedParameters": true,
         "target": "es2020"
     },
-    "include": [
-        "scripts/*.ts"
-    ]
+    "include": ["scripts/*.ts"]
 }

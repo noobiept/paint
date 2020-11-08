@@ -5,8 +5,14 @@
         <title>Draw stuff</title>
 
         <!-- Libraries -->
-        <script type="text/javascript" src="libraries/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="libraries/jqueryui/jquery-ui.min.js"></script>
+        <script
+            type="text/javascript"
+            src="libraries/jquery-3.2.1.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="libraries/jqueryui/jquery-ui.min.js"
+        ></script>
 
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="libraries/jqueryui/jquery-ui.min.css" />
@@ -15,8 +21,14 @@
         <script type="text/javascript" src="scripts/brush_line.js"></script>
         <script type="text/javascript" src="scripts/brush_bubbles.js"></script>
         <script type="text/javascript" src="scripts/brush_spray.js"></script>
-        <script type="text/javascript" src="scripts/brush_neighbor_points.js"></script>
-        <script type="text/javascript" src="scripts/brush_line_pattern.js"></script>
+        <script
+            type="text/javascript"
+            src="scripts/brush_neighbor_points.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="scripts/brush_line_pattern.js"
+        ></script>
         <script type="text/javascript" src="scripts/color.js"></script>
         <script type="text/javascript" src="scripts/control.js"></script>
         <script type="text/javascript" src="scripts/menu.js"></script>
@@ -25,35 +37,33 @@
         <script type="text/javascript" src="scripts/save_load.js"></script>
         <script type="text/javascript" src="scripts/main.js"></script>
         <!-- /build -->
-
     </head>
-<body>
+    <body>
+        <canvas id="mainCanvas"></canvas>
+        <canvas id="drawCanvas"></canvas>
 
-    <canvas id="mainCanvas"></canvas>
-    <canvas id="drawCanvas"></canvas>
+        <div id="Menu">
+            <div class="Menu-block" id="ColorPicker"></div>
 
-    <div id="Menu">
+            <div class="Menu-block" id="brushControls1"></div>
+            <div class="Menu-block" id="brushControls2"></div>
 
-        <div class="Menu-block" id="ColorPicker"></div>
+            <div class="Menu-block" id="BrushesContainer">
+                <div id="LineBrush" class="button">Line</div>
+                <div id="NeighborPointsBrush" class="button"
+                    >Neighbor Points</div
+                >
+                <div id="BubblesBrush" class="button">Bubbles</div>
+                <div id="LinePatternBrush" class="button">Line Pattern</div>
+                <div id="SprayBrush" class="button">Spray</div>
+            </div>
 
-        <div class="Menu-block" id="brushControls1"></div>
-        <div class="Menu-block" id="brushControls2"></div>
-
-        <div class="Menu-block" id="BrushesContainer">
-            <div id="LineBrush" class="button">Line</div>
-            <div id="NeighborPointsBrush" class="button">Neighbor Points</div>
-            <div id="BubblesBrush" class="button">Bubbles</div>
-            <div id="LinePatternBrush" class="button">Line Pattern</div>
-            <div id="SprayBrush" class="button">Spray</div>
+            <div class="Menu-block">
+                <div id="saveCanvas" class="button toggle off">Save Canvas</div>
+                <div id="erase" class="button toggle off">Erase</div>
+                <div id="clearCanvas" class="button">Clear Canvas</div>
+                <div id="exportCanvas" class="button">Export Canvas</div>
+            </div>
         </div>
-
-        <div class="Menu-block">
-            <div id="saveCanvas" class="button toggle off">Save Canvas</div>
-            <div id="erase" class="button toggle off">Erase</div>
-            <div id="clearCanvas" class="button">Clear Canvas</div>
-            <div id="exportCanvas" class="button">Export Canvas</div>
-        </div>
-    </div>
-
-</body>
+    </body>
 </html>

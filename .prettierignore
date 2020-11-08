@@ -1,0 +1,6 @@
+/release/
+node_modules
+/scripts/*.js
+/libraries/
+/images/
+/package-lock.json

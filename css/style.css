@@ -1,38 +1,31 @@
-body
-    {
+body {
     margin: 0;
     padding: 0;
-    }
+}
 
-canvas
-    {
+canvas {
     display: block; /* so that whitespace isn't added due to having more than 1 canvas (when having a line break between the canvas (in the html code), since they by default have display: inline; means it will add whitespace - think how it works with paragraphs for example) */
-    }
+}
 
-#drawCanvas
-    {
+#drawCanvas {
     position: absolute;
     top: 0;
     left: 0;
-    }
+}
 
-
-.button
-    {
+.button {
     cursor: pointer;
     text-align: center;
-    }
+}
 
-.button:hover, .selected
-    {
+.button:hover,
+.selected {
     border-bottom: 1px solid rgba(0, 0, 100, 0.2);
-    }
+}
 
+/* Menu */
 
-    /* Menu */
-
-#Menu
-    {
+#Menu {
     background-color: rgb(238, 238, 238);
     height: 200px;
     display: flex;
@@ -42,70 +35,57 @@ canvas
     border-top: 1px solid rgba(0, 0, 100, 0.2);
     -webkit-user-select: none;
     user-select: none;
-    }
+}
 
-.Menu-block
-    {
+.Menu-block {
     min-width: 200px;
     margin: 0 20px;
-    }
+}
 
-.Menu-block > *
-    {
+.Menu-block > * {
     padding: 5px 0;
-    }
+}
 
+/* Controls */
 
-    /* Controls */
+.ui-widget {
+    font-size: 0.9em; /* reduces the size of the sliders */
+}
 
-.ui-widget
-    {
-    font-size: 0.9em;   /* reduces the size of the sliders */
-    }
-
-.Control span
-    {
+.Control span {
     margin: 0 3px;
     padding: 0 4px;
-    }
+}
 
-.red > span:first-child
-    {
+.red > span:first-child {
     background: rgba(255, 0, 0, 0.3);
     border-radius: 5px;
-    }
+}
 
-.green > span:first-child
-    {
+.green > span:first-child {
     background: rgba(0, 255, 0, 0.3);
     border-radius: 5px;
-    }
-    
-.blue > span:first-child
-    {
-    background: rgba(18, 202, 255, 0.30);
+}
+
+.blue > span:first-child {
+    background: rgba(18, 202, 255, 0.3);
     border-radius: 5px;
-    }
-    
+}
 
-    /* toggle button */
+/* toggle button */
 
-.toggle.on
-    {
+.toggle.on {
     opacity: 1;
-    }
+}
 
-.toggle.on:after
-    {
+.toggle.on:after {
     content: ": On";
-    }
+}
 
-.toggle.off
-    {
+.toggle.off {
     opacity: 0.5;
-    }
+}
 
-.toggle.off:after
-    {
+.toggle.off:after {
     content: ": Off";
-    }
+}

@@ -25,6 +25,3 @@ Easy to use drawing program, with different brushes to draw sketches.
 
     -   slider
     -   start theme
-
--   createjs
-    -   easeljs - 0.8

@@ -31,7 +31,7 @@ module.exports = function (grunt) {
             },
         },
 
-        uglify: {
+        terser: {
             release: {
                 files: [
                     {
@@ -74,9 +74,9 @@ module.exports = function (grunt) {
 
     // load the plugins
     grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-terser");
     grunt.loadNpmTasks("grunt-processhtml");
     grunt.loadNpmTasks("grunt-ts");
 
@@ -85,7 +85,7 @@ module.exports = function (grunt) {
         "clean:previousBuild",
         "ts",
         "copy",
-        "uglify",
+        "terser",
         "cssmin",
         "processhtml",
         "clean:afterBuild",

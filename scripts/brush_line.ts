@@ -3,9 +3,9 @@ import * as Color from "./color";
 import * as Utilities from "./utilities";
 import * as Paint from "./paint";
 import Control from "./control";
-import { BrushArgs, Brush, Point, Settings } from "./main";
+import { BrushArgs, Brush, Point, Settings } from "./types";
 
-interface LineBrushArgs extends BrushArgs {
+export interface LineBrushArgs extends BrushArgs {
     opacity?: number;
     thickness?: number;
     shadowBlur?: number;

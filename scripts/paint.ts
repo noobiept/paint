@@ -1,7 +1,7 @@
 import * as SaveLoad from "./save_load";
 import * as Menu from "./menu";
 import * as Utilities from "./utilities";
-import { Brush, PreviousBrushSettings } from "./main";
+import { Brush, PreviousBrushSettings } from "./types";
 import BubblesBrush from "./brush_bubbles";
 import LineBrush from "./brush_line";
 import LinePatternBrush from "./brush_line_pattern";

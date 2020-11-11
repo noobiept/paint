@@ -1,7 +1,7 @@
 import * as Utilities from "./utilities";
 import * as Color from "./color";
 import * as Paint from "./paint";
-import { PreviousBrushSettings } from "./main";
+import { PreviousBrushSettings } from "./types";
 
 export function save() {
     let mainCanvas = Paint.getMainCanvas();

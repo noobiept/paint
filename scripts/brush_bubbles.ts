@@ -3,9 +3,9 @@ import * as Utilities from "./utilities";
 import * as Paint from "./paint";
 import * as Color from "./color";
 import Control from "./control";
-import { Brush, BrushArgs, BubblePoint, Settings } from "./main";
+import { Brush, BrushArgs, BubblePoint, Settings } from "./types";
 
-interface BubblesBrushArgs extends BrushArgs {
+export interface BubblesBrushArgs extends BrushArgs {
     opacity?: number[];
     radius?: number[];
 }

@@ -1,4 +1,4 @@
-interface ControlArgs {
+export interface ControlArgs {
     id: string;
     minValue: number;
     maxValue: number;

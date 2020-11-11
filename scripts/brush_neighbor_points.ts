@@ -3,9 +3,9 @@ import * as Paint from "./paint";
 import * as Color from "./color";
 import * as Utilities from "./utilities";
 import Control from "./control";
-import { BrushArgs, Brush, Point, Line, Settings } from "./main";
+import { BrushArgs, Brush, Point, Line, Settings } from "./types";
 
-interface NeighborPointsBrushArgs extends BrushArgs {
+export interface NeighborPointsBrushArgs extends BrushArgs {
     opacity?: number[];
     thickness?: number[];
     shadowBlur?: number;

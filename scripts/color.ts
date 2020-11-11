@@ -1,7 +1,7 @@
 import * as Menu from "./menu";
 import Control from "./control";
 
-interface ColorArgs {
+export interface ColorArgs {
     red: number;
     green: number;
     blue: number;

@@ -51,6 +51,6 @@ module.exports = (env, argv) => {
                     { from: "./css", to: "css" },
                 ],
             }),
-        ],
+        ].filter(Boolean),
     };
 };

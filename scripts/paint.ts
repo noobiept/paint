@@ -84,12 +84,14 @@ function initCanvas(savedCanvas: boolean) {
     };
 
     // set the dimensions of the canvas, to fill the available space in the window
-    var menuHeight = $("#Menu").outerHeight()!;
-    var windowWidth = $(window).outerWidth()!;
-    var windowHeight = $(window).outerHeight()!;
+    const menu = document.getElementById("Menu")!;
 
-    var canvasWidth = windowWidth;
-    var canvasHeight = windowHeight - menuHeight;
+    const menuHeight = menu.offsetHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    const canvasWidth = windowWidth;
+    const canvasHeight = windowHeight - menuHeight;
 
     MAIN_CANVAS.width = canvasWidth;
     MAIN_CANVAS.height = canvasHeight;

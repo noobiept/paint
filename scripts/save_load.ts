@@ -58,7 +58,7 @@ export function loadBrushesValues(brushes: PreviousBrushSettings[]) {
 export function getSelectedBrush() {
     var selectedBrush = getObject("selected_brush");
 
-    if (selectedBrush && $.isNumeric(selectedBrush)) {
+    if (selectedBrush && Number.isInteger(selectedBrush)) {
         return selectedBrush;
     } else {
         return 0;
@@ -74,7 +74,11 @@ export function loadCanvasImage(
     var canvasWidth = getObject("canvas_width");
     var canvasHeight = getObject("canvas_height");
 
-    if (canvasData && $.isNumeric(canvasWidth) && $.isNumeric(canvasHeight)) {
+    if (
+        canvasData &&
+        Number.isInteger(canvasWidth) &&
+        Number.isInteger(canvasHeight)
+    ) {
         var currentWidth = mainCanvas.width;
         var currentHeight = mainCanvas.height;
 

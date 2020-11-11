@@ -51,11 +51,11 @@ export default class Control {
         var controlValue = document.createElement("span");
         var controlSlider = document.createElement("div");
 
-        $(controlText).text(args.label);
-        $(controlContainer).addClass("Control");
+        controlText.textContent = args.label;
+        controlContainer.classList.add("Control");
 
         if (args.cssClass) {
-            $(controlContainer).addClass(args.cssClass);
+            controlContainer.classList.add(args.cssClass);
         }
 
         controlContainer.appendChild(controlText);
@@ -74,14 +74,13 @@ export default class Control {
         };
 
         // functions used to set the text with the values
-        var rangeSliderText = function (min: number, max: number) {
-            $(controlValue).text(
-                min.toFixed(digits) + ", " + max.toFixed(digits)
-            );
+        const rangeSliderText = (min: number, max: number) => {
+            controlValue.textContent =
+                min.toFixed(digits) + ", " + max.toFixed(digits);
         };
 
-        var singleSliderText = function (value: number) {
-            $(controlValue).text(value.toFixed(digits));
+        const singleSliderText = (value: number) => {
+            controlValue.textContent = value.toFixed(digits);
         };
 
         // means its a range slider

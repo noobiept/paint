@@ -76,8 +76,8 @@ export function updateCurrentColor() {
     );
 
     // change the background color
-    for (var a = 0; a < elements.length; a++) {
-        $(elements[a]).css("background", colorCss);
+    for (let a = 0; a < elements.length; a++) {
+        elements[a].style.background = colorCss;
     }
 }
 

@@ -1,9 +1,10 @@
+import { getRandomInt, getRandomFloat } from "@drk4/utilities";
 import * as Menu from "./menu";
 import * as Paint from "./paint";
-import * as Utilities from "./utilities";
 import * as Color from "./color";
 import Control from "./control";
 import { BrushArgs, Brush, Settings } from "./types";
+import { toCssColor } from "./utilities";
 
 export interface SprayBrushArgs extends BrushArgs {
     opacity?: number[];
@@ -138,19 +139,15 @@ export default class SprayBrush implements Brush {
         ctx.beginPath();
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
-        ctx.fillStyle = Utilities.toCssColor(
-            color.red,
-            color.green,
-            color.blue
-        );
+        ctx.fillStyle = toCssColor(color.red, color.green, color.blue);
 
         // keep adding points, until the mouse button stops being pressed
         this.interval_f = window.setInterval(function () {
             for (var a = 0; a < this_.total_points; a++) {
-                var angle = Utilities.getRandomFloat(0, 2 * Math.PI);
-                var distance = Utilities.getRandomInt(0, this_.radius);
+                var angle = getRandomFloat(0, 2 * Math.PI);
+                var distance = getRandomInt(0, this_.radius);
 
-                ctx.globalAlpha = Utilities.getRandomFloat(
+                ctx.globalAlpha = getRandomFloat(
                     this_.minimum_opacity,
                     this_.maximum_opacity
                 );

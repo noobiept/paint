@@ -1,9 +1,10 @@
+import { getRandomFloat, getRandomInt } from "@drk4/utilities";
 import * as Menu from "./menu";
-import * as Utilities from "./utilities";
 import * as Paint from "./paint";
 import * as Color from "./color";
 import Control from "./control";
 import { Brush, BrushArgs, BubblePoint, Settings } from "./types";
+import { toCssColor } from "./utilities";
 
 export interface BubblesBrushArgs extends BrushArgs {
     opacity?: number[];
@@ -67,14 +68,8 @@ export default class BubblesBrush implements Brush {
         this.all_points.push({
             x: x,
             y: y,
-            radius: Utilities.getRandomInt(
-                this.minimum_radius,
-                this.maximum_radius
-            ),
-            opacity: Utilities.getRandomFloat(
-                this.minimum_opacity,
-                this.maximum_opacity
-            ),
+            radius: getRandomInt(this.minimum_radius, this.maximum_radius),
+            opacity: getRandomFloat(this.minimum_opacity, this.maximum_opacity),
         });
 
         // before making changes to the styling, call context.save(), to save the previous state (we'll restore at the end)
@@ -97,11 +92,7 @@ export default class BubblesBrush implements Brush {
         }
 
         ctx.beginPath();
-        ctx.fillStyle = Utilities.toCssColor(
-            color.red,
-            color.green,
-            color.blue
-        );
+        ctx.fillStyle = toCssColor(color.red, color.green, color.blue);
 
         this.minimum_opacity = this.opacity_control.getLowerValue();
         this.maximum_opacity = this.opacity_control.getUpperValue();
@@ -121,14 +112,8 @@ export default class BubblesBrush implements Brush {
         this.all_points.push({
             x: x,
             y: y,
-            radius: Utilities.getRandomInt(
-                this.minimum_radius,
-                this.maximum_radius
-            ),
-            opacity: Utilities.getRandomFloat(
-                this.minimum_opacity,
-                this.maximum_opacity
-            ),
+            radius: getRandomInt(this.minimum_radius, this.maximum_radius),
+            opacity: getRandomFloat(this.minimum_opacity, this.maximum_opacity),
         });
 
         // draw the line

@@ -1,4 +1,4 @@
-import * as Utilities from "./utilities";
+import { saveObject, getObject } from "@drk4/utilities";
 import * as Color from "./color";
 import * as Paint from "./paint";
 import { PreviousBrushSettings } from "./types";
@@ -9,28 +9,28 @@ export function save() {
     // save the RGB values that were set
     var rgb = Color.getValues();
 
-    Utilities.setObject("rgb", rgb);
+    saveObject("rgb", rgb);
 
     // save the control values of the brushes
-    Utilities.setObject("brushes_values", Paint.getBrushesValues());
+    saveObject("brushes_values", Paint.getBrushesValues());
 
     // save which brush is currently selected
-    Utilities.setObject("selected_brush", Paint.getSelectedBrush());
+    saveObject("selected_brush", Paint.getSelectedBrush());
 
     if (Paint.savingCanvas()) {
-        Utilities.setObject("saved_canvas", true);
+        saveObject("saved_canvas", true);
 
         // save the canvas
-        Utilities.setObject("canvas", mainCanvas.toDataURL("image/png"));
-        Utilities.setObject("canvas_width", mainCanvas.width);
-        Utilities.setObject("canvas_height", mainCanvas.height);
+        saveObject("canvas", mainCanvas.toDataURL("image/png"));
+        saveObject("canvas_width", mainCanvas.width);
+        saveObject("canvas_height", mainCanvas.height);
     } else {
-        Utilities.setObject("saved_canvas", false);
+        saveObject("saved_canvas", false);
     }
 }
 
 export function getRgb() {
-    var rgb = Utilities.getObject("rgb");
+    var rgb = getObject("rgb");
 
     if (rgb) {
         return rgb;
@@ -41,7 +41,7 @@ export function getRgb() {
 
 export function loadBrushesValues(brushes: PreviousBrushSettings[]) {
     try {
-        var brushesValues = Utilities.getObject("brushes_values");
+        var brushesValues = getObject("brushes_values");
     } catch (error) {
         return;
     }
@@ -56,7 +56,7 @@ export function loadBrushesValues(brushes: PreviousBrushSettings[]) {
 }
 
 export function getSelectedBrush() {
-    var selectedBrush = Utilities.getObject("selected_brush");
+    var selectedBrush = getObject("selected_brush");
 
     if (selectedBrush && $.isNumeric(selectedBrush)) {
         return selectedBrush;
@@ -70,9 +70,9 @@ export function loadCanvasImage(
     mainCanvas: HTMLCanvasElement,
     mainCtx: CanvasRenderingContext2D
 ) {
-    var canvasData = Utilities.getObject("canvas");
-    var canvasWidth = Utilities.getObject("canvas_width");
-    var canvasHeight = Utilities.getObject("canvas_height");
+    var canvasData = getObject("canvas");
+    var canvasWidth = getObject("canvas_width");
+    var canvasHeight = getObject("canvas_height");
 
     if (canvasData && $.isNumeric(canvasWidth) && $.isNumeric(canvasHeight)) {
         var currentWidth = mainCanvas.width;

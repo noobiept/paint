@@ -31,5 +31,8 @@
         "arrowParens": "always",
         "htmlWhitespaceSensitivity": "strict",
         "endOfLine": "lf"
+    },
+    "dependencies": {
+        "@drk4/utilities": "^4.0.0"
     }
 }

@@ -1,3 +1,10 @@
+import * as Menu from "./menu";
+import * as Paint from "./paint";
+import * as Color from "./color";
+import * as Utilities from "./utilities";
+import Control from "./control";
+import { Brush, BrushArgs, Point, Settings } from "./main";
+
 interface LinePatternBrushArgs extends BrushArgs {
     opacity?: number;
     thickness?: number;
@@ -5,7 +12,7 @@ interface LinePatternBrushArgs extends BrushArgs {
     patternThickness?: number;
 }
 
-class LinePatternBrush implements Brush {
+export default class LinePatternBrush implements Brush {
     all_points: Point[];
     opacity_control: Control;
     thickness_control: Control;

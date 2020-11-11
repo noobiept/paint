@@ -1,14 +1,21 @@
-interface Point {
+import * as Utilities from "./utilities";
+import * as Color from "./color";
+import * as Menu from "./menu";
+import * as SaveLoad from "./save_load";
+import * as Paint from "./paint";
+import Control from "./control";
+
+export interface Point {
     x: number;
     y: number;
 }
 
-interface BubblePoint extends Point {
+export interface BubblePoint extends Point {
     radius: number;
     opacity: number;
 }
 
-interface Line {
+export interface Line {
     x1: number;
     y1: number;
     x2: number;
@@ -17,17 +24,17 @@ interface Line {
     distanceY: number;
 }
 
-interface Settings {
+export interface Settings {
     [id: string]: number | number[];
 }
 
-interface PreviousBrushSettings {
+export interface PreviousBrushSettings {
     brushClass: { new (args: BrushArgs): Brush };
     previousSettings: Settings;
 }
 
-interface BrushArgs {}
-interface Brush {
+export interface BrushArgs {}
+export interface Brush {
     opacity_control: Control;
     all_controls: Control[];
 

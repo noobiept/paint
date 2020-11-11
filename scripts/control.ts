@@ -11,7 +11,7 @@ interface ControlArgs {
     step?: number;
 }
 
-class Control {
+export default class Control {
     id: string;
     lowerValue: number;
     upperValue: number;

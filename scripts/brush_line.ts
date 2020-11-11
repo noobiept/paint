@@ -1,10 +1,17 @@
+import * as Menu from "./menu";
+import * as Color from "./color";
+import * as Utilities from "./utilities";
+import * as Paint from "./paint";
+import Control from "./control";
+import { BrushArgs, Brush, Point, Settings } from "./main";
+
 interface LineBrushArgs extends BrushArgs {
     opacity?: number;
     thickness?: number;
     shadowBlur?: number;
 }
 
-class LineBrush implements Brush {
+export default class LineBrush implements Brush {
     opacity_control: Control;
     thickness_control: Control;
     shadow_blur_control: Control;

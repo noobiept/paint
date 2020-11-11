@@ -1,3 +1,10 @@
+import * as Menu from "./menu";
+import * as Paint from "./paint";
+import * as Utilities from "./utilities";
+import * as Color from "./color";
+import Control from "./control";
+import { BrushArgs, Brush, Settings } from "./main";
+
 interface SprayBrushArgs extends BrushArgs {
     opacity?: number[];
     radius?: number;
@@ -5,7 +12,7 @@ interface SprayBrushArgs extends BrushArgs {
     pointsLength?: number;
 }
 
-class SprayBrush implements Brush {
+export default class SprayBrush implements Brush {
     currentX: number;
     currentY: number;
     interval_f?: number;

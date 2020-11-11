@@ -1,9 +1,16 @@
+import * as Menu from "./menu";
+import * as Utilities from "./utilities";
+import * as Paint from "./paint";
+import * as Color from "./color";
+import Control from "./control";
+import { Brush, BrushArgs, BubblePoint, Settings } from "./main";
+
 interface BubblesBrushArgs extends BrushArgs {
     opacity?: number[];
     radius?: number[];
 }
 
-class BubblesBrush implements Brush {
+export default class BubblesBrush implements Brush {
     all_points: BubblePoint[];
     minimum_radius: number;
     maximum_radius: number;

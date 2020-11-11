@@ -1,3 +1,10 @@
+import * as Menu from "./menu";
+import * as Paint from "./paint";
+import * as Color from "./color";
+import * as Utilities from "./utilities";
+import Control from "./control";
+import { BrushArgs, Brush, Point, Line, Settings } from "./main";
+
 interface NeighborPointsBrushArgs extends BrushArgs {
     opacity?: number[];
     thickness?: number[];
@@ -5,7 +12,7 @@ interface NeighborPointsBrushArgs extends BrushArgs {
     distance?: number;
 }
 
-class NeighborPointsBrush implements Brush {
+export default class NeighborPointsBrush implements Brush {
     all_points: Point[];
     additional_lines: Line[];
     secondaryLinesStyle?: string;

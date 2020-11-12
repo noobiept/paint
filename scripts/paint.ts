@@ -184,19 +184,24 @@ export function getSelectedBrush() {
 }
 
 /*
-        Clears all elements from the canvas
-    */
+ * Clears all elements from the canvas
+ */
 export function clearCanvas() {
     MAIN_CTX.clearRect(0, 0, MAIN_CANVAS.width, MAIN_CANVAS.height);
 }
 
 /*
-        Opens a new tab with the image (so that you can just right-click on the image and save it to the computer)
-    */
+ * Opens a new tab with the image (so that you can just right-click on the image and save it to the computer)
+ */
 export function exportCanvas() {
-    var image = MAIN_CANVAS.toDataURL("image/png");
-
-    window.open(image, "_newtab");
+    const image = MAIN_CANVAS.toDataURL("image/png").replace(
+        "image/png",
+        "image/octet-stream"
+    );
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "canvas.png";
+    link.click();
 }
 
 /**

@@ -32,7 +32,9 @@ export default class LineBrush implements Brush {
         }
 
         // add controls
-        var container = <HTMLElement>document.querySelector("#brushControls1");
+        const container = <HTMLElement>(
+            document.querySelector("#brushControls1")
+        );
 
         this.opacity_control = new Control({
             id: "opacity",
@@ -83,8 +85,8 @@ export default class LineBrush implements Brush {
 
         ctx.save();
 
-        var color;
-        var opacity = this.opacity_control.getUpperValue();
+        let color;
+        const opacity = this.opacity_control.getUpperValue();
 
         // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if (Paint.isEraseBrush()) {
@@ -100,7 +102,7 @@ export default class LineBrush implements Brush {
             color = Color.getValues();
         }
 
-        var colorCss = Utilities.toCssColor(
+        const colorCss = Utilities.toCssColor(
             color.red,
             color.green,
             color.blue,
@@ -131,15 +133,15 @@ export default class LineBrush implements Brush {
 
         // draw the line
 
-        var point1 = this.all_points[0];
-        var point2 = this.all_points[1];
+        let point1 = this.all_points[0];
+        let point2 = this.all_points[1];
 
         ctx.beginPath();
         ctx.moveTo(point1.x, point1.y);
 
-        for (var a = 1; a < this.all_points.length; a++) {
-            var midPointX = Math.floor((point1.x + point2.x) / 2);
-            var midPointY = Math.floor((point1.y + point2.y) / 2);
+        for (let a = 1; a < this.all_points.length; a++) {
+            const midPointX = Math.floor((point1.x + point2.x) / 2);
+            const midPointY = Math.floor((point1.y + point2.y) / 2);
 
             ctx.quadraticCurveTo(point1.x, point1.y, midPointX, midPointY);
 
@@ -175,10 +177,10 @@ export default class LineBrush implements Brush {
     }
 
     getSettings() {
-        var settings: Settings = {};
+        const settings: Settings = {};
 
-        for (var a = 0; a < this.all_controls.length; a++) {
-            var control = this.all_controls[a];
+        for (let a = 0; a < this.all_controls.length; a++) {
+            const control = this.all_controls[a];
 
             // this assumes the setting key is the same string as the control id
             settings[control.id] = control.getValue();
@@ -188,7 +190,7 @@ export default class LineBrush implements Brush {
     }
 
     clear() {
-        for (var a = 0; a < this.all_controls.length; a++) {
+        for (let a = 0; a < this.all_controls.length; a++) {
             this.all_controls[a].clear();
         }
     }

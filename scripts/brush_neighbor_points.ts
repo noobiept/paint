@@ -45,8 +45,12 @@ export default class NeighborPointsBrush implements Brush {
         this.additional_lines = []; // the lines between the close points of the main line
 
         // add the controls
-        var container1 = <HTMLElement>document.querySelector("#brushControls1");
-        var container2 = <HTMLElement>document.querySelector("#brushControls2");
+        const container1 = <HTMLElement>(
+            document.querySelector("#brushControls1")
+        );
+        const container2 = <HTMLElement>(
+            document.querySelector("#brushControls2")
+        );
 
         this.opacity_control = new Control({
             id: "opacity",
@@ -104,11 +108,11 @@ export default class NeighborPointsBrush implements Brush {
 
         ctx.save();
 
-        var color;
+        let color;
 
         // the secondary lines will have different styling (less pronounced)
-        var mainLineOpacity = this.opacity_control.getUpperValue();
-        var secondaryLinesOpacity = this.opacity_control.getLowerValue();
+        const mainLineOpacity = this.opacity_control.getUpperValue();
+        const secondaryLinesOpacity = this.opacity_control.getLowerValue();
 
         // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if (Paint.isEraseBrush()) {
@@ -124,7 +128,7 @@ export default class NeighborPointsBrush implements Brush {
             color = Color.getValues();
         }
 
-        var mainColorCss = Utilities.toCssColor(
+        const mainColorCss = Utilities.toCssColor(
             color.red,
             color.green,
             color.blue,
@@ -162,15 +166,15 @@ export default class NeighborPointsBrush implements Brush {
         });
 
         // draw the line
-        var point1 = this.all_points[0];
-        var point2 = this.all_points[1];
+        let point1 = this.all_points[0];
+        let point2 = this.all_points[1];
 
         ctx.beginPath();
         ctx.moveTo(point1.x, point1.y);
 
-        for (var a = 1; a < this.all_points.length; a++) {
-            var midPointX = Math.floor((point1.x + point2.x) / 2);
-            var midPointY = Math.floor((point1.y + point2.y) / 2);
+        for (let a = 1; a < this.all_points.length; a++) {
+            const midPointX = Math.floor((point1.x + point2.x) / 2);
+            const midPointY = Math.floor((point1.y + point2.y) / 2);
 
             ctx.quadraticCurveTo(point1.x, point1.y, midPointX, midPointY);
 
@@ -180,19 +184,19 @@ export default class NeighborPointsBrush implements Brush {
 
         ctx.stroke();
 
-        var lastPoint = this.all_points[this.all_points.length - 1];
+        const lastPoint = this.all_points[this.all_points.length - 1];
 
         // find lines/points close to the last one (which was just added)
-        for (a = 0; a < this.all_points.length; a++) {
-            var point = this.all_points[a];
+        for (let a = 0; a < this.all_points.length; a++) {
+            const point = this.all_points[a];
 
             // construct a triangle, to check the distance between points (the current one, with others previously saved)
-            var adjacent = point.x - lastPoint.x;
-            var opposite = point.y - lastPoint.y;
+            const adjacent = point.x - lastPoint.x;
+            const opposite = point.y - lastPoint.y;
 
             // the distance would be the square root of this. we don't do that as an optimization
-            var distance = adjacent * adjacent + opposite * opposite;
-            var distanceLimit = this.distance_control.getUpperValue();
+            const distance = adjacent * adjacent + opposite * opposite;
+            const distanceLimit = this.distance_control.getUpperValue();
 
             if (distance < distanceLimit * distanceLimit) {
                 this.additional_lines.push({
@@ -213,8 +217,8 @@ export default class NeighborPointsBrush implements Brush {
         ctx.lineWidth = this.secondaryLinesWidth ?? 1;
 
         // draw all the additional lines
-        for (a = 0; a < this.additional_lines.length; a++) {
-            var line = this.additional_lines[a];
+        for (let a = 0; a < this.additional_lines.length; a++) {
+            const line = this.additional_lines[a];
 
             ctx.moveTo(
                 line.x1 + line.distanceX * 0.2,
@@ -256,10 +260,10 @@ export default class NeighborPointsBrush implements Brush {
     }
 
     getSettings() {
-        var settings: Settings = {};
+        const settings: Settings = {};
 
-        for (var a = 0; a < this.all_controls.length; a++) {
-            var control = this.all_controls[a];
+        for (let a = 0; a < this.all_controls.length; a++) {
+            const control = this.all_controls[a];
 
             settings[control.id] = control.getValue();
         }
@@ -268,7 +272,7 @@ export default class NeighborPointsBrush implements Brush {
     }
 
     clear() {
-        for (var a = 0; a < this.all_controls.length; a++) {
+        for (let a = 0; a < this.all_controls.length; a++) {
             this.all_controls[a].clear();
         }
     }

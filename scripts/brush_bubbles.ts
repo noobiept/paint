@@ -37,7 +37,9 @@ export default class BubblesBrush implements Brush {
         this.maximum_opacity = args.opacity[1];
 
         // add the controls
-        var container = <HTMLElement>document.querySelector("#brushControls1");
+        const container = <HTMLElement>(
+            document.querySelector("#brushControls1")
+        );
 
         this.opacity_control = new Control({
             id: "opacity",
@@ -75,7 +77,7 @@ export default class BubblesBrush implements Brush {
         // before making changes to the styling, call context.save(), to save the previous state (we'll restore at the end)
         ctx.save();
 
-        var color;
+        let color;
 
         // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if (Paint.isEraseBrush()) {
@@ -117,8 +119,8 @@ export default class BubblesBrush implements Brush {
         });
 
         // draw the line
-        for (var a = 0; a < this.all_points.length; a++) {
-            var circle = this.all_points[a];
+        for (let a = 0; a < this.all_points.length; a++) {
+            const circle = this.all_points[a];
 
             ctx.beginPath();
             ctx.globalAlpha = circle.opacity;
@@ -152,10 +154,10 @@ export default class BubblesBrush implements Brush {
     }
 
     getSettings() {
-        var settings: Settings = {};
+        const settings: Settings = {};
 
-        for (var a = 0; a < this.all_controls.length; a++) {
-            var control = this.all_controls[a];
+        for (let a = 0; a < this.all_controls.length; a++) {
+            const control = this.all_controls[a];
 
             settings[control.id] = control.getValue();
         }
@@ -164,7 +166,7 @@ export default class BubblesBrush implements Brush {
     }
 
     clear() {
-        for (var a = 0; a < this.all_controls.length; a++) {
+        for (let a = 0; a < this.all_controls.length; a++) {
             this.all_controls[a].clear();
         }
     }

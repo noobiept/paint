@@ -4,10 +4,10 @@ import * as Paint from "./paint";
 import { PreviousBrushSettings } from "./types";
 
 export function save() {
-    let mainCanvas = Paint.getMainCanvas();
+    const mainCanvas = Paint.getMainCanvas();
 
     // save the RGB values that were set
-    var rgb = Color.getValues();
+    const rgb = Color.getValues();
 
     saveObject("rgb", rgb);
 
@@ -30,7 +30,7 @@ export function save() {
 }
 
 export function getRgb() {
-    var rgb = getObject("rgb");
+    const rgb = getObject("rgb");
 
     if (rgb) {
         return rgb;
@@ -41,22 +41,22 @@ export function getRgb() {
 
 export function loadBrushesValues(brushes: PreviousBrushSettings[]) {
     try {
-        var brushesValues = getObject("brushes_values");
-    } catch (error) {
-        return;
-    }
+        const brushesValues = getObject("brushes_values");
 
-    if (!brushesValues) {
-        return;
-    }
+        if (!brushesValues) {
+            return;
+        }
 
-    for (var a = 0; a < brushes.length; a++) {
-        brushes[a].previousSettings = brushesValues[a].previousValues;
+        for (let a = 0; a < brushes.length; a++) {
+            brushes[a].previousSettings = brushesValues[a].previousValues;
+        }
+    } catch {
+        return;
     }
 }
 
 export function getSelectedBrush() {
-    var selectedBrush = getObject("selected_brush");
+    const selectedBrush = getObject("selected_brush");
 
     if (selectedBrush && Number.isInteger(selectedBrush)) {
         return selectedBrush;
@@ -70,17 +70,17 @@ export function loadCanvasImage(
     mainCanvas: HTMLCanvasElement,
     mainCtx: CanvasRenderingContext2D
 ) {
-    var canvasData = getObject("canvas");
-    var canvasWidth = getObject("canvas_width");
-    var canvasHeight = getObject("canvas_height");
+    const canvasData = getObject("canvas");
+    const canvasWidth = getObject("canvas_width");
+    const canvasHeight = getObject("canvas_height");
 
     if (
         canvasData &&
         Number.isInteger(canvasWidth) &&
         Number.isInteger(canvasHeight)
     ) {
-        var currentWidth = mainCanvas.width;
-        var currentHeight = mainCanvas.height;
+        const currentWidth = mainCanvas.width;
+        const currentHeight = mainCanvas.height;
 
         // see if we need to increase the size of the canvas (to avoid loosing part of the image)
         if (currentWidth < canvasWidth) {
@@ -91,7 +91,7 @@ export function loadCanvasImage(
             mainCanvas.height = drawCanvas.height = canvasHeight;
         }
 
-        var img = new Image();
+        const img = new Image();
 
         img.src = canvasData;
         img.onload = function () {

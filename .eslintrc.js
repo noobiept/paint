@@ -12,9 +12,14 @@ module.exports = {
         "prettier/@typescript-eslint",
     ],
     rules: {
-        "no-var": "warn",
-        "@typescript-eslint/no-empty-interface": "warn",
-        "@typescript-eslint/no-this-alias": "warn",
-        "prefer-const": "warn",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                argsIgnorePattern: "^_",
+            },
+        ],
     },
 };

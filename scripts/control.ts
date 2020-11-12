@@ -23,8 +23,6 @@ export default class Control {
      * If 'initValue' is an array, means its a range slider (has a lower and upper value, otherwise its a single value slider.
      */
     constructor(args: ControlArgs) {
-        var _this = this;
-
         if (typeof args.step == "undefined") {
             args.step = 1;
         }
@@ -34,9 +32,9 @@ export default class Control {
         }
 
         // find number of digits past the decimal point
-        var stepStr = args.step.toString();
-        var digits = 0;
-        var pointIndex = stepStr.indexOf(".");
+        const stepStr = args.step.toString();
+        let digits = 0;
+        const pointIndex = stepStr.indexOf(".");
 
         // found the decimal point, so its not a whole number
         if (pointIndex >= 0) {
@@ -45,11 +43,11 @@ export default class Control {
 
         this.id = args.id;
 
-        var container = args.container;
-        var controlContainer = document.createElement("div");
-        var controlText = document.createElement("span");
-        var controlValue = document.createElement("span");
-        var controlSlider = document.createElement("div");
+        const container = args.container;
+        const controlContainer = document.createElement("div");
+        const controlText = document.createElement("span");
+        const controlValue = document.createElement("span");
+        const controlSlider = document.createElement("div");
 
         controlText.textContent = args.label;
         controlContainer.classList.add("Control");
@@ -67,7 +65,7 @@ export default class Control {
         this.mainContainer = container;
         this.thicknessContainer = controlContainer;
 
-        var sliderOptions: JQueryUI.SliderOptions = {
+        const sliderOptions: JQueryUI.SliderOptions = {
             min: args.minValue,
             max: args.maxValue,
             step: args.step,
@@ -91,14 +89,14 @@ export default class Control {
 
             sliderOptions.range = true;
             sliderOptions.values = args.initValue;
-            sliderOptions.slide = function (event, ui) {
-                var min = ui.values![0];
-                var max = ui.values![1];
+            sliderOptions.slide = (event, ui) => {
+                const min = ui.values![0];
+                const max = ui.values![1];
 
                 rangeSliderText(min, max);
 
-                _this.lowerValue = min;
-                _this.upperValue = max;
+                this.lowerValue = min;
+                this.upperValue = max;
 
                 if (args.onSlideFunction) {
                     args.onSlideFunction(event, ui);
@@ -115,10 +113,10 @@ export default class Control {
 
             sliderOptions.range = "min";
             sliderOptions.value = args.initValue;
-            sliderOptions.slide = function (event, ui) {
+            sliderOptions.slide = (event, ui) => {
                 singleSliderText(ui.value!);
 
-                _this.upperValue = _this.lowerValue = ui.value!;
+                this.upperValue = this.lowerValue = ui.value!;
 
                 if (args.onSlideFunction) {
                     args.onSlideFunction(event, ui);

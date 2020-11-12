@@ -54,8 +54,12 @@ export default class SprayBrush implements Brush {
 
         // init. controls
 
-        var container1 = <HTMLElement>document.querySelector("#brushControls1");
-        var container2 = <HTMLElement>document.querySelector("#brushControls2");
+        const container1 = <HTMLElement>(
+            document.querySelector("#brushControls1")
+        );
+        const container2 = <HTMLElement>(
+            document.querySelector("#brushControls2")
+        );
 
         this.opacity_control = new Control({
             id: "opacity",
@@ -106,14 +110,12 @@ export default class SprayBrush implements Brush {
     }
 
     startDraw(x: number, y: number, ctx: CanvasRenderingContext2D) {
-        var this_ = this;
-
         this.currentX = x;
         this.currentY = y;
 
         ctx.save();
 
-        var color;
+        let color;
 
         // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if (Paint.isEraseBrush()) {
@@ -142,18 +144,18 @@ export default class SprayBrush implements Brush {
         ctx.fillStyle = toCssColor(color.red, color.green, color.blue);
 
         // keep adding points, until the mouse button stops being pressed
-        this.interval_f = window.setInterval(function () {
-            for (var a = 0; a < this_.total_points; a++) {
-                var angle = getRandomFloat(0, 2 * Math.PI);
-                var distance = getRandomInt(0, this_.radius);
+        this.interval_f = window.setInterval(() => {
+            for (let a = 0; a < this.total_points; a++) {
+                const angle = getRandomFloat(0, 2 * Math.PI);
+                const distance = getRandomInt(0, this.radius);
 
                 ctx.globalAlpha = getRandomFloat(
-                    this_.minimum_opacity,
-                    this_.maximum_opacity
+                    this.minimum_opacity,
+                    this.maximum_opacity
                 );
                 ctx.fillRect(
-                    this_.currentX + distance * Math.cos(angle),
-                    this_.currentY + distance * Math.sin(angle),
+                    this.currentX + distance * Math.cos(angle),
+                    this.currentY + distance * Math.sin(angle),
                     points_length,
                     points_length
                 );
@@ -196,10 +198,10 @@ export default class SprayBrush implements Brush {
     }
 
     getSettings() {
-        var settings: Settings = {};
+        const settings: Settings = {};
 
-        for (var a = 0; a < this.all_controls.length; a++) {
-            var control = this.all_controls[a];
+        for (let a = 0; a < this.all_controls.length; a++) {
+            const control = this.all_controls[a];
 
             settings[control.id] = control.getValue();
         }
@@ -208,7 +210,7 @@ export default class SprayBrush implements Brush {
     }
 
     clear() {
-        for (var a = 0; a < this.all_controls.length; a++) {
+        for (let a = 0; a < this.all_controls.length; a++) {
             this.all_controls[a].clear();
         }
     }

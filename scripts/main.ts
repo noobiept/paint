@@ -5,7 +5,7 @@ import * as SaveLoad from "./save_load";
 import * as Paint from "./paint";
 
 window.onload = function () {
-    var savedCanvas = getObject("saved_canvas");
+    let savedCanvas = getObject("saved_canvas");
 
     if (savedCanvas !== true) {
         savedCanvas = false;

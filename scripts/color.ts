@@ -7,9 +7,9 @@ export interface ColorArgs {
     blue: number;
 }
 
-var RED: Control;
-var GREEN: Control;
-var BLUE: Control;
+let RED: Control;
+let GREEN: Control;
+let BLUE: Control;
 
 export function init(initialValues?: ColorArgs) {
     if (typeof initialValues == "undefined" || initialValues == null) {
@@ -20,7 +20,7 @@ export function init(initialValues?: ColorArgs) {
         };
     }
 
-    var container = <HTMLElement>document.querySelector("#ColorPicker");
+    const container = <HTMLElement>document.querySelector("#ColorPicker");
 
     RED = new Control({
         id: "Red",

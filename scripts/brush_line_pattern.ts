@@ -39,8 +39,12 @@ export default class LinePatternBrush implements Brush {
 
         this.all_points = [];
 
-        var container1 = <HTMLElement>document.querySelector("#brushControls1");
-        var container2 = <HTMLElement>document.querySelector("#brushControls2");
+        const container1 = <HTMLElement>(
+            document.querySelector("#brushControls1")
+        );
+        const container2 = <HTMLElement>(
+            document.querySelector("#brushControls2")
+        );
 
         // main line
         this.opacity_control = new Control({
@@ -94,10 +98,10 @@ export default class LinePatternBrush implements Brush {
     }
 
     getPattern() {
-        var lineWidth = this.pattern_thickness_control.getUpperValue();
-        var angle = this.angle_control.getValue();
-        var color;
-        var opacity = this.opacity_control.getUpperValue();
+        const lineWidth = this.pattern_thickness_control.getUpperValue();
+        const angle = this.angle_control.getValue();
+        let color;
+        const opacity = this.opacity_control.getUpperValue();
 
         // when we're erasing, we draw unto the draw canvas with a white color, and later what was drawn is removed/erased from the main canvas
         if (Paint.isEraseBrush()) {
@@ -113,30 +117,30 @@ export default class LinePatternBrush implements Brush {
             color = Color.getValues();
         }
 
-        var colorCss = Utilities.toCssColor(
+        const colorCss = Utilities.toCssColor(
             color.red,
             color.green,
             color.blue,
             opacity
         );
 
-        var width = 15;
-        var height = 15;
+        const width = 15;
+        const height = 15;
 
-        var pattern = document.createElement("canvas");
+        const pattern = document.createElement("canvas");
 
         pattern.width = width;
         pattern.height = height;
 
-        var ctx = pattern.getContext("2d")!;
+        const ctx = pattern.getContext("2d")!;
 
         ctx.beginPath();
         ctx.strokeStyle = colorCss;
         ctx.fillStyle = colorCss;
         ctx.lineWidth = lineWidth;
 
-        var halfWidth = width / 2;
-        var halfHeight = height / 2;
+        const halfWidth = width / 2;
+        const halfHeight = height / 2;
 
         // line centered
         if (angle == 0) {
@@ -151,10 +155,10 @@ export default class LinePatternBrush implements Brush {
             ctx.lineTo(width, height);
             ctx.stroke();
 
-            var opposite = lineWidth / 2;
-            var angleRads = Math.PI / 4;
+            const opposite = lineWidth / 2;
+            const angleRads = Math.PI / 4;
 
-            var hypotenuse = opposite / Math.sin(angleRads);
+            const hypotenuse = opposite / Math.sin(angleRads);
 
             ctx.moveTo(0, height - hypotenuse);
             ctx.lineTo(hypotenuse, height);
@@ -180,10 +184,10 @@ export default class LinePatternBrush implements Brush {
             ctx.lineTo(width, 0);
             ctx.stroke();
 
-            var opposite = lineWidth / 2;
-            var angleRads = Math.PI / 4;
+            const opposite = lineWidth / 2;
+            const angleRads = Math.PI / 4;
 
-            var hypotenuse = opposite / Math.sin(angleRads);
+            const hypotenuse = opposite / Math.sin(angleRads);
 
             ctx.moveTo(0, 0);
             ctx.lineTo(hypotenuse, 0);
@@ -228,15 +232,15 @@ export default class LinePatternBrush implements Brush {
         });
 
         // draw the line
-        var point1 = this.all_points[0];
-        var point2 = this.all_points[1];
+        let point1 = this.all_points[0];
+        let point2 = this.all_points[1];
 
         ctx.beginPath();
         ctx.moveTo(point1.x, point1.y);
 
-        for (var a = 1; a < this.all_points.length; a++) {
-            var midPointX = Math.floor((point1.x + point2.x) / 2);
-            var midPointY = Math.floor((point1.y + point2.y) / 2);
+        for (let a = 1; a < this.all_points.length; a++) {
+            const midPointX = Math.floor((point1.x + point2.x) / 2);
+            const midPointY = Math.floor((point1.y + point2.y) / 2);
 
             ctx.quadraticCurveTo(point1.x, point1.y, midPointX, midPointY);
 
@@ -272,10 +276,10 @@ export default class LinePatternBrush implements Brush {
     }
 
     getSettings() {
-        var settings: Settings = {};
+        const settings: Settings = {};
 
-        for (var a = 0; a < this.all_controls.length; a++) {
-            var control = this.all_controls[a];
+        for (let a = 0; a < this.all_controls.length; a++) {
+            const control = this.all_controls[a];
 
             settings[control.id] = control.getValue();
         }
@@ -284,7 +288,7 @@ export default class LinePatternBrush implements Brush {
     }
 
     clear() {
-        for (var a = 0; a < this.all_controls.length; a++) {
+        for (let a = 0; a < this.all_controls.length; a++) {
             this.all_controls[a].clear();
         }
     }

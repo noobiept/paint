@@ -9,14 +9,14 @@ import NeighborPointsBrush from "./brush_neighbor_points";
 import SprayBrush from "./brush_spray";
 
 // main canvas, will contain the drawing with all the shapes
-var MAIN_CANVAS: HTMLCanvasElement;
-var MAIN_CTX: CanvasRenderingContext2D;
+let MAIN_CANVAS: HTMLCanvasElement;
+let MAIN_CTX: CanvasRenderingContext2D;
 
 // draw canvas, used to show the line being drawn only
-var DRAW_CANVAS: HTMLCanvasElement;
-var DRAW_CTX: CanvasRenderingContext2D;
+let DRAW_CANVAS: HTMLCanvasElement;
+let DRAW_CTX: CanvasRenderingContext2D;
 
-var BRUSHES: PreviousBrushSettings[] = [
+const BRUSHES: PreviousBrushSettings[] = [
     {
         brushClass: LineBrush,
         previousSettings: {},
@@ -39,12 +39,12 @@ var BRUSHES: PreviousBrushSettings[] = [
     },
 ];
 
-var BRUSH_SELECTED = 0;
-var BRUSH_OBJECT: Brush | null = null;
-var IS_MOUSE_DOWN = false;
+let BRUSH_SELECTED = 0;
+let BRUSH_OBJECT: Brush | null = null;
+let IS_MOUSE_DOWN = false;
 
-var SAVE_CANVAS = false;
-var ERASE_BRUSH = false; // if the current selected brush is used to draw or to erase
+let SAVE_CANVAS = false;
+let ERASE_BRUSH = false; // if the current selected brush is used to draw or to erase
 
 /**
         'savedCanvas' determines if we're going to load a saved canvas from the previous session (we need to know this to update the related button in the menu).
@@ -144,7 +144,7 @@ function endDraw(event: MouseEvent) {
 export function selectBrush(brushPosition: number) {
     // deal the previous brush (clear it, and save the values that were set for next time this brush is selected)
     if (BRUSH_OBJECT) {
-        var current = BRUSHES[BRUSH_SELECTED];
+        const current = BRUSHES[BRUSH_SELECTED];
 
         current.previousSettings = BRUSH_OBJECT.getSettings();
         BRUSH_OBJECT.clear();
@@ -153,7 +153,7 @@ export function selectBrush(brushPosition: number) {
         Menu.unselectBrush(BRUSH_SELECTED);
     }
 
-    var next = BRUSHES[brushPosition];
+    const next = BRUSHES[brushPosition];
 
     BRUSH_SELECTED = brushPosition;
     BRUSH_OBJECT = new next.brushClass(next.previousSettings);
@@ -168,9 +168,9 @@ export function getBrushesValues() {
         BRUSHES[BRUSH_SELECTED].previousSettings = BRUSH_OBJECT.getSettings();
     }
 
-    var values = [];
+    const values = [];
 
-    for (var a = 0; a < BRUSHES.length; a++) {
+    for (let a = 0; a < BRUSHES.length; a++) {
         values.push({
             previousValues: BRUSHES[a].previousSettings,
         });
@@ -235,7 +235,7 @@ export function isEraseBrush() {
  * - 1-5: Select the brush on that position.
  */
 function keyboardShortcuts(event: KeyboardEvent) {
-    var key = event.keyCode;
+    const key = event.keyCode;
 
     switch (key) {
         case Utilities.KeyCode.graveAccent:

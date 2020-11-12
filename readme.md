@@ -18,10 +18,8 @@ Easy to use drawing program, with different brushes to draw sketches.
 -   `: Toggle the erase mode.
 -   1-5: Select the brush on that position.
 
-# Libraries
+# Development
 
--   jquery -- 3.2
--   jqueryui -- 1.12
-
-    -   slider
-    -   start theme
+-   npm install (install dependencies)
+-   npm run dev (run the development environment at `http://localhost:8000/`)
+-   npm run build (build the release)

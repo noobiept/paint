@@ -10,7 +10,6 @@ describe("Menu", () => {
         cy.get("#BrushesContainer");
         cy.get("#SaveCanvas");
         cy.get("#EraseMode");
-        cy.get("#ClearCanvas");
-        cy.get("#ExportCanvas");
+        cy.get("#OpenSettings");
     });
 });

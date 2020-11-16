@@ -62,10 +62,21 @@ export function init(savedCanvas: boolean) {
     selectBrush(SaveLoad.getSelectedBrush());
     Menu.updateCurrentColor();
 
+    enableEvents();
+}
+
+export function enableEvents() {
     document.body.onmousedown = startDraw;
     document.body.onmousemove = duringDraw;
     document.body.onmouseup = endDraw;
     document.body.onkeydown = keyboardShortcuts;
+}
+
+export function disableEvents() {
+    document.body.onmousedown = null;
+    document.body.onmousemove = null;
+    document.body.onmouseup = null;
+    document.body.onkeydown = null;
 }
 
 /**

@@ -1,6 +1,7 @@
 import * as Utilities from "./utilities";
 import * as Paint from "./paint";
 import * as Color from "./color";
+import * as Settings from "./settings";
 
 let BRUSHES_CONTAINER: HTMLElement;
 let SAVE_CANVAS: HTMLElement;
@@ -9,13 +10,12 @@ let ERASE_BRUSH: HTMLElement;
 export function init() {
     SAVE_CANVAS = document.getElementById("SaveCanvas")!;
     ERASE_BRUSH = document.getElementById("EraseMode")!;
-    const clear = document.getElementById("ClearCanvas")!;
-    const exportCanvas = document.getElementById("ExportCanvas")!;
 
     SAVE_CANVAS.onclick = Paint.saveCanvas;
     ERASE_BRUSH.onclick = Paint.eraseBrush;
-    clear.onclick = Paint.clearCanvas;
-    exportCanvas.onclick = Paint.exportCanvas;
+
+    const openSettings = document.getElementById("OpenSettings")!;
+    openSettings.onclick = Settings.open;
 
     // :: Brushes menu :: //
 

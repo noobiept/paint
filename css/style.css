@@ -7,7 +7,7 @@ canvas {
     display: block; /* so that whitespace isn't added due to having more than 1 canvas (when having a line break between the canvas (in the html code), since they by default have display: inline; means it will add whitespace - think how it works with paragraphs for example) */
 }
 
-#drawCanvas {
+#DrawCanvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,12 +37,12 @@ canvas {
     user-select: none;
 }
 
-.Menu-block {
+.menuBlock {
     min-width: 200px;
     margin: 0 20px;
 }
 
-.Menu-block > * {
+.menuBlock > * {
     padding: 5px 0;
 }
 

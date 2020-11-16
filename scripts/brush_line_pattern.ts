@@ -40,10 +40,10 @@ export default class LinePatternBrush implements Brush {
         this.all_points = [];
 
         const container1 = <HTMLElement>(
-            document.querySelector("#brushControls1")
+            document.querySelector("#BrushControls1")
         );
         const container2 = <HTMLElement>(
-            document.querySelector("#brushControls2")
+            document.querySelector("#BrushControls2")
         );
 
         // main line

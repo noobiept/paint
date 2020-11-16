@@ -38,7 +38,7 @@ export default class BubblesBrush implements Brush {
 
         // add the controls
         const container = <HTMLElement>(
-            document.querySelector("#brushControls1")
+            document.querySelector("#BrushControls1")
         );
 
         this.opacity_control = new Control({

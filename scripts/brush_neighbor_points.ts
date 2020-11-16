@@ -46,10 +46,10 @@ export default class NeighborPointsBrush implements Brush {
 
         // add the controls
         const container1 = <HTMLElement>(
-            document.querySelector("#brushControls1")
+            document.querySelector("#BrushControls1")
         );
         const container2 = <HTMLElement>(
-            document.querySelector("#brushControls2")
+            document.querySelector("#BrushControls2")
         );
 
         this.opacity_control = new Control({

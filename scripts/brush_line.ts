@@ -33,7 +33,7 @@ export default class LineBrush implements Brush {
 
         // add controls
         const container = <HTMLElement>(
-            document.querySelector("#brushControls1")
+            document.querySelector("#BrushControls1")
         );
 
         this.opacity_control = new Control({

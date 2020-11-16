@@ -72,10 +72,10 @@ export function init(savedCanvas: boolean) {
  * Initialize the canvas elements and it their dimensions to match the available window dimension.
  */
 function initCanvas(savedCanvas: boolean) {
-    MAIN_CANVAS = <HTMLCanvasElement>document.querySelector("#mainCanvas");
+    MAIN_CANVAS = <HTMLCanvasElement>document.querySelector("#MainCanvas");
     MAIN_CTX = MAIN_CANVAS.getContext("2d")!;
 
-    DRAW_CANVAS = <HTMLCanvasElement>document.querySelector("#drawCanvas");
+    DRAW_CANVAS = <HTMLCanvasElement>document.querySelector("#DrawCanvas");
     DRAW_CTX = DRAW_CANVAS.getContext("2d")!;
 
     // so that the cursor stays the default (instead of the text selection image)

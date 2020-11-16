@@ -7,10 +7,10 @@ let SAVE_CANVAS: HTMLElement;
 let ERASE_BRUSH: HTMLElement;
 
 export function init() {
-    SAVE_CANVAS = document.getElementById("saveCanvas")!;
-    ERASE_BRUSH = document.getElementById("erase")!;
-    const clear = document.getElementById("clearCanvas")!;
-    const exportCanvas = document.getElementById("exportCanvas")!;
+    SAVE_CANVAS = document.getElementById("SaveCanvas")!;
+    ERASE_BRUSH = document.getElementById("EraseMode")!;
+    const clear = document.getElementById("ClearCanvas")!;
+    const exportCanvas = document.getElementById("ExportCanvas")!;
 
     SAVE_CANVAS.onclick = Paint.saveCanvas;
     ERASE_BRUSH.onclick = Paint.eraseBrush;

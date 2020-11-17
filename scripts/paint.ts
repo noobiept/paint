@@ -115,6 +115,21 @@ function initCanvas(savedCanvas: boolean) {
     }
 }
 
+export function getCanvasDimensions() {
+    return {
+        width: MAIN_CANVAS.width,
+        height: MAIN_CANVAS.height,
+    };
+}
+
+export function setCanvasDimensions(width: number, height: number) {
+    MAIN_CANVAS.width = width;
+    MAIN_CANVAS.height = height;
+
+    DRAW_CANVAS.width = width;
+    DRAW_CANVAS.height = height;
+}
+
 /**
  * Start drawing with the selected brush.
  */

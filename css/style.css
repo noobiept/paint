@@ -89,3 +89,13 @@ canvas {
 .toggle.off:after {
     content: ": Off";
 }
+
+/* Input elements */
+
+.headerContainer {
+    margin-bottom: 10px;
+}
+
+.numberInput {
+    display: flex;
+}

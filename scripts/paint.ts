@@ -1,6 +1,6 @@
+import { MOUSE_CODE } from "@drk4/utilities";
 import * as SaveLoad from "./save_load";
 import * as Menu from "./menu";
-import * as Utilities from "./utilities";
 import { Brush, PreviousBrushSettings } from "./types";
 import BubblesBrush from "./brush_bubbles";
 import LineBrush from "./brush_line";
@@ -134,7 +134,7 @@ export function setCanvasDimensions(width: number, height: number) {
  * Start drawing with the selected brush.
  */
 function startDraw(event: MouseEvent) {
-    if (event.button === Utilities.MouseButton.left) {
+    if (event.button === MOUSE_CODE.left) {
         IS_MOUSE_DOWN = true;
         event.preventDefault();
 
@@ -261,30 +261,30 @@ export function isEraseBrush() {
  * - 1-5: Select the brush on that position.
  */
 function keyboardShortcuts(event: KeyboardEvent) {
-    const key = event.keyCode;
+    const key = event.key;
 
     switch (key) {
-        case Utilities.KeyCode.graveAccent:
+        case "`":
             eraseBrush();
             break;
 
-        case Utilities.KeyCode.one:
+        case "1":
             selectBrush(0);
             break;
 
-        case Utilities.KeyCode.two:
+        case "2":
             selectBrush(1);
             break;
 
-        case Utilities.KeyCode.three:
+        case "3":
             selectBrush(2);
             break;
 
-        case Utilities.KeyCode.four:
+        case "4":
             selectBrush(3);
             break;
 
-        case Utilities.KeyCode.five:
+        case "5":
             selectBrush(4);
             break;
     }

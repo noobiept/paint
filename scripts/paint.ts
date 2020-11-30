@@ -1,4 +1,5 @@
-import { MOUSE_CODE } from "@drk4/utilities";
+import { MouseButton } from "@drk4/utilities";
+
 import * as SaveLoad from "./save_load";
 import * as Menu from "./menu";
 import { Brush, PreviousBrushSettings } from "./types";
@@ -134,7 +135,7 @@ export function setCanvasDimensions(width: number, height: number) {
  * Start drawing with the selected brush.
  */
 function startDraw(event: MouseEvent) {
-    if (event.button === MOUSE_CODE.left) {
+    if (event.button === MouseButton.left) {
         IS_MOUSE_DOWN = true;
         event.preventDefault();
 

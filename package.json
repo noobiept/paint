@@ -4,12 +4,13 @@
     "scripts": {
         "dev": "webpack serve --mode development --config webpack.config.js",
         "build": "webpack --mode production --config webpack.config.js",
-        "format:check": "prettier --check \"**/*.{html,css,json,js,ts,tsx,md}\"",
-        "format:run": "prettier --write \"**/*.{html,css,json,js,ts,tsx,md}\"",
-        "lint": "eslint . --ext .ts,.tsx",
+        "format": "prettier --write \"**/*.{html,css,json,js,ts,tsx,md}\"",
         "cy:open": "cypress open",
         "cy:run": "cypress run",
-        "test": "start-server-and-test dev http://localhost:8000 cy:run"
+        "test": "npm-run-all --parallel test:*",
+        "test:format": "prettier --check \"**/*.{html,css,json,js,ts,tsx,md}\"",
+        "test:lint": "eslint . --ext .ts,.tsx",
+        "test:e2e": "start-server-and-test dev http://localhost:8000 cy:run"
     },
     "devDependencies": {
         "@types/jquery": "^3.5.4",
@@ -23,6 +24,7 @@
         "eslint": "^7.14.0",
         "eslint-config-prettier": "^6.15.0",
         "html-webpack-plugin": "^4.5.0",
+        "npm-run-all": "^4.1.5",
         "prettier": "^2.2.1",
         "start-server-and-test": "^1.11.6",
         "style-loader": "^2.0.0",

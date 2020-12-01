@@ -1,16 +1,25 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: gray;
 }
 
 canvas {
     display: block; /* so that whitespace isn't added due to having more than 1 canvas (when having a line break between the canvas (in the html code), since they by default have display: inline; means it will add whitespace - think how it works with paragraphs for example) */
+    position: absolute;
 }
 
-#DrawCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+#CanvasContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#MainCanvas {
+    background-color: white;
 }
 
 .button {
@@ -24,6 +33,13 @@ canvas {
 }
 
 /* Menu */
+
+#MenuContainer {
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+    left: 0;
+}
 
 #Menu {
     background-color: rgb(238, 238, 238);

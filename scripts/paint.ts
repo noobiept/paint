@@ -139,7 +139,7 @@ function startDraw(event: MouseEvent) {
         IS_MOUSE_DOWN = true;
         event.preventDefault();
 
-        return BRUSH_OBJECT!.startDraw(event.pageX, event.pageY, DRAW_CTX);
+        return BRUSH_OBJECT!.startDraw(event.offsetX, event.offsetY, DRAW_CTX);
     }
 }
 
@@ -150,8 +150,8 @@ function duringDraw(event: MouseEvent) {
     if (IS_MOUSE_DOWN) {
         event.preventDefault();
         BRUSH_OBJECT!.duringDraw(
-            event.pageX,
-            event.pageY,
+            event.offsetX,
+            event.offsetY,
             DRAW_CANVAS,
             DRAW_CTX
         );

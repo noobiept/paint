@@ -5,42 +5,38 @@
         <title>Draw stuff</title>
 
         <!-- Libraries -->
-        <script
-            type="text/javascript"
-            src="libraries/jquery-3.5.1.min.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="libraries/jqueryui/jquery-ui.min.js"
-        ></script>
+        <script type="text/javascript" src="libraries/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript" src="libraries/jqueryui/jquery-ui.min.js"></script>
 
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="libraries/jqueryui/jquery-ui.min.css" />
     </head>
     <body>
-        <canvas id="MainCanvas"></canvas>
-        <canvas id="DrawCanvas"></canvas>
+        <div id="CanvasContainer">
+            <canvas id="MainCanvas"></canvas>
+            <canvas id="DrawCanvas"></canvas>
+        </div>
 
-        <div id="Menu">
-            <div class="menuBlock" id="ColorPicker"></div>
+        <div id="MenuContainer">
+            <div id="Menu">
+                <div class="menuBlock" id="ColorPicker"></div>
 
-            <div class="menuBlock" id="BrushControls1"></div>
-            <div class="menuBlock" id="BrushControls2"></div>
+                <div class="menuBlock" id="BrushControls1"></div>
+                <div class="menuBlock" id="BrushControls2"></div>
 
-            <div class="menuBlock" id="BrushesContainer">
-                <div id="LineBrush" class="button">Line</div>
-                <div id="NeighborPointsBrush" class="button"
-                    >Neighbor Points</div
-                >
-                <div id="BubblesBrush" class="button">Bubbles</div>
-                <div id="LinePatternBrush" class="button">Line Pattern</div>
-                <div id="SprayBrush" class="button">Spray</div>
-            </div>
+                <div class="menuBlock" id="BrushesContainer">
+                    <div id="LineBrush" class="button">Line</div>
+                    <div id="NeighborPointsBrush" class="button">Neighbor Points</div>
+                    <div id="BubblesBrush" class="button">Bubbles</div>
+                    <div id="LinePatternBrush" class="button">Line Pattern</div>
+                    <div id="SprayBrush" class="button">Spray</div>
+                </div>
 
-            <div class="menuBlock">
-                <div id="SaveCanvas" class="button toggle off">Save Canvas</div>
-                <div id="EraseMode" class="button toggle off">Erase</div>
-                <div id="OpenSettings" class="button">Settings</div>
+                <div class="menuBlock">
+                    <div id="SaveCanvas" class="button toggle off">Save Canvas</div>
+                    <div id="EraseMode" class="button toggle off">Erase</div>
+                    <div id="OpenSettings" class="button">Settings</div>
+                </div>
             </div>
         </div>
     </body>

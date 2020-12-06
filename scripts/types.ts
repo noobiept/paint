@@ -5,6 +5,11 @@ export interface Point {
     y: number;
 }
 
+export interface Size {
+    width: number;
+    height: number;
+}
+
 export interface BubblePoint extends Point {
     radius: number;
     opacity: number;

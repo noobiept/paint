@@ -2,12 +2,13 @@ import { MouseButton } from "@drk4/utilities";
 
 import * as SaveLoad from "./save_load";
 import * as Menu from "./menu";
-import { Brush, PreviousBrushSettings } from "./types";
+import { Brush, PreviousBrushSettings, Size } from "./types";
 import BubblesBrush from "./brush_bubbles";
 import LineBrush from "./brush_line";
 import LinePatternBrush from "./brush_line_pattern";
 import NeighborPointsBrush from "./brush_neighbor_points";
 import SprayBrush from "./brush_spray";
+import { CANVAS_INFO } from "./defaults";
 
 // main canvas, will contain the drawing with all the shapes
 let MAIN_CANVAS: HTMLCanvasElement;
@@ -95,24 +96,10 @@ function initCanvas(savedCanvas: boolean) {
         return false;
     };
 
-    // set the dimensions of the canvas, to fill the available space in the window
-    const menu = document.getElementById("Menu")!;
-
-    const menuHeight = menu.offsetHeight;
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    const canvasWidth = windowWidth;
-    const canvasHeight = windowHeight - menuHeight;
-
-    MAIN_CANVAS.width = canvasWidth;
-    MAIN_CANVAS.height = canvasHeight;
-
-    DRAW_CANVAS.width = canvasWidth;
-    DRAW_CANVAS.height = canvasHeight;
-
     if (savedCanvas) {
-        SaveLoad.loadCanvasImage(DRAW_CANVAS, MAIN_CANVAS, MAIN_CTX);
+        SaveLoad.loadCanvasImage(MAIN_CTX);
+    } else {
+        setCanvasDimensions(CANVAS_INFO);
     }
 }
 
@@ -123,7 +110,7 @@ export function getCanvasDimensions() {
     };
 }
 
-export function setCanvasDimensions(width: number, height: number) {
+export function setCanvasDimensions({ width, height }: Size) {
     MAIN_CANVAS.width = width;
     MAIN_CANVAS.height = height;
 

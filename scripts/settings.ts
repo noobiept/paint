@@ -62,10 +62,10 @@ function createCanvasDimensions() {
         const heightValue = height.querySelector("input")?.value;
 
         if (widthValue && heightValue) {
-            Paint.setCanvasDimensions(
-                parseInt(widthValue, 10),
-                parseInt(heightValue, 10)
-            );
+            Paint.setCanvasDimensions({
+                width: parseInt(widthValue, 10),
+                height: parseInt(heightValue, 10),
+            });
         }
     };
 

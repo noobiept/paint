@@ -65,11 +65,7 @@ export function getSelectedBrush() {
     }
 }
 
-export function loadCanvasImage(
-    drawCanvas: HTMLCanvasElement,
-    mainCanvas: HTMLCanvasElement,
-    mainCtx: CanvasRenderingContext2D
-) {
+export function loadCanvasImage(mainCtx: CanvasRenderingContext2D) {
     const canvasData = getObject("canvas");
     const canvasWidth = getObject("canvas_width");
     const canvasHeight = getObject("canvas_height");
@@ -79,17 +75,10 @@ export function loadCanvasImage(
         Number.isInteger(canvasWidth) &&
         Number.isInteger(canvasHeight)
     ) {
-        const currentWidth = mainCanvas.width;
-        const currentHeight = mainCanvas.height;
-
-        // see if we need to increase the size of the canvas (to avoid loosing part of the image)
-        if (currentWidth < canvasWidth) {
-            mainCanvas.width = drawCanvas.width = canvasWidth;
-        }
-
-        if (currentHeight < canvasHeight) {
-            mainCanvas.height = drawCanvas.height = canvasHeight;
-        }
+        Paint.setCanvasDimensions({
+            width: canvasWidth,
+            height: canvasHeight,
+        });
 
         const img = new Image();
 

@@ -68,17 +68,23 @@ export function init(savedCanvas: boolean) {
 }
 
 export function enableEvents() {
-    document.body.onmousedown = startDraw;
-    document.body.onmousemove = duringDraw;
-    document.body.onmouseup = endDraw;
-    document.body.onkeydown = keyboardShortcuts;
+    if (DRAW_CANVAS) {
+        DRAW_CANVAS.onmousedown = startDraw;
+        DRAW_CANVAS.onmousemove = duringDraw;
+        DRAW_CANVAS.onmouseup = endDraw;
+        DRAW_CANVAS.onmouseleave = endDraw;
+        DRAW_CANVAS.onmouseenter = onMouseEnter;
+        DRAW_CANVAS.onkeydown = keyboardShortcuts;
+    }
 }
 
 export function disableEvents() {
-    document.body.onmousedown = null;
-    document.body.onmousemove = null;
-    document.body.onmouseup = null;
-    document.body.onkeydown = null;
+    if (DRAW_CANVAS) {
+        DRAW_CANVAS.onmousedown = null;
+        DRAW_CANVAS.onmousemove = null;
+        DRAW_CANVAS.onmouseup = null;
+        DRAW_CANVAS.onkeydown = null;
+    }
 }
 
 /**
@@ -127,6 +133,16 @@ function startDraw(event: MouseEvent) {
         event.preventDefault();
 
         return BRUSH_OBJECT!.startDraw(event.offsetX, event.offsetY, DRAW_CTX);
+    }
+}
+
+/**
+ * Check if the left button of the mouse is being pressed, and if so start a new draw action.
+ */
+function onMouseEnter(event: MouseEvent) {
+    // left click is being pressed
+    if (event.buttons === 1) {
+        startDraw(event);
     }
 }
 

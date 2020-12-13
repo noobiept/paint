@@ -15,6 +15,8 @@ body {
 canvas {
     display: block; /* so that whitespace isn't added due to having more than 1 canvas (when having a line break between the canvas (in the html code), since they by default have display: inline; means it will add whitespace - think how it works with paragraphs for example) */
     position: absolute;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 #CanvasContainer {
